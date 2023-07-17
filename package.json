@@ -15,8 +15,8 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "npm eslint --fix",
-      "npm prettier --write"
+      "npx eslint --fix",
+      "npx prettier --write"
     ]
   },
   "dependencies": {
