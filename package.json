@@ -1,12 +1,16 @@
 {
-  "name": "blog-diogodev",
+  "name": "blog-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --max-warnings=0"
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "lint": "eslint src --max-warnings=0",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write src/**/*.{ts,tsx,js,jsx,json,css,scss,md}"
   },
   "husky": {
     "hooks": {
@@ -14,32 +18,36 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "npx eslint --fix",
-      "npx prettier --write"
+    "src/**/*": [
+      "npm run lint --fix",
+      "npm run test --findRelatedTests --bail --passWithNoTests"
     ]
   },
   "dependencies": {
-    "@types/node": "20.4.2",
-    "@types/react": "18.2.15",
-    "@types/react-dom": "18.2.7",
+    "@types/node": "20.2.4",
+    "@types/react": "18.2.7",
+    "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
-    "eslint": "8.45.0",
-    "eslint-config-next": "13.4.10",
-    "next": "13.4.10",
-    "postcss": "8.4.26",
+    "eslint-config-next": "13.4.4",
+    "next": "13.4.4",
+    "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "tailwindcss": "3.3.2",
+    "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.7",
+    "@typescript-eslint/parser": "^5.59.7",
+    "eslint": "8.41.0",
     "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "eslint-plugin-react-hooks": "^5.0.0-canary-7118f5dd7-20230705",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "prettier": "^3.0.0"
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "vitest": "^0.33.0"
   }
 }
