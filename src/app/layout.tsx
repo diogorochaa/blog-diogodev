@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Layout } from '@/components/Layout'
 
-import '@/styles/globals.css'
+import '../../styles/globals.css'
 
 export const metadata = {
   title: {
@@ -29,7 +29,7 @@ export default function RootLayout({
         async
         src="https://identity.netlify.com/v1/netlify-identity-widget.js"
       />
-      <body className="bg-primary text-gray-100">
+      <body className="bg-zinc-900 text-gray-100">
         <Header />
 
         <Layout>

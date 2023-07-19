@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --project tsconfig.json --noEmit",
-    "lint": "eslint src --max-warnings=0",
-    "test": "vitest run",
-    "test:watch": "vitest"
+    "lint": "eslint src --max-warnings=0"
   },
   "husky": {
     "hooks": {
@@ -18,8 +16,7 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "npm run lint",
-      "npm run test"
+      "npm run lint"
     ]
   },
   "dependencies": {
@@ -29,11 +26,11 @@
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.5",
     "autoprefixer": "10.4.14",
-    "contentlayer": "^0.3.2",
+    "contentlayer": "0.3.1",
     "eslint-config-next": "13.4.7",
     "next": "13.4.7",
     "next-compose-plugins": "^2.2.1",
-    "next-contentlayer": "^0.3.2",
+    "next-contentlayer": "0.3.1",
     "next-pwa": "^5.6.0",
     "postcss": "8.4.24",
     "react": "18.2.0",
@@ -54,8 +51,8 @@
     "@types/next-pwa": "^5.6.4",
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.3",
+    "jsdom": "22.1.0",
     "lint-staged": "^13.2.2",
-    "tailwind-styled-components": "^2.2.0",
-    "vitest": "^0.33.0"
+    "tailwind-styled-components": "^2.2.0"
   }
 }

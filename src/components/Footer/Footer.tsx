@@ -28,13 +28,13 @@ export const Footer = ({ items }: FooterProps) => {
           </S.Section>
 
           <S.Section role="contentinfo">
-            <S.Title>Redes</S.Title>
+            <S.Title>Social</S.Title>
 
             <SocialMedia items={socialLinkConfig.mainNav} />
           </S.Section>
 
           <S.Section role="contentinfo">
-            <S.Title>Sitemap</S.Title>
+            <S.Title>Links</S.Title>
 
             <List className="flex-col">
               {items.map((item) => (
@@ -48,7 +48,7 @@ export const Footer = ({ items }: FooterProps) => {
 
         <S.CopyrightContainer>
           <S.Copyright>
-            Todos os direitos reseverdos © Junior Alves {fullYear}
+            Todos os direitos reservados © Diogo Rocha {fullYear}
           </S.Copyright>
         </S.CopyrightContainer>
       </S.Container>

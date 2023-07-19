@@ -2,7 +2,7 @@ import {
   GithubIcon,
   LinkedinIcon,
   TwitterIcon,
-  YoutubeIcon,
+  InstagramIcon,
 } from '@/components/Icons'
 
 import { MainNavType } from '@/models'
@@ -11,22 +11,22 @@ export const socialLinkConfig: MainNavType = {
   mainNav: [
     {
       title: 'Linkedin',
-      href: 'https://www.linkedin.com/in/seunome/',
+      href: 'https://www.linkedin.com/in/diogorochaa/',
       icon: <LinkedinIcon size={28} />,
     },
     {
-      title: 'Youtube',
-      href: 'https://www.youtube.com/seunome/',
-      icon: <YoutubeIcon size={28} />,
+      title: 'Instagram',
+      href: 'https://www.instagram.com/diogodev_/',
+      icon: <InstagramIcon size={28} />,
     },
     {
       title: 'Github',
-      href: 'https://www.github.com/seunome/',
+      href: 'https://www.github.com/diogorochaa/',
       icon: <GithubIcon size={28} />,
     },
     {
       title: 'Twitter',
-      href: 'https://www.twitter.com/seunome/',
+      href: 'https://www.twitter.com/Diogo99R/',
       icon: <TwitterIcon size={28} />,
     },
   ],

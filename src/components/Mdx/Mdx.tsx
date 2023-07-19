@@ -2,7 +2,7 @@ import { useMDXComponent } from 'next-contentlayer/hooks'
 
 import { MDXComponents } from 'mdx/types'
 
-import '@/styles/mdx.css'
+import '../../../styles/mdx.css'
 import { Pre, Note } from './components'
 
 const components: MDXComponents = {

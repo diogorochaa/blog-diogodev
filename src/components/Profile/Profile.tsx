@@ -10,10 +10,10 @@ export const Profile = ({ items }: ProfileProps) => {
   return (
     <div>
       <S.Image
-        src="/assets/images/profile.jpeg"
+        src="/assets/images/avatar.jpeg"
         alt="profile image"
-        width={80}
-        height={80}
+        width={100}
+        height={100}
         title="profile image"
         priority
       />

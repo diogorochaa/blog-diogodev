@@ -1,7 +1,7 @@
 backend:
   name: github
   branch: main
-  repo: jjunior96/blog-next-course
+  repo: diogorochaa/blog-diogodev
   base_url: https://blog-next-course.vercel.app/
   auth_endpoint: api/auth/
 
@@ -10,30 +10,42 @@ public_folder: /assets/images
 
 publish_mode: editorial_workflow
 
-slug: 
-  enconding: 'ascii'
+slug:
+  enconding: "ascii"
   clean_accents: true
 
-collections: 
+collections:
   - name: posts
     label: posts
     extension: mdx
-    format: 'frontmatter'
+    format: "frontmatter"
     folder: posts
     create: true
-    slug: '{{slug}}'
+    slug: "{{slug}}"
     fields:
-      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'post' }
-      - { label: 'Title', name: 'title', widget: 'string', required: true }
-      - { label: 'Description', name: 'description', widget: 'string', required: true }
-      - { label: 'Post Image', name: 'image', widget: 'image', required: true }
-      - { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD hh:mm:ss', required: true }
-      - { label: 'Tags', name: 'tags', widget: 'select', multiple: true,  required: true, options: [
-        'Javascript',
-        'Typescript',
-        'Misc',
-        'React',
-        'Next.js',
-        'Books'
-      ] }
-      - { label: 'Body', name: 'body', widget: 'markdown', required: true }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "string",
+          required: true,
+        }
+      - { label: "Post Image", name: "image", widget: "image", required: true }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          format: "YYYY-MM-DD hh:mm:ss",
+          required: true,
+        }
+      - {
+          label: "Tags",
+          name: "tags",
+          widget: "select",
+          multiple: true,
+          required: true,
+          options:
+            ["Javascript", "Typescript", "Misc", "React", "Next.js", "Books"],
+        }
+      - { label: "Body", name: "body", widget: "markdown", required: true }

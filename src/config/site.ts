@@ -1,15 +1,15 @@
 import { SiteType } from '@/models'
 
 export const siteConfig: SiteType = {
-  name: 'Junior Alves',
+  name: 'Diogo Rocha',
   description: 'Blog onde falo sobre código e livros',
-  title: 'Senior Software Engineer e content creator.',
+  title: 'Engenheiro de software e criador de conteúdo.',
   subtitle:
-    'Bem vindo ao meu blog! Eu sou Junior Alves, apaixonado por tecnologia, sempre buscando aprender algo novo todos os dias.',
+    'Bem vindo ao meu blog! Eu sou Diogo Rocha, apaixonado por tecnologia, me especializando em sistemas acessíveis e de boa performance.',
   url: 'https://meusite.com.br',
   links: {
-    youtube: 'https://www.youtube.com/@devjunioralves',
-    github: 'https://github.com/jjunior96',
-    linkedin: 'https://www.linkedin.com/in/junior-alves-b66a10127/',
+    instagram: 'https://www.instagram.com/diogodev_/',
+    github: 'https://github.com/diogorochaa',
+    linkedin: 'https://www.linkedin.com/in/diogorochaa/',
   },
 }

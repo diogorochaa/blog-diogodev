@@ -41,7 +41,7 @@ export const ContainerMobible = tw.div`
   min-h-screen
   w-full
   overflow-hidden
-  bg-primary/80
+  bg-zinc-900/80
   pt-[4rem]
 `
 

@@ -7,13 +7,14 @@ export const Container = tw.header`
   h-16
   w-full
   items-center
-  bg-gray-500
-  bg-primary/50
+  bg-zinc-900/100
   shadow-lg
-  backdrop-blur-md
+  backdrop-blur-lg
   transition-all
   duration-300
   ease-in-out
+  border-b-2
+  border-green-500
 `
 
 export const Content = tw.div`

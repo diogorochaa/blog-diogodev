@@ -1,9 +1,15 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const Logo = () => {
   return (
     <Link href="/">
-      <h2 className="text-xl font-bold text-link ">Logo</h2>
+      <Image
+        src="/assets/images/logo.png"
+        alt="logo"
+        width={200}
+        height={200}
+      />
     </Link>
   )
 }

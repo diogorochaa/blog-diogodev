@@ -5,7 +5,7 @@ export type SiteType = {
   subtitle: string
   url: string
   links: {
-    youtube: string
+    instagram: string
     github: string
     linkedin: string
   }
