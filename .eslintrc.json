@@ -1,15 +1,9 @@
 {
     "extends": [
         "@rocketseat/eslint-config/react",
-        "next/core-web-vitals",
-        "plugin:react-hooks/recommended"
-    ],
-    "plugins": [
-        "react-hooks"
+        "next/core-web-vitals"
     ],
     "rules": {
-        "camelcase": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn"
+        "camelcase": "off"
     }
 }

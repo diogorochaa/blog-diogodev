@@ -1,9 +1,5 @@
-import { describe, it, expect } from 'vitest'
-const sum = (a: number, b: number) => a + b
+import { test, expect } from 'vitest'
 
-describe('sum', () => {
-  it('should sum two numbers', () => {
-    const result = sum(2, 3)
-    expect(result).toBe(5)
-  })
+test('sum', () => {
+  expect(1 + 1).toBe(2)
 })
