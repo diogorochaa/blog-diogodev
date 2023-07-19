@@ -1,7 +1,7 @@
 import { SiteType } from '@/models'
 
 export const siteConfig: SiteType = {
-  name: 'Diogo Rocha',
+  name: 'Blog | diogodev_',
   description: 'Blog onde falo sobre código e livros',
   title: 'Engenheiro de software e criador de conteúdo.',
   subtitle:
