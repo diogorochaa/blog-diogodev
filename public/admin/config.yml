@@ -46,6 +46,22 @@ collections:
           multiple: true,
           required: true,
           options:
-            ["Javascript", "Typescript", "Misc", "React", "Next.js", "Books"],
+            [
+              "Javascript",
+              "Typescript",
+              "Java",
+              "React",
+              "Next.js",
+              "Books",
+              "CSS",
+              "HTML",
+              "NodeJs",
+              "Go",
+              "VsCode",
+              "NestJs",
+              "Segurança",
+              "Docker",
+              "Prisma",
+            ],
         }
       - { label: "Body", name: "body", widget: "markdown", required: true }
