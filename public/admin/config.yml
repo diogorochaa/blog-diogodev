@@ -2,7 +2,7 @@ backend:
   name: github
   branch: main
   repo: diogorochaa/blog-diogodev
-  base_url: https://blog-next-course.vercel.app/
+  base_url: https://blog-diogodev.vercel.app/
   auth_endpoint: api/auth/
 
 media_folder: public/assets/images
