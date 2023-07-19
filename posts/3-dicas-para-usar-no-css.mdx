@@ -17,8 +17,7 @@ As animações em CSS são uma maneira brilhante de adicionar movimento e intera
 
 Aqui está um exemplo simples de como criar uma animação de pulsar em um elemento:
 
-```css
-/* CSS */
+```css showLineNumbers {4,5,10-12,14-17} 
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.2); }
@@ -28,9 +27,7 @@ Aqui está um exemplo simples de como criar uma animação de pulsar em um eleme
 .elemento-pulsante {
   animation: pulse 2s infinite;
 }
-
-
-
+```
 
 Neste exemplo, a classe .elemento-pulsante irá pulsar suavemente, passando de 100% ao tamanho original. Você pode ajustar a duração, o tamanho da escala e até mesmo adicionar mais etapas para criar animações únicas.
 
@@ -39,13 +36,11 @@ Os gradientes permitem que você crie transições suaves entre duas ou mais cor
 
 Aqui está um exemplo de como criar um gradiente de fundo para um elemento:
 
-```css
-/* CSS */
+```css showLineNumbers {4,5,10-12,14-17} 
 .elemento-com-gradiente {
   background: linear-gradient(45deg, #ff9a9e, #fad0c4);
 }
-
-
+```
 
 Neste exemplo, um gradiente de 45 graus é aplicado ao fundo do elemento, combinando o vermelho claro (#ff9a9e) com o rosa (#fad0c4). Claro, você pode experimentar diferentes ângulos e cores para alcançar efeitos deslumbrantes!
 
@@ -54,8 +49,7 @@ Agora, vamos falar sobre o Flexbox! Essa ferramenta poderosa permite criar layou
 
 Aqui está um exemplo simples de como criar um layout de caixas com Flexbox:
 
-```css
-/* CSS */
+```css showLineNumbers {4,5,10-12,14-17} 
 .container-flex {
   display: flex;
   justify-content: space-around;
@@ -66,7 +60,7 @@ Aqui está um exemplo simples de como criar um layout de caixas com Flexbox:
   height: 100px;
   background-color: #a3f7bf;
 }
-
+```
 
 Com apenas algumas linhas de código, todos os elementos com a classe .item serão dispostos horizontalmente, com espaçamento igual entre eles, graças ao justify-content: space-around aplicado ao contêiner.
 
