@@ -25,13 +25,13 @@ jobs:
             ${{ runner.os }}-npm-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Linting
-        run: npm lint
+        run: npm run lint
 
       - name: Typecheck
-        run: npm typecheck
+        run: npm run typecheck
 
       - name: Build
-        run: npm build
+        run: npm run build
