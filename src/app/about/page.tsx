@@ -1,7 +1,5 @@
 import { siteConfig } from '@/config'
 
-import { Link } from '@/components/Link'
-
 import * as S from './styles'
 
 export const metadata = {
@@ -16,7 +14,7 @@ export const metadata = {
     siteName: 'Sobre mim',
     images: [
       {
-        url: `${siteConfig.url}/assets/images/image-post.jpeg`,
+        url: `${siteConfig.url}/assets/images/logo.png`,
       },
     ],
   },
@@ -24,7 +22,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Sobre mim',
     description: 'Sobre mim',
-    images: [`${siteConfig.url}/assets/images/image-post.jpeg`],
+    images: [`${siteConfig.url}/assets/images/logo.png`],
   },
 }
 
@@ -35,43 +33,40 @@ export default function AboutPage() {
 
       <S.ImageContainer>
         <S.Image
-          src="/assets/images/image-post.jpeg"
+          src="/assets/images/logo.png"
           alt="Foto de exemplo"
           fill
+          quality={100}
         />
       </S.ImageContainer>
 
-      <S.Subtitle>Primeiramente, agradeço por estar aqui.</S.Subtitle>
+      <S.Subtitle>Olá, Dev!!! É um prazer te receber no meu blog!.</S.Subtitle>
 
       <S.Paragraph>
-        Sou apaixonado por Frontend, toda a parte gráfica da aplicação,
-        trabalhar com fontes, cores, interatividade... Passo horas trabalhando
-        com tudo isso sem ver o tempo passar.
+        Me chamo Diogo Rocha e trabalho como Engenheiro de Software a 4 anos,
+        meus estudos sempre foram focados para programação web, que foi onde me
+        encontrei dentro da área.
       </S.Paragraph>
 
       <S.Paragraph>
-        Conheci programação aos 15 anos, no curso técnico que era integrado ao
-        Ensino Médio, onde tive o contato com HTML, CSS e Javascript.
+        Conheci programação com 17 anos, logo quando finalizei os estudos
+        básicos, ingressei no curso de Ciências da Computação, onde consegui me
+        aprofundar melhor nos conceitos, e desde então não parei mais.
       </S.Paragraph>
 
       <S.Paragraph>
-        Fiz alguns cursos específicos sobre Gatsby, Javascript ES6+, GraphQL,
-        mas na maior parte do tempo, estou lendo documentações e tentando
-        aprender algo novo.
-        <Link
-          href="https://www.google.com.br"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Nome da empresa onde voce trabalha
-        </Link>
+        Nas horas vagas eu geralmente estou lendo algumas novidades sobre
+        tecnologia, agora estou me aprofundando em alguns conceitos de
+        arquitetura limpa, iniciei meus estudos no backend no começo desse ano,
+        pretendo me tornar fullstack até o final de 2024.
       </S.Paragraph>
-
       <S.Paragraph>
-        Nas horas vagas, além de ler, gosto de desenhar. Desenho desde criança,
-        dediquei alguns anos da minha vida aprendendo desenho. Em 2015 adquiri
-        um mesa digitalizadora (era meu sonho) e comecei a estudar pintura
-        digital.
+        Você pode me encontrar nas redes sociais que estão no rodapé do blog,
+        sempre estou trocando ideias com a galera!
+      </S.Paragraph>
+      <S.Paragraph>
+        Espero que meus artigos possam te ajudar de alguma forma, e se você tem
+        alguma sugestão, me envie uma mensagem!
       </S.Paragraph>
     </main>
   )

@@ -24,7 +24,7 @@ export const Button = tw.button`
   h-12
   w-12
   rounded-full
-  bg-zinc-900
+  bg-gradient-to-b from-gray-900 via-purple-900 to-violet-600
   text-white
   transition-colors
   duration-300

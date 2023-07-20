@@ -26,7 +26,7 @@ export const Paragraph = tw.p`
 export const ImageContainer = tw.div`
   relative
   h-96
-  w-full
+  w-1/2
 `
 
 export const Image = tw(NextImage)`

@@ -7,7 +7,6 @@ export const Container = tw.header`
   h-16
   w-full
   items-center
-  bg-zinc-900/100
   shadow-lg
   backdrop-blur-lg
   transition-all

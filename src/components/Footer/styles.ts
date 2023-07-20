@@ -4,7 +4,7 @@ export const Container = tw.footer`
   flex
   flex-col
   border-t
-  border-slate-600
+  border-link
   pb-4 
   pt-6
 `
@@ -43,5 +43,5 @@ export const Copyright = tw.p`
   mb-2
   max-w-[18rem]
   text-center
-  text-gray-500 sm:max-w-fit
+  text-gray-100 sm:max-w-fit
 `

@@ -11,8 +11,8 @@ import '../../styles/globals.css'
 
 export const metadata = {
   title: {
-    template: '%s | Junior Alves',
-    default: 'Junior Alves',
+    template: '%s | Diogo Rocha',
+    default: 'Diogo Rocha',
   },
   description: 'Description',
   manifest: '/manifest.json',
@@ -29,7 +29,7 @@ export default function RootLayout({
         async
         src="https://identity.netlify.com/v1/netlify-identity-widget.js"
       />
-      <body className="bg-zinc-900 text-gray-100">
+      <body className="bg-gradient-to-b from-gray-900 via-purple-900 to-violet-600 text-gray-100">
         <Header />
 
         <Layout>
