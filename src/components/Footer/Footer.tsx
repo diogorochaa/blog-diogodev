@@ -39,7 +39,9 @@ export const Footer = ({ items }: FooterProps) => {
             <List className="flex-col">
               {items.map((item) => (
                 <ListItem key={item.href}>
-                  <Link href={item.href}>{item.title}</Link>
+                  <Link target="_blank" href={item.href}>
+                    {item.title}
+                  </Link>
                 </ListItem>
               ))}
             </List>
