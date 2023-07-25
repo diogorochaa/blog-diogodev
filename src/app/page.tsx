@@ -22,7 +22,7 @@ export const metadata = {
       },
     ],
   },
-  robots: 'all',
+  robots: 'follow,index',
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.title,

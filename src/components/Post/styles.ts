@@ -40,7 +40,7 @@ export const DateContainer = tw.div`
 
 export const Date = tw.p`
   mb-2
-  text-gray-400
+  text-gray-200
 `
 
 export const Title = tw.h1`
@@ -53,5 +53,5 @@ export const Title = tw.h1`
 export const Description = tw.p`
   mb-8
   text-2xl
-  text-gray-400
+  text-gray-200
 `
