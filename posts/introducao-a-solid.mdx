@@ -1,0 +1,39 @@
+---
+layout: post
+title: Introdução a SOLID
+description: Aprenda os princípios do SOLID
+image: /assets/images/solid.png
+date: 2023-10-09 06:01:17
+tags:
+  - Books
+---
+## H﻿istórico
+
+O SOLID é um conjunto de princípios de design de software que visa criar sistemas mais flexíveis, robustos e fáceis de manter. Esses princípios foram introduzidos por Robert C. Martin e são amplamente reconhecidos como diretrizes valiosas para o desenvolvimento de software orientado a objetos. O acrônimo SOLID representa cinco princípios específicos, cada um com seu propósito:
+
+
+
+1. ### **S - Princípio da Responsabilidade Única (Single Responsibility Principle - SRP):**
+
+   * Histórico: O SRP foi introduzido por Robert C. Martin em seu livro "Design Principles and Design Patterns" em 2000.
+   * O princípio da Responsabilidade Única prega que uma classe deve ter apenas uma razão para mudar. Em outras palavras, uma classe deve ter apenas uma responsabilidade no sistema. Isso torna o código mais coeso e facilita a manutenção, já que alterações em uma responsabilidade não afetarão outras partes do código.
+2. ### **O - Princípio do Aberto/Fechado (Open/Closed Principle - OCP):**
+
+   * Histórico: O OCP foi formulado por Bertrand Meyer no final da década de 1980 e depois popularizado por Robert C. Martin.
+   * O Princípio do Aberto/Fechado estabelece que as entidades de software (classes, módulos, etc.) devem ser abertas para extensão, mas fechadas para modificação. Isso significa que você deve ser capaz de estender o comportamento de uma classe sem precisar alterar seu código-fonte. Isso é geralmente alcançado por meio do uso de herança, interfaces e polimorfismo.
+3. ### **L - Princípio da Substituição de Liskov (Liskov Substitution Principle - LSP):**
+
+   * Histórico: O LSP foi proposto por Barbara Liskov em 1987.
+   * O Princípio da Substituição de Liskov diz que, se uma classe S é um subtipo de uma classe T, então os objetos da classe T devem poder ser substituídos por objetos da classe S sem afetar a corretude do programa. Isso garante que a herança seja usada de forma consistente e que as subclasses se comportem de maneira esperada quando substituem as superclasses.
+4. ### **I - Princípio da Segregação de Interfaces (Interface Segregation Principle - ISP):**
+
+   * Histórico: O ISP foi introduzido por Robert C. Martin no início dos anos 2000.
+   * O Princípio da Segregação de Interfaces estipula que as interfaces de uma classe não devem ser forçadas a implementar métodos que não são relevantes para essa classe. Isso evita que as classes tenham dependências desnecessárias e torna o sistema mais flexível e fácil de manter.
+5. ### **D - Princípio da Inversão de Dependência (Dependency Inversion Principle - DIP):**
+
+   * Histórico: O DIP foi formulado por Robert C. Martin na virada do milênio.
+   * O Princípio da Inversão de Dependência sugere que os módulos de alto nível não devem depender de módulos de baixo nível, mas ambos devem depender de abstrações. Além disso, ele prega que detalhes concretos não devem depender de abstrações, mas abstrações devem depender de detalhes concretos. Isso promove a flexibilidade do sistema, facilitando a substituição de componentes sem afetar o funcionamento do sistema.
+
+## C﻿onclusão
+
+Em resumo, o SOLID oferece diretrizes claras para o desenvolvimento de software orientado a objetos, promovendo a coesão, a extensibilidade, a reutilização de código e a facilidade de manutenção. A adoção desses princípios ajuda os desenvolvedores a escrever código mais limpo e eficiente, reduzindo a probabilidade de introduzir bugs e facilitando a evolução do software ao longo do tempo.
