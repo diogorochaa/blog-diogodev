@@ -47,7 +47,7 @@ export const Title = tw.h1`
   mb-4
   text-5xl
   font-bold
-  sm:text-6xl
+  sm:text-4xl
 `
 
 export const Description = tw.p`
