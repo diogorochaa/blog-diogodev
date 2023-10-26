@@ -13,7 +13,7 @@ export const Container = tw.header`
   duration-300
   ease-in-out
   border-b-2
-  border-green-500
+  border-link
 `
 
 export const Content = tw.div`

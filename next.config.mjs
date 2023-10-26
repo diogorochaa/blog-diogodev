@@ -28,6 +28,9 @@ const nextConfig = {
   experimental: {
     swcMinify: true,
   },
+  images: {
+    domains: ['avatars.githubusercontent.com'],
+  },
 }
 
 export default withPlugins([withPWA, withContentlayer], nextConfig)

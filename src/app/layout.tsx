@@ -29,7 +29,7 @@ export default function RootLayout({
         async
         src="https://identity.netlify.com/v1/netlify-identity-widget.js"
       />
-      <body className="bg-gradient-to-b from-gray-900 via-purple-900 to-violet-600 text-gray-100">
+      <body className="bg-black text-gray-100">
         <Header />
 
         <Layout>
