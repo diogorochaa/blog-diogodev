@@ -7,7 +7,6 @@ export const Nav = tw.nav`
   items-center
   justify-between
   hidden
-
   lg:flex
 `
 

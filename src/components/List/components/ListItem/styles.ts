@@ -3,9 +3,11 @@ import tw from 'tailwind-styled-components'
 export const Container = tw.li`
   text-md
   relative
-  px-2
+  p-2
+  rounded-md
   font-light
   transition-colors
   duration-200
-  hover:text-link
+  hover:bg-link
+  hover:text-black
 `

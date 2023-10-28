@@ -7,7 +7,7 @@ export const Container = tw.div`
   flex-col
   items-center
   justify-center
-  w-5xl
+  gap-4
 `
 
 export const Title = tw.h1`
@@ -36,7 +36,6 @@ export const Paragraph = tw.p`
 export const ImageContainer = tw.div`
   relative
   h-96
-  rounded-full
   md:w-1/2
 
 `
@@ -44,19 +43,50 @@ export const ImageContainer = tw.div`
 export const Image = tw(NextImage)`
   object-cover
   object-center
+  rounded-full
+  border-2
+  border-link
+  hover:opacity-80
+`
+export const CardContainer = tw.div`
+ grid
+ grid-cols-1
+ md:grid-cols-2
+ lg:grid-cols-3
+ grid-rows-3
+ gap-4
+  items-center
+  justify-center
+  rounded-xl
 `
 export const Card = tw.div`
   flex
   flex-col
   items-center
   justify-center
-  w-5xl
+  gap-4
   p-4
-  my-4
-  bg-gray-800
+  h-72
+  w-72
   rounded-xl
+  bg-secundary
+  border-2
+  hover:border-link
+  hover:opacity-80
+  cursor-pointer
 `
+
 export const CardLink = tw.a`
+  text-2xl
+  font-bold
+  text-center
+  text-gray-200
+  hover:text-gray-400
+  transition
+  duration-300
+`
+
+export const ProjectsItem = tw.a`
   text-2xl
   font-bold
   text-center

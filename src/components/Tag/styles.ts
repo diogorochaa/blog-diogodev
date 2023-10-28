@@ -12,7 +12,7 @@ export const Tag = tw.p<Pick<TagProps, 'size'>>`
   text-black
   transition-colors
   duration-300
-  hover:bg-violet-600
+  hover:bg-orange-200
 
   ${({ size }) => `
     text-${size}

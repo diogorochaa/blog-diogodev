@@ -19,7 +19,6 @@ export const PrevPageIcon = tw(ArrowLeftIcon)`
   duration-300
   ease-in-out
   text-lg
-
   group-hover:-translate-x-1
 `
 
@@ -28,17 +27,15 @@ export const NextPageIcon = tw(ArrowRightIcon)`
   duration-300
   ease-in-out
   text-lg
-
   group-hover:translate-x-1
 `
 
 export const Text = tw.p``
 
 export const Link = tw(NextLink)`
-hover:text-link
+  hover:text-link
   duration-300
   transition-colors
-
   flex
   items-center
   gap-2

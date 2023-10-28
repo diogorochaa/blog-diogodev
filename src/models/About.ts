@@ -10,8 +10,4 @@ export type Repo = {
   name: string
   description: string
   html_url: string
-}
-
-export type Repos = {
-  repositories: Repo[]
-}
+}[]

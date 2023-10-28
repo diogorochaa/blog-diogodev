@@ -1,7 +1,7 @@
 import { siteConfig } from '@/config'
 
 import * as S from './styles'
-import { Profile } from '@/models'
+import { Profile, Repo } from '@/models'
 
 export const metadata = {
   title: 'Sobre mim',
@@ -32,20 +32,19 @@ async function getApiGithub(): Promise<Profile> {
   return await res.json()
 }
 
-// async function getApiGithubRepos(): Promise<Repos> {
-//   const data = await fetch('https://api.github.com/users/diogorochaa/repos')
-//   return await data.json()
-// }
+async function getApiGithubRepos(): Promise<Repo> {
+  const data = await fetch('https://api.github.com/users/diogorochaa/repos')
+  return await data.json()
+}
 
 export default async function AboutPage() {
   const { avatar_url, company, location } = await getApiGithub()
-  // const { repositories } = await getApiGithubRepos()
-  // console.log('REPOS', repositories)
+  const data = await getApiGithubRepos()
+  console.log('REPOS', data)
 
   return (
     <S.Container>
       <S.Subtitle>Sobre mim</S.Subtitle>
-
       <S.ImageContainer>
         <S.Image
           src={`${avatar_url}`}
@@ -54,14 +53,24 @@ export default async function AboutPage() {
           quality={100}
         />
       </S.ImageContainer>
+      <S.Paragraph> Olá, Dev!!! </S.Paragraph>
 
       <S.Paragraph>
-        Olá, Dev!!! É um prazer te receber no meu blog! Atualmente trabalho na{' '}
-        {company} e moro em {location}. Espero que meus artigos possam te ajudar
-        de alguma forma, e se você tem alguma sugestão, me envie uma mensagem!
+        É um prazer te receber no meu blog! Atualmente trabalho no {company} e
+        moro em {location}. Espero que meus artigos possam te ajudar de alguma
+        forma, e se você tem alguma sugestão, me envie uma mensagem!
       </S.Paragraph>
 
-      {/* <S.Subtitle>Projetos</S.Subtitle> */}
+      <S.Subtitle> Conheça alguns dos meus Projetos</S.Subtitle>
+      <S.CardContainer>
+        {data.map((repo) => (
+          <S.Card key={repo.id}>
+            <S.CardLink href={repo.html_url} target="_blank">
+              {repo.name}
+            </S.CardLink>
+          </S.Card>
+        ))}
+      </S.CardContainer>
     </S.Container>
   )
 }
