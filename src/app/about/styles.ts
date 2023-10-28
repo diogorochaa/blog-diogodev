@@ -49,12 +49,12 @@ export const Image = tw(NextImage)`
   hover:opacity-80
 `
 export const CardContainer = tw.div`
- grid
- grid-cols-1
- md:grid-cols-2
- lg:grid-cols-3
- grid-rows-3
- gap-4
+  grid
+  grid-cols-1
+  md:grid-cols-2
+  lg:grid-cols-3
+  grid-rows-3
+  gap-4
   items-center
   justify-center
   rounded-xl
