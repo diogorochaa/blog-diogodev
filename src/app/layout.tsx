@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   creator: 'Diogo Rocha',
   publisher: 'Diogo Rocha',
   category: 'Tecnologia',
-  manifest: '/manifest.json',
+  themeColor: '#0a0a0f',
   robots: {
     index: true,
     follow: true,
@@ -83,12 +83,6 @@ export const metadata: Metadata = {
     creator: '@diogodev_',
     images: [OG_IMAGE],
   },
-}
-
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: '#0a0a0f',
 }
 
 export default function RootLayout({

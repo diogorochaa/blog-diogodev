@@ -1,13 +1,11 @@
-import * as S from './styles'
-
 type EmptyProps = {
   children: React.ReactNode
 }
 
 export const Empty = ({ children }: EmptyProps) => {
   return (
-    <S.Container>
-      <S.Content>{children}</S.Content>
-    </S.Container>
+    <div className="flex min-h-[calc(100vh-30rem)] w-full flex-col items-center">
+      <div className="mt-8 flex flex-col justify-center">{children}</div>
+    </div>
   )
 }

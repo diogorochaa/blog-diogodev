@@ -1,4 +1,6 @@
-import * as S from './styles'
+import NextLink from 'next/link'
+
+import { ArrowLeftIcon, ArrowRightIcon } from '@/components/Icons'
 
 type PaginationProps = {
   currentPage: number
@@ -17,26 +19,30 @@ export const Pagination = ({
   const isLast = currentPage === numbPages
 
   return (
-    <>
-      <S.Container>
-        {!isFirst && (
-          <S.Link href={prevPage}>
-            <S.PrevPageIcon />
-            Página anterior
-          </S.Link>
-        )}
+    <div className="flex w-full items-center justify-between pt-7 animate-soft-in">
+      {!isFirst && (
+        <NextLink
+          className="group flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:text-accent-cyan"
+          href={prevPage}
+        >
+          <ArrowLeftIcon className="text-lg transition-transform duration-300 ease-in-out group-hover:-translate-x-1" />
+          Página anterior
+        </NextLink>
+      )}
 
-        <S.Text>
-          {currentPage} de {numbPages}
-        </S.Text>
+      <p>
+        {currentPage} de {numbPages}
+      </p>
 
-        {!isLast && (
-          <S.Link href={nextPage}>
-            Próxima página
-            <S.NextPageIcon />
-          </S.Link>
-        )}
-      </S.Container>
-    </>
+      {!isLast && (
+        <NextLink
+          className="group flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:text-accent-cyan"
+          href={nextPage}
+        >
+          Próxima página
+          <ArrowRightIcon className="text-lg transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+        </NextLink>
+      )}
+    </div>
   )
 }

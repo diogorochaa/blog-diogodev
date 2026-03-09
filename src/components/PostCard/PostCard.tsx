@@ -1,11 +1,10 @@
 import { formatDate } from '@/functions'
+import NextLink from 'next/link'
 
 import { AnimatedCover } from '@/components/AnimatedCover'
 import { Tag } from '@/components/Tag'
 
 import { BlogPost } from '@/models'
-
-import * as S from './styles'
 
 export type PostCardProps = {
   post: BlogPost
@@ -19,26 +18,42 @@ export const PostCard = ({ post, isMain = false }: PostCardProps) => {
   const formattedDate = formatDate(date)
 
   return (
-    <S.LinkContainer href={slug} $isMain={isMain}>
-      <S.ImageContainer className={`${isMain && 'lg:mr-3'}`}>
+    <NextLink
+      className={[
+        'group flex w-full flex-col rounded-xl border border-accent-purple/20 bg-linear-to-br from-secondary/80 to-secondary/60 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-accent-cyan/55 hover:shadow-glow-cyan animate-soft-in',
+        isMain ? 'mb-6 lg:flex-row' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      href={slug}
+    >
+      <div
+        className={['relative h-72 w-full md:h-80', isMain ? 'lg:mr-3' : '']
+          .filter(Boolean)
+          .join(' ')}
+      >
         <AnimatedCover className="h-full w-full" compact />
-      </S.ImageContainer>
+      </div>
 
-      <S.Content className={`${isMain && 'lg:pt-0'}`}>
-        <S.TagsContainer>
+      <div
+        className={['pt-3', isMain ? 'lg:pt-0' : ''].filter(Boolean).join(' ')}
+      >
+        <div className="mb-3 flex flex-wrap gap-2">
           {tags?.map((tag) => (
             <Tag key={tag}>{tag}</Tag>
           ))}
-        </S.TagsContainer>
+        </div>
 
-        <S.Time>
+        <time className="text-gray-400">
           {formattedDate} • {readingTime} minutos de leitura
-        </S.Time>
+        </time>
 
-        <S.Title>{title}</S.Title>
+        <p className="mt-2 max-w-md text-2xl font-bold text-white text-ellipsis transition-colors duration-300 group-hover:text-accent-cyan">
+          {title}
+        </p>
 
-        <S.Description>{description}</S.Description>
-      </S.Content>
-    </S.LinkContainer>
+        <p className="mt-3 line-clamp-3 text-gray-300">{description}</p>
+      </div>
+    </NextLink>
   )
 }

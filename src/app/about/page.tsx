@@ -4,7 +4,6 @@ import { siteConfig } from '@/config'
 
 import { Reveal } from '@/components/Motion'
 import { Profile, Repo } from '@/models'
-import * as S from './styles'
 
 const GITHUB_USER = 'diogorochaa'
 const GITHUB_API_BASE_URL = 'https://api.github.com'
@@ -124,82 +123,103 @@ export default async function AboutPage() {
   }
 
   return (
-    <S.Container>
+    <div className="mx-auto flex max-w-7xl flex-col gap-12 animate-soft-in">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
       <Reveal y={20}>
-        <S.Header>
-          <S.Badge>👨‍💻</S.Badge>
-          <S.Title>Sobre mim</S.Title>
-        </S.Header>
+        <div className="mb-8 flex flex-col items-center gap-4 text-center animate-slide-up">
+          <div className="text-6xl animate-float-slow md:text-7xl">👨‍💻</div>
+          <h1 className="bg-linear-to-r from-accent-purple via-accent-cyan to-accent-pink bg-clip-text text-4xl font-bold text-transparent animate-slide-up md:text-5xl">
+            Sobre mim
+          </h1>
+        </div>
       </Reveal>
 
       <Reveal delay={0.06} y={18}>
-        <S.IntroSection>
-          <S.Greeting>Olá, Dev! 👋</S.Greeting>
+        <div className="flex flex-col gap-6 rounded-2xl border border-accent-purple/20 bg-linear-to-br from-secondary/50 to-secondary/30 p-8 backdrop-blur-sm animate-slide-up">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
+            Olá, Dev! 👋
+          </h2>
 
-          <S.Description>
+          <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
             {bio ||
               `É um prazer te receber no meu blog! Atualmente trabalho ${company ? `no ${company}` : 'como desenvolvedor'} e moro em ${displayLocation}. Espero que meus artigos possam te ajudar de alguma forma, e se você tem alguma sugestão, me envie uma mensagem!`}
-          </S.Description>
+          </p>
 
-          <S.StatsContainer>
-            <S.StatCard>
-              <S.StatNumber>{public_repos}</S.StatNumber>
-              <S.StatLabel>Repositórios</S.StatLabel>
-            </S.StatCard>
-            <S.StatCard>
-              <S.StatNumber>{followers}</S.StatNumber>
-              <S.StatLabel>Seguidores</S.StatLabel>
-            </S.StatCard>
-          </S.StatsContainer>
-        </S.IntroSection>
+          <div className="mt-4 grid grid-cols-2 gap-4">
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-accent-purple/30 bg-linear-to-br from-accent-purple/20 to-accent-blue/20 p-6 transition-all duration-300 hover:scale-105 hover:border-accent-cyan/55">
+              <div className="text-3xl font-bold text-accent-cyan md:text-4xl">
+                {public_repos}
+              </div>
+              <div className="text-sm uppercase tracking-wider text-gray-400 md:text-base">
+                Repositórios
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-accent-purple/30 bg-linear-to-br from-accent-purple/20 to-accent-blue/20 p-6 transition-all duration-300 hover:scale-105 hover:border-accent-cyan/55">
+              <div className="text-3xl font-bold text-accent-cyan md:text-4xl">
+                {followers}
+              </div>
+              <div className="text-sm uppercase tracking-wider text-gray-400 md:text-base">
+                Seguidores
+              </div>
+            </div>
+          </div>
+        </div>
       </Reveal>
 
       <Reveal delay={0.12} y={16}>
-        <S.ProjectsSection>
-          <S.SectionTitle>
+        <div className="flex flex-col gap-8 animate-slide-up">
+          <h2 className="flex items-center gap-3 text-3xl font-bold text-white md:text-4xl">
             <span className="text-accent-cyan">🚀</span> Projetos em Destaque
-          </S.SectionTitle>
+          </h2>
 
-          <S.ProjectsGrid>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {repos.map((repo, index) => (
               <Reveal key={repo.id} delay={0.16 + index * 0.04} y={14}>
-                <S.ProjectCard href={repo.html_url} target="_blank">
-                  <S.ProjectHeader>
-                    <S.ProjectIcon>📦</S.ProjectIcon>
-                    <S.ProjectName>{repo.name}</S.ProjectName>
-                  </S.ProjectHeader>
+                <a
+                  className="group flex cursor-pointer flex-col gap-4 rounded-xl border border-accent-purple/20 bg-linear-to-br from-secondary/80 to-secondary/60 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-accent-cyan/55 hover:shadow-glow-cyan"
+                  href={repo.html_url}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="text-3xl transition-transform duration-300 group-hover:scale-110">
+                      📦
+                    </div>
+                    <h3 className="truncate text-xl font-bold text-white transition-colors duration-300 group-hover:text-accent-cyan">
+                      {repo.name}
+                    </h3>
+                  </div>
 
-                  <S.ProjectDescription>
+                  <p className="line-clamp-2 grow text-sm text-gray-400">
                     {repo.description || 'Sem descrição disponível'}
-                  </S.ProjectDescription>
+                  </p>
 
-                  <S.ProjectFooter>
+                  <div className="flex items-center justify-between border-t border-accent-purple/20 pt-4">
                     {repo.language && (
-                      <S.ProjectLanguage>
-                        <S.LanguageDot />
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <div className="h-3 w-3 rounded-full bg-accent-cyan" />
                         {repo.language}
-                      </S.ProjectLanguage>
+                      </div>
                     )}
-                    <S.ProjectStats>
-                      <S.ProjectStat>
+                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <div className="flex items-center gap-1">
                         <span>⭐</span> {repo.stargazers_count}
-                      </S.ProjectStat>
-                      <S.ProjectStat>
+                      </div>
+                      <div className="flex items-center gap-1">
                         <span>🔀</span> {repo.forks_count}
-                      </S.ProjectStat>
-                    </S.ProjectStats>
-                  </S.ProjectFooter>
-                </S.ProjectCard>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </Reveal>
             ))}
-          </S.ProjectsGrid>
-        </S.ProjectsSection>
+          </div>
+        </div>
       </Reveal>
-    </S.Container>
+    </div>
   )
 }

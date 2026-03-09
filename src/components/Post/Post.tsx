@@ -6,7 +6,6 @@ import { Mdx } from '@/components/Mdx'
 import { BlogPost } from '@/models'
 
 import { BackButton } from './components'
-import * as S from './styles'
 
 type PostProps = {
   post: BlogPost
@@ -18,26 +17,26 @@ export const Post = ({ post }: PostProps) => {
   const formattedDate = formatDate(date)
 
   return (
-    <S.Container>
-      <S.IconContainer>
+    <div className="flex flex-col items-center justify-center animate-soft-in">
+      <div className="flex w-full justify-items-start pb-4">
         <BackButton />
-      </S.IconContainer>
+      </div>
 
-      <S.ImageContainer>
+      <div className="relative h-96 w-full sm:h-120">
         <AnimatedCover className="h-full w-full animate-soft-in" />
-      </S.ImageContainer>
+      </div>
 
-      <S.Content>
-        <S.DateContainer>
-          <S.Date>
+      <div className="w-full max-w-5xl">
+        <div className="mt-10">
+          <p className="mb-2 text-gray-200">
             {formattedDate} • {readingTime} minutos de leitura
-          </S.Date>
-          <S.Title>{title}</S.Title>
-          <S.Description>{description}</S.Description>
-        </S.DateContainer>
+          </p>
+          <h1 className="mb-4 text-5xl font-bold sm:text-4xl">{title}</h1>
+          <p className="mb-8 text-2xl text-gray-200">{description}</p>
+        </div>
 
         <Mdx field={body} />
-      </S.Content>
-    </S.Container>
+      </div>
+    </div>
   )
 }

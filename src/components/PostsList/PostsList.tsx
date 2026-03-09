@@ -4,8 +4,6 @@ import { PostCard } from '@/components/PostCard'
 
 import { BlogPost } from '@/models'
 
-import * as S from './styles'
-
 type PostsListProps = {
   posts: BlogPost[]
 }
@@ -15,7 +13,7 @@ export const PostsList = ({ posts }: PostsListProps) => {
   const restPosts = posts.slice(1)
 
   return (
-    <S.Container>
+    <div className="w-full animate-soft-in">
       {firstPost && (
         <Reveal delay={0.04} y={16}>
           <PostCard post={firstPost} isMain />
@@ -29,6 +27,6 @@ export const PostsList = ({ posts }: PostsListProps) => {
           </Reveal>
         ))}
       </Grid>
-    </S.Container>
+    </div>
   )
 }

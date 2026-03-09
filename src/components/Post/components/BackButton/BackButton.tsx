@@ -1,13 +1,23 @@
-import * as S from './styles'
+import NextLink from 'next/link'
+
+import { ArrowLeftIcon } from '@/components/Icons'
 
 export const BackButton = () => {
   return (
-    <S.Link href="/">
-      <S.IcontContainer>
-        <S.Icon size={20} />
-      </S.IcontContainer>
+    <NextLink
+      className="group flex cursor-pointer items-center gap-1 text-gray-400 transition-colors duration-300 hover:text-accent-cyan"
+      href="/"
+    >
+      <div className="flex h-8 items-center justify-center rounded-full group-hover:text-gray-100">
+        <ArrowLeftIcon
+          className="transition-transform duration-300 ease-in-out group-hover:-translate-x-1"
+          size={20}
+        />
+      </div>
 
-      <S.Text>Voltar à listagem</S.Text>
-    </S.Link>
+      <p className="duration-300 ease-in-out group-hover:text-gray-100">
+        Voltar à listagem
+      </p>
+    </NextLink>
   )
 }
