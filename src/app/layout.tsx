@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Manrope, Sora } from 'next/font/google'
+import Script from 'next/script'
 
 import { mainNavConfig, siteConfig } from '@/config'
 
@@ -101,6 +102,12 @@ export default function RootLayout({
       className={`${manrope.variable} ${sora.variable} scroll-smooth`}
     >
       <body className="bg-primary font-sans text-gray-100">
+        <Script
+          async
+          defer
+          src="https://static.cdn.prismic.io/prismic.js?new=true&repo=blog-diodev"
+        />
+
         <Header />
 
         <Layout>

@@ -71,3 +71,23 @@ npm run verify
 4. Publique o documento.
 
 Os posts publicados passam a aparecer no blog automaticamente.
+
+## Deploy automatico na Vercel apos CI
+
+Este projeto ja possui um job na CI que pode disparar deploy de producao na Vercel somente quando o push na `main` passar em `check`, `test` e `build`.
+
+Para ativar:
+
+1. Na Vercel, abra o projeto em `Settings > Git > Deploy Hooks`.
+2. Crie um Deploy Hook para o branch `main`.
+3. Copie a URL do hook.
+4. No GitHub, adicione um secret no repositorio em `Settings > Secrets and variables > Actions`:
+
+```bash
+VERCEL_DEPLOY_HOOK_URL=https://api.vercel.com/v1/integrations/deploy/...
+```
+
+Observacao:
+
+- Se seu projeto estiver com Auto Deploy do Git ativado na Vercel, voce pode ter deploy duplo (Git + Hook).
+- Para usar apenas o fluxo da CI, desative o Auto Deploy na Vercel e mantenha somente o Deploy Hook.
