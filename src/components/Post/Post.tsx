@@ -1,5 +1,6 @@
 import { formatDate } from '@/functions'
 
+import { AnimatedCover } from '@/components/AnimatedCover'
 import { Mdx } from '@/components/Mdx'
 
 import { BlogPost } from '@/models'
@@ -13,7 +14,7 @@ type PostProps = {
 
 export const Post = ({ post }: PostProps) => {
   const { body, frontmatter, readingTime } = post
-  const { title, description, date, image } = frontmatter
+  const { title, description, date } = frontmatter
   const formattedDate = formatDate(date)
 
   return (
@@ -23,7 +24,7 @@ export const Post = ({ post }: PostProps) => {
       </S.IconContainer>
 
       <S.ImageContainer>
-        <S.Image src={image} alt={title} fill priority />
+        <AnimatedCover className="h-full w-full animate-soft-in" />
       </S.ImageContainer>
 
       <S.Content>
@@ -35,7 +36,7 @@ export const Post = ({ post }: PostProps) => {
           <S.Description>{description}</S.Description>
         </S.DateContainer>
 
-        <Mdx code={body.code} />
+        <Mdx field={body} />
       </S.Content>
     </S.Container>
   )

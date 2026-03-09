@@ -1,5 +1,6 @@
 import { formatDate } from '@/functions'
 
+import { AnimatedCover } from '@/components/AnimatedCover'
 import { Tag } from '@/components/Tag'
 
 import { BlogPost } from '@/models'
@@ -13,19 +14,21 @@ export type PostCardProps = {
 
 export const PostCard = ({ post, isMain = false }: PostCardProps) => {
   const { frontmatter, readingTime, slug } = post
-  const { title, description, date, image, tags } = frontmatter
+  const { title, description, date, tags } = frontmatter
 
   const formattedDate = formatDate(date)
 
   return (
     <S.LinkContainer href={slug} $isMain={isMain}>
       <S.ImageContainer className={`${isMain && 'lg:mr-3'}`}>
-        <S.Image src={image} fill alt="title" priority />
+        <AnimatedCover className="h-full w-full" compact />
       </S.ImageContainer>
 
       <S.Content className={`${isMain && 'lg:pt-0'}`}>
         <S.TagsContainer>
-          {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+          {tags?.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
         </S.TagsContainer>
 
         <S.Time>

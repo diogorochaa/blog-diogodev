@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+build
+coverage
+customtypes
+public/manifest.json
+public/sw.js
+public/workbox-*.js
+package-lock.json
+tsconfig.tsbuildinfo
+src/slices/index.ts

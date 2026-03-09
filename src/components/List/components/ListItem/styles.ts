@@ -6,8 +6,9 @@ export const Container = tw.li`
   p-2
   rounded-md
   font-light
-  transition-colors
+  transition-all
   duration-200
   hover:bg-link
-  hover:text-black
+  hover:text-primary
+  hover:scale-[1.02]
 `

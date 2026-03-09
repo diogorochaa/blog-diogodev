@@ -11,8 +11,8 @@ export const Container = tw.a`
 
 export const Content = tw.span`
   bg-gradient-to-r
-  from-link
-  to-link
+  from-accent-cyan
+  to-accent-blue
   bg-[length:0%_2px]
   bg-left-bottom
   bg-no-repeat

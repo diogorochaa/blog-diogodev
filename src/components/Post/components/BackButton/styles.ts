@@ -13,6 +13,9 @@ export const Link = tw(NextLink)`
   items-center
   gap-1
   text-gray-400
+  transition-colors
+  duration-300
+  hover:text-accent-cyan
 `
 
 export const IcontContainer = tw.div`

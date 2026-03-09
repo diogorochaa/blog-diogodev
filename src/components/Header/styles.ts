@@ -4,16 +4,18 @@ export const Container = tw.header`
   fixed
   z-40
   flex
-  h-16
+  h-20
   w-full
   items-center
-  shadow-lg
-  backdrop-blur-lg
+  backdrop-blur-md
+  bg-secondary/80
   transition-all
   duration-300
   ease-in-out
-  border-b-2
-  border-link
+  border-b
+  border-accent-purple/30
+  shadow-lg
+  animate-soft-in
 `
 
 export const Content = tw.div`
@@ -38,8 +40,9 @@ export const List = tw.ul`
 
 export const ListItem = tw.li`
   text-md
+  font-medium
   transition-colors
   duration-300
   ease-in-out
-  hover:text-link
+  hover:text-accent-cyan
 `

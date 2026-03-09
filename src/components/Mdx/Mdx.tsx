@@ -1,109 +1,99 @@
-import { useMDXComponent } from 'next-contentlayer/hooks'
-
-import { MDXComponents } from 'mdx/types'
+import * as prismic from '@prismicio/client'
+import { JSXMapSerializer, PrismicRichText } from '@prismicio/react'
 
 import '../../../styles/mdx.css'
-import { Pre, Note } from './components'
+import { Note } from './components'
 
-const components: MDXComponents = {
-  h1: ({ className = '', children, ...props }) => (
-    <h1
-      className={`mt-12 scroll-m-20 text-4xl font-bold ${className}`}
-      {...props}
-    >
-      {children}
-    </h1>
+const getRichTextLinkProps = (linkField: prismic.LinkField) => {
+  const href = prismic.asLink(linkField) || '#'
+  const isExternal = /^https?:\/\//.test(href)
+
+  return {
+    href,
+    isExternal,
+  }
+}
+
+const components: JSXMapSerializer = {
+  heading1: ({ children }) => (
+    <h1 className="mt-12 scroll-m-20 text-4xl font-bold">{children}</h1>
   ),
-  h2: ({ className = '', children, ...props }) => (
-    <h2
-      className={`mb-6 mt-14 scroll-m-20 pb-1 text-3xl font-bold ${className}`}
-      {...props}
-    >
+  heading2: ({ children }) => (
+    <h2 className="mb-6 mt-14 scroll-m-20 pb-1 text-3xl font-bold">
       {children}
     </h2>
   ),
-  h3: ({ className = '', children, ...props }) => (
-    <h3
-      className={`mb-4 mt-8 scroll-m-20 text-2xl font-bold ${className}`}
-      {...props}
-    >
-      {children}
-    </h3>
+  heading3: ({ children }) => (
+    <h3 className="mb-4 mt-8 scroll-m-20 text-2xl font-bold">{children}</h3>
   ),
-  h4: ({ className = '', children, ...props }) => (
-    <h4
-      className={`mb-4 mt-8 scroll-m-20 text-xl font-bold ${className}`}
-      {...props}
-    >
-      {children}
-    </h4>
+  heading4: ({ children }) => (
+    <h4 className="mb-4 mt-8 scroll-m-20 text-xl font-bold">{children}</h4>
   ),
-  h5: ({ className = '', children, ...props }) => (
-    <h5
-      className={`mb-4 mt-8 scroll-m-20 text-lg font-bold ${className}`}
-      {...props}
-    >
-      {children}
-    </h5>
+  heading5: ({ children }) => (
+    <h5 className="mb-4 mt-8 scroll-m-20 text-lg font-bold">{children}</h5>
   ),
-  h6: ({ className = '', children, ...props }) => (
-    <h6
-      className={`mb-4 mt-8 scroll-m-20 text-base font-bold ${className}`}
-      {...props}
-    >
-      {children}
-    </h6>
+  heading6: ({ children }) => (
+    <h6 className="mb-4 mt-8 scroll-m-20 text-base font-bold">{children}</h6>
   ),
-  a: ({ className = '', children, ...props }) => (
-    <a
-      className={`font-medium text-link underline underline-offset-4 ${className}`}
-      {...props}
-    >
-      {children}
-    </a>
+  paragraph: ({ children }) => (
+    <p className="mb-4 text-xl leading-7 text-slate-300">{children}</p>
   ),
-  p: ({ className = '', children, ...props }) => (
-    <p
-      className={`mb-4 text-xl leading-7 text-slate-300 ${className}`}
-      {...props}
-    >
-      {children}
-    </p>
+  strong: ({ children }) => (
+    <strong className="font-semibold text-slate-50">{children}</strong>
   ),
-  blockquote: ({ className = '', children, ...props }) => (
-    <blockquote
-      className={`mb-4 mt-6 border-l-2 border-slate-50 pl-6 font-normal italic text-gray-200 ${className}`}
-      {...props}
-    >
+  em: ({ children }) => <em className="italic">{children}</em>,
+  hyperlink: ({ node, children }) => {
+    const { href, isExternal } = getRichTextLinkProps(node.data)
+
+    return (
+      <a
+        className="font-medium text-link underline underline-offset-4"
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+      >
+        {children}
+      </a>
+    )
+  },
+  list: ({ children }) => (
+    <ul className="mb-4 ml-8 list-disc text-xl leading-7 text-slate-300">
       {children}
-    </blockquote>
+    </ul>
   ),
-  pre: ({ className = '', children, ...props }) => (
-    <Pre {...props} className={className}>
+  oList: ({ children }) => (
+    <ol className="mb-4 ml-8 list-decimal text-xl leading-7 text-slate-300">
       {children}
-    </Pre>
+    </ol>
   ),
-  code: ({ className = '', children, ...props }) => (
-    <code
-      className={`text-md relative rounded bg-gray-700 px-[0.4rem] py-[0.1rem] font-mono leading-tight text-gray-50  ${className}`}
-      {...props}
-    >
+  listItem: ({ children }) => <li className="mb-2">{children}</li>,
+  oListItem: ({ children }) => <li className="mb-2">{children}</li>,
+  preformatted: ({ children }) => (
+    <pre className="mb-4 mt-6 overflow-x-auto rounded-lg border border-slate-800 bg-slate-900 p-4 font-mono text-sm text-slate-200">
       {children}
-    </code>
+    </pre>
   ),
-  Note,
+  label: ({ node, children }) => {
+    if (node.data.label === 'note') {
+      return <Note>{children}</Note>
+    }
+
+    if (node.data.label === 'codespan') {
+      return (
+        <code className="text-md relative rounded bg-gray-700 px-[0.4rem] py-[0.1rem] font-mono leading-tight text-gray-50">
+          {children}
+        </code>
+      )
+    }
+
+    return <span>{children}</span>
+  },
 }
 
 type MdxProps = {
-  code: string
+  field: prismic.RichTextField
 }
 
-export const Mdx = ({ code = '' }: MdxProps) => {
-  const Component = useMDXComponent(code)
-
-  return (
-    <>
-      <Component components={components} />
-    </>
-  )
+export const Mdx = ({ field = [] }: MdxProps) => {
+  return <PrismicRichText field={field} components={components} />
 }

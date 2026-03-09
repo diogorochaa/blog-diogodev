@@ -1,14 +1,13 @@
-import { MDX } from 'contentlayer/core'
+import { RichTextField } from '@prismicio/client'
 
 export type BlogPost = {
   slug: string
   readingTime: number
-  body: MDX
+  body: RichTextField
   frontmatter: {
     title: string
     description: string
     date: string
-    tags?: string[] | undefined
-    image: string
+    tags: string[]
   }
 }

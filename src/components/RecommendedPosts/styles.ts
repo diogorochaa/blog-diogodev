@@ -5,4 +5,5 @@ export const Container = tw.div`
   mt-8
   flex
   flex-col
+  animate-soft-in
 `

@@ -12,6 +12,7 @@ export const Container = tw.div`
   items-center
   justify-between
   pt-7
+  animate-soft-in
 `
 
 export const PrevPageIcon = tw(ArrowLeftIcon)`
@@ -33,11 +34,12 @@ export const NextPageIcon = tw(ArrowRightIcon)`
 export const Text = tw.p``
 
 export const Link = tw(NextLink)`
-  hover:text-link
+  hover:text-accent-cyan
   duration-300
-  transition-colors
+  transition-all
   flex
   items-center
   gap-2
   group 
+  hover:scale-105
 `

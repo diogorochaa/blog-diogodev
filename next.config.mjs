@@ -1,5 +1,3 @@
-import withPlugins from 'next-compose-plugins'
-import { withContentlayer } from 'next-contentlayer'
 import withPWAInit from 'next-pwa'
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -25,12 +23,18 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    swcMinify: true,
-  },
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.prismic.io',
+      },
+    ],
   },
 }
 
-export default withPlugins([withPWA, withContentlayer], nextConfig)
+export default withPWA(nextConfig)

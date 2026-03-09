@@ -8,6 +8,7 @@ export const Nav = tw.nav`
   justify-between
   hidden
   lg:flex
+  animate-soft-in
 `
 
 export const List = tw.ul`
@@ -17,10 +18,13 @@ export const List = tw.ul`
 
 export const ListItem = tw.li`
   text-md
-  transition-colors
+  font-medium
+  transition-all
   duration-300
   ease-in-out
-  hover:text-link
+  hover:text-accent-cyan
+  hover:scale-105
+  cursor-pointer
 `
 
 export const Content = tw.div`
@@ -28,7 +32,7 @@ export const Content = tw.div`
   flex
   transition-colors
   duration-300
-  hover:text-link
+  hover:text-accent-cyan
   lg:hidden
 `
 
@@ -40,8 +44,9 @@ export const ContainerMobible = tw.div`
   min-h-screen
   w-full
   overflow-hidden
-  bg-zinc-900/80
-  pt-[4rem]
+  bg-secondary/95
+  backdrop-blur-lg
+  pt-[5rem]
 `
 
 export const NavMobible = tw.nav`
@@ -53,7 +58,7 @@ export const NavMobible = tw.nav`
   rounded-2xl
   border
   border-gray-600
-  bg-secundary
+  bg-secondary
   py-3
   shadow-2xl
 `

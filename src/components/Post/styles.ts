@@ -1,5 +1,3 @@
-import NextImage from 'next/image'
-
 import tw from 'tailwind-styled-components'
 
 export const Container = tw.div`
@@ -7,6 +5,7 @@ export const Container = tw.div`
   flex-col
   items-center
   justify-center
+  animate-soft-in
 `
 
 export const IconContainer = tw.div`
@@ -17,16 +16,10 @@ export const IconContainer = tw.div`
 `
 
 export const ImageContainer = tw.div`
-  sm:h[30rem]
+  sm:h-[30rem]
   relative
   h-96
   w-full
-`
-
-export const Image = tw(NextImage)`
-  rounded-xl
-  object-cover
-  object-center
 `
 
 export const Content = tw.div`

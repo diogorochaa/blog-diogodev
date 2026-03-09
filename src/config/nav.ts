@@ -7,10 +7,6 @@ export const mainNavConfig: MainNavType = {
       href: '/',
     },
     {
-      title: 'Artigos',
-      href: '/articles',
-    },
-    {
       title: 'Sobre mim',
       href: '/about',
     },

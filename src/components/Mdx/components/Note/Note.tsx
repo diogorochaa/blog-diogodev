@@ -14,10 +14,19 @@ const Title = {
   tip: 'Dica',
 }
 
-const Color = {
-  note: 'blue',
-  warning: 'red',
-  tip: 'green',
+const ColorClasses = {
+  note: {
+    container: 'bg-blue-400/30',
+    text: 'text-blue-400',
+  },
+  warning: {
+    container: 'bg-red-400/30',
+    text: 'text-red-400',
+  },
+  tip: {
+    container: 'bg-green-400/30',
+    text: 'text-green-400',
+  },
 }
 
 type NoteProps = {
@@ -27,12 +36,12 @@ type NoteProps = {
 
 export const Note = ({ children, type = 'note' }: NoteProps) => {
   const icon = Icons[type]
-  const color = Color[type]
+  const color = ColorClasses[type]
   const title = Title[type]
 
   return (
-    <div className={`mt-6 rounded-lg bg-${color}-400/30 px-6 py-4`}>
-      <div className={`flex items-center gap-2 text-${color}-400 mb-2`}>
+    <div className={`mt-6 rounded-lg px-6 py-4 ${color.container}`}>
+      <div className={`mb-2 flex items-center gap-2 ${color.text}`}>
         {icon}
         <p className="text-xl font-semibold">{title}</p>
       </div>

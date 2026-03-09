@@ -1,9 +1,14 @@
 {
-    "extends": [
-        "@rocketseat/eslint-config/react",
-        "next/core-web-vitals"
-    ],
-    "rules": {
-        "camelcase": "off"
-    }
+  "root": true,
+  "extends": ["@rocketseat/eslint-config/react", "next/core-web-vitals"],
+  "ignorePatterns": [
+    "src/slices/index.ts",
+    ".next/",
+    "node_modules/",
+    "public/sw.js",
+    "public/workbox-*.js"
+  ],
+  "rules": {
+    "camelcase": "off"
+  }
 }

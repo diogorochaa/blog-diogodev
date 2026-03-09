@@ -1,7 +1,10 @@
+import { notFound } from 'next/navigation'
+
 import { siteConfig } from '@/config'
 import { paginationPages } from '@/functions'
 import { PostService } from '@/services'
 
+import { Reveal } from '@/components/Motion'
 import { Pagination } from '@/components/Pagination'
 import { PostsList } from '@/components/PostsList'
 
@@ -9,35 +12,49 @@ type PageProps = {
   params: { page: string }
 }
 
-export function generateStaticParams() {
-  const { posts } = PostService.getAll()
-  return posts.map((post) => ({
-    slug: post.slug,
+const METADATA_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+
+export async function generateStaticParams() {
+  const { numbPages } = await PostService.getAll()
+
+  if (numbPages <= 1) {
+    return []
+  }
+
+  return Array.from({ length: numbPages - 1 }, (_, index) => ({
+    page: String(index + 2),
   }))
 }
 
-export function generateMetadata({ params }: PageProps) {
-  const currentPage = +params.page
-  const { posts } = PostService.getAll({ currentPage })
+export async function generateMetadata({ params }: PageProps) {
+  const currentPage = Number(params.page)
+
+  if (Number.isNaN(currentPage) || currentPage < 2) {
+    return {
+      title: 'Página não encontrada',
+    }
+  }
+
+  const { posts } = await PostService.getAll({ currentPage })
 
   if (!posts.length) {
     return {
-      title: 'Não há posts',
+      title: 'Não há posts',
     }
   }
 
   return {
-    title: `Página ${currentPage}`,
+    title: `Página ${currentPage}`,
     metadataBase: new URL(siteConfig.url),
     openGraph: {
       type: 'website',
-      url: `${siteConfig.url}/${params.page}`,
-      title: 'Página ' + currentPage,
-      description: 'Página ' + currentPage,
+      url: `${siteConfig.url}/page/${params.page}`,
+      title: 'Página ' + currentPage,
+      description: 'Página ' + currentPage,
       siteName: siteConfig.name,
       images: [
         {
-          url: `${siteConfig.url}${posts[0].frontmatter.image}`,
+          url: METADATA_IMAGE,
         },
       ],
     },
@@ -45,35 +62,39 @@ export function generateMetadata({ params }: PageProps) {
       card: 'summary_large_image',
       title: posts[0].frontmatter.title,
       description: posts[0].frontmatter.description,
-      images: [`${siteConfig.url}${posts[0].frontmatter.image}`],
+      images: [METADATA_IMAGE],
     },
   }
 }
 
-export default function Page({ params }: PageProps) {
-  const currentPage = +params.page
+export default async function Page({ params }: PageProps) {
+  const currentPage = Number(params.page)
 
-  const { posts, numbPages } = PostService.getAll({ currentPage })
+  if (Number.isNaN(currentPage) || currentPage < 2) {
+    notFound()
+  }
+
+  const { posts, numbPages } = await PostService.getAll({ currentPage })
   const { prevPage, nextPage } = paginationPages(currentPage)
 
   if (!posts.length) {
-    return (
-      <div>
-        <h2>Não há posts</h2>
-      </div>
-    )
+    notFound()
   }
 
   return (
-    <>
-      <PostsList posts={posts} />
+    <div>
+      <Reveal y={16}>
+        <PostsList posts={posts} />
+      </Reveal>
 
-      <Pagination
-        currentPage={currentPage}
-        numbPages={numbPages}
-        prevPage={prevPage}
-        nextPage={nextPage}
-      />
-    </>
+      <Reveal delay={0.1}>
+        <Pagination
+          currentPage={currentPage}
+          numbPages={numbPages}
+          prevPage={prevPage}
+          nextPage={nextPage}
+        />
+      </Reveal>
+    </div>
   )
 }

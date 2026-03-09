@@ -1,35 +1,37 @@
-import NextImage from 'next/image'
 import Link from 'next/link'
 
 import tw from 'tailwind-styled-components'
 
 export const LinkContainer = tw(Link)<{ $isMain: boolean }>`
-  hover:border-link
   w-full
-  rounded-lg
-  border-2
-  border-transparent
-  transition-colors
+  rounded-xl
+  border
+  border-accent-purple/20
+  bg-gradient-to-br
+  from-secondary/80
+  to-secondary/60
+  backdrop-blur-sm
+  transition-all
   duration-300
-  p-3
+  p-4
   flex
   flex-col
+  hover:border-accent-cyan/55
+  hover:shadow-glow-cyan
+  hover:scale-[1.02]
+  animate-soft-in
+  group
 
   ${({ $isMain }) => `
-    ${$isMain && `lg:flex-row mb-3`}
+    ${$isMain && `lg:flex-row mb-6`}
   `}
 `
 
 export const ImageContainer = tw.div` 
   relative 
-  h-80 
+  h-72
+  md:h-80
   w-full
-`
-
-export const Image = tw(NextImage)`
-  rounded-xl
-  object-cover
-  object-center
 `
 
 export const Content = tw.div`
@@ -52,11 +54,15 @@ export const Title = tw.p`
   max-w-md
   text-ellipsis
   text-2xl
-  font-medium
-  text-gray-50
+  font-bold
+  text-white
+  group-hover:text-accent-cyan
+  transition-colors
+  duration-300
 `
 
 export const Description = tw.p`
-  mt-3 
-  text-gray-400
+  mt-3
+  text-gray-300
+  line-clamp-3
 `

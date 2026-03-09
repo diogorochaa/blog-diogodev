@@ -1,57 +1,73 @@
-<h1 align="center">
-Blog | @diogodev_
-</h1>
+# Blog DiogoDev
 
-<p align="center">
-  <a href="#dart-about">About</a> &#xa0; | &#xa0; 
-  <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
-  <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
-  <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
-  <a href="#memo-license">License</a> &#xa0; | &#xa0;
-  <a href="https://github.com/diogorochaa" target="_blank">Author</a>
-</p>
+Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 
-<br>
+## Stack
 
-## :dart: About
+- Next.js 13
+- React 18
+- TypeScript
+- Tailwind CSS
+- Prismic (CMS)
 
-Esse projeto foi desenvolvido para conseguir fazer posts de um blog, com a possibilidade de adicionar, editar e excluir posts.
+## Requisitos
 
-## :rocket: Technologies
+- Node.js 18+
+- npm 9+
 
-The following tools were used in this project:
+## Configuracao do Prismic
 
-- [Next.js](https://nextjs.org/)
-- [React](https://pt-br.reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind](https://tailwindcss.com/)
+1. Crie um repositorio no Prismic.
+2. Crie um Custom Type chamado `post`.
+3. Adicione os campos abaixo no `post`:
 
-## :white_check_mark: Requirements
+- `title` (Rich Text - single paragraph recomendado)
+- `description` (Rich Text - single paragraph recomendado)
+- `date` (Date)
+- `content` (Rich Text)
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+4. Opcional: use as tags nativas do documento no Prismic para categorizar posts.
 
-## :checkered_flag: Starting
+## Variaveis de ambiente
+
+Crie um arquivo `.env.local` na raiz:
 
 ```bash
-# Clone this project
-$ git clone https://github.com/diogorochaa/blog-diogodev.git
-
-# Access
-$ cd blog-diogodev
-
-# Install dependencies
-$ npm install
-
-# Run the project
-$ npm run dev
+PRISMIC_REPOSITORY_NAME=seu-repositorio
+PRISMIC_ACCESS_TOKEN=
 ```
 
-## :memo: License
+`PRISMIC_ACCESS_TOKEN` so e necessario se seu repositorio nao for publico.
 
-This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
+## Rodando o projeto
 
-Made with :heart: by <a href="https://github.com/diogorochaa" target="_blank">Diogo</a>
+```bash
+npm install
+npm run dev
+```
 
-&#xa0;
+Abra `http://localhost:3000`.
 
-<a href="#top">Back to top</a>
+## Qualidade de codigo
+
+```bash
+npm run typecheck
+npm run lint
+npm run format:check
+npm run test:run
+```
+
+Para rodar tudo de uma vez:
+
+```bash
+npm run verify
+```
+
+## Publicando posts
+
+1. Crie um novo documento do tipo `post` no Prismic.
+2. Preencha titulo, descricao, data e conteudo.
+3. Defina o `UID` do documento (ele vira a URL do post).
+4. Publique o documento.
+
+Os posts publicados passam a aparecer no blog automaticamente.

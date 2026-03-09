@@ -9,7 +9,7 @@ export const Container = tw.div`
   z-50
   h-full
   min-h-screen
-  w-fulll
+  w-full
 `
 
 export const Button = tw.button`
@@ -24,12 +24,13 @@ export const Button = tw.button`
   h-12
   w-12
   rounded-full
-  bg-gradient-to-l from-orange-600 to-link
+  bg-gradient-to-l from-accent-purple to-link
   text-white
-  transition-colors
+  transition-all
   duration-300
   ease-in-out
-  hover:bg-slate-500
+  hover:shadow-glow-cyan
+  hover:scale-105
 `
 
 export const Icon = tw(ArrowUpIcon)`
