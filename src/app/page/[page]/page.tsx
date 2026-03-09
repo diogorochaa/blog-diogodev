@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { siteConfig } from '@/config'
@@ -26,7 +27,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const currentPage = Number(params.page)
 
   if (Number.isNaN(currentPage) || currentPage < 2) {
@@ -45,12 +48,15 @@ export async function generateMetadata({ params }: PageProps) {
 
   return {
     title: `Página ${currentPage}`,
-    metadataBase: new URL(siteConfig.url),
+    description: `Página ${currentPage} com os posts mais recentes do blog.`,
+    alternates: {
+      canonical: `/page/${params.page}`,
+    },
     openGraph: {
       type: 'website',
       url: `${siteConfig.url}/page/${params.page}`,
       title: 'Página ' + currentPage,
-      description: 'Página ' + currentPage,
+      description: `Página ${currentPage} com os posts mais recentes do blog.`,
       siteName: siteConfig.name,
       images: [
         {

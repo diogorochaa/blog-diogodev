@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import { siteConfig } from '@/config'
 
 import { Reveal } from '@/components/Motion'
@@ -25,27 +27,34 @@ const profileFallback: Profile = {
   followers: 0,
 }
 
-export const metadata = {
+const OG_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+
+export const metadata: Metadata = {
   title: 'Sobre mim',
-  description: 'Sobre mim',
-  metadataBase: new URL(siteConfig.url),
+  description:
+    'Conheça mais sobre Diogo Rocha, trajetória e projetos em destaque.',
+  alternates: {
+    canonical: '/about',
+  },
   openGraph: {
     type: 'website',
     title: 'Sobre mim',
-    url: '/about',
-    description: 'Sobre mim',
-    siteName: 'Sobre mim',
+    url: `${siteConfig.url}/about`,
+    description:
+      'Conheça mais sobre Diogo Rocha, trajetória e projetos em destaque.',
+    siteName: siteConfig.name,
     images: [
       {
-        url: `${siteConfig.url}/assets/images/logo.png`,
+        url: OG_IMAGE,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Sobre mim',
-    description: 'Sobre mim',
-    images: [`${siteConfig.url}/assets/images/logo.png`],
+    description:
+      'Conheça mais sobre Diogo Rocha, trajetória e projetos em destaque.',
+    images: [OG_IMAGE],
   },
 }
 
@@ -88,12 +97,39 @@ export default async function AboutPage() {
     getApiGithub(),
     getApiGithubRepos(),
   ])
-  const { company, location, bio, public_repos, followers } = profile
+  const { company, location, bio, public_repos, followers, name } = profile
 
   const displayLocation = location || 'Brasil'
+  const displayName = name || 'Diogo Rocha'
+
+  const personJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: displayName,
+    url: `${siteConfig.url}/about`,
+    sameAs: [
+      siteConfig.links.github,
+      siteConfig.links.linkedin,
+      siteConfig.links.instagram,
+    ],
+    jobTitle: siteConfig.title,
+    description:
+      bio ||
+      `Engenheiro de software com foco em performance, acessibilidade e boas práticas de desenvolvimento.`,
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'BR',
+      addressLocality: displayLocation,
+    },
+  }
 
   return (
     <S.Container>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+
       <Reveal y={20}>
         <S.Header>
           <S.Badge>👨‍💻</S.Badge>
