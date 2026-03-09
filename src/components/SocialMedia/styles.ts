@@ -12,7 +12,7 @@ export const Link = tw(NextLink)`
   transition-all
   duration-300
   hover:text-accent-cyan
-  hover:scale-105
+  hover:link
 `
 
 export const Text = tw.p`
