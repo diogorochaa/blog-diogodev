@@ -21,14 +21,17 @@ export const PostCard = ({ post, isMain = false }: PostCardProps) => {
     <NextLink
       className={[
         'group flex w-full flex-col rounded-xl border border-accent-purple/20 bg-linear-to-br from-secondary/80 to-secondary/60 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-accent-cyan/55 hover:shadow-glow-cyan animate-soft-in',
-        isMain ? 'mb-6 lg:flex-row' : '',
+        isMain ? 'mb-6 lg:flex-row' : 'h-full',
       ]
         .filter(Boolean)
         .join(' ')}
       href={slug}
     >
       <div
-        className={['relative h-72 w-full md:h-80', isMain ? 'lg:mr-3' : '']
+        className={[
+          'relative h-60 w-full sm:h-72 md:h-80',
+          isMain ? 'lg:mr-3' : '',
+        ]
           .filter(Boolean)
           .join(' ')}
       >
@@ -36,7 +39,9 @@ export const PostCard = ({ post, isMain = false }: PostCardProps) => {
       </div>
 
       <div
-        className={['pt-3', isMain ? 'lg:pt-0' : ''].filter(Boolean).join(' ')}
+        className={['flex flex-1 flex-col pt-3', isMain ? 'lg:pt-0' : '']
+          .filter(Boolean)
+          .join(' ')}
       >
         <div className="mb-3 flex flex-wrap gap-2">
           {tags?.map((tag) => (
@@ -48,7 +53,7 @@ export const PostCard = ({ post, isMain = false }: PostCardProps) => {
           {formattedDate} • {readingTime} minutos de leitura
         </time>
 
-        <p className="mt-2 max-w-md text-2xl font-bold text-white text-ellipsis transition-colors duration-300 group-hover:text-accent-cyan">
+        <p className="mt-2 max-w-md wrap-break-word text-xl leading-tight font-bold text-white transition-colors duration-300 group-hover:text-accent-cyan sm:text-2xl">
           {title}
         </p>
 

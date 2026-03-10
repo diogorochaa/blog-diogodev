@@ -95,13 +95,21 @@ const getAllPosts = cache(async (): Promise<BlogPost[]> => {
 export const PostService = {
   getAll: async ({ limit = 10, currentPage = 1 }: GetPostAllParams = {}) => {
     const posts = await getAllPosts()
-    const numbPages = Math.max(1, Math.ceil(posts.length / limit))
-    const paginate = paginationPosts(posts, limit, currentPage)
+    const normalizedLimit = Math.max(1, limit)
+    const normalizedCurrentPage = Math.max(1, currentPage)
+    const numbPages = Math.max(1, Math.ceil(posts.length / normalizedLimit))
+    const paginate = paginationPosts(
+      posts,
+      normalizedLimit,
+      normalizedCurrentPage,
+    )
 
     return {
       posts: paginate,
       numbPages,
-      currentPage,
+      currentPage: normalizedCurrentPage,
+      totalPosts: posts.length,
+      postsPerPage: normalizedLimit,
     }
   },
   getBySlug: async (slug: string) => {

@@ -101,6 +101,8 @@ describe('PostService', () => {
       orderings: [{ field: 'my.post.date', direction: 'desc' }],
     })
     expect(result.numbPages).toBe(2)
+    expect(result.totalPosts).toBe(3)
+    expect(result.postsPerPage).toBe(2)
     expect(result.posts).toHaveLength(1)
     expect(result.posts[0].slug).toBe('post-3')
   })
@@ -149,6 +151,8 @@ describe('PostService', () => {
     expect(getAllByType).not.toHaveBeenCalled()
     expect(result.posts).toEqual([])
     expect(result.numbPages).toBe(1)
+    expect(result.totalPosts).toBe(0)
+    expect(result.postsPerPage).toBe(10)
 
     warnSpy.mockRestore()
   })

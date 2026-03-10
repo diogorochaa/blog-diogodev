@@ -15,7 +15,7 @@ type MainNavProps = {
 }
 
 export const MainNav = ({ items }: MainNavProps) => {
-  const { isOpenMenu, handleToggleMenu } = useMainNav()
+  const { isOpenMenu, handleToggleMenu, closeMenu } = useMainNav()
   const pathname = usePathname() || '/'
 
   const isActive = (href: string) => {
@@ -62,16 +62,16 @@ export const MainNav = ({ items }: MainNavProps) => {
       </div>
 
       {isOpenMenu && (
-        <div className="fixed left-0 top-0 z-30 min-h-screen w-full overflow-hidden bg-secondary/95 pt-20 backdrop-blur-lg">
-          <nav className="mx-auto flex max-w-[80%] items-center justify-center rounded-2xl border border-gray-600 bg-secondary py-3 shadow-2xl">
-            <List className="w-full flex-col px-4">
+        <div className="fixed inset-x-0 top-0 z-30 min-h-screen w-full overflow-y-auto bg-secondary/95 pt-16 backdrop-blur-lg sm:pt-20">
+          <nav className="mx-auto flex w-[92%] max-w-sm items-center justify-center rounded-2xl border border-gray-600 bg-secondary px-1 py-3 shadow-2xl sm:w-[84%]">
+            <List className="w-full flex-col px-3">
               {items.map((item) => {
                 const itemIsActive = isActive(item.href)
 
                 return (
                   <ListItem
                     className={[
-                      'border-b border-gray-600 py-3',
+                      'border-b border-gray-600 py-3 first:pt-1 last:border-b-0',
                       itemIsActive ? 'bg-link text-primary font-medium' : '',
                     ]
                       .filter(Boolean)
@@ -80,7 +80,9 @@ export const MainNav = ({ items }: MainNavProps) => {
                   >
                     <Link
                       aria-current={itemIsActive ? 'page' : undefined}
+                      className="block w-full"
                       href={item.href}
+                      onClick={closeMenu}
                     >
                       {item.title}
                     </Link>

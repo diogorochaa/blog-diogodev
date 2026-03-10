@@ -18,21 +18,25 @@ export const Post = ({ post }: PostProps) => {
 
   return (
     <div className="flex flex-col items-center justify-center animate-soft-in">
-      <div className="flex w-full justify-items-start pb-4">
+      <div className="flex w-full justify-items-start pb-3 sm:pb-4">
         <BackButton />
       </div>
 
-      <div className="relative h-96 w-full sm:h-120">
+      <div className="relative h-52 w-full sm:h-72 md:h-96">
         <AnimatedCover className="h-full w-full animate-soft-in" />
       </div>
 
-      <div className="w-full max-w-5xl">
-        <div className="mt-10">
-          <p className="mb-2 text-gray-200">
+      <div className="w-full max-w-4xl">
+        <div className="mt-7 sm:mt-10">
+          <p className="mb-2 text-sm text-gray-200 sm:text-base">
             {formattedDate} • {readingTime} minutos de leitura
           </p>
-          <h1 className="mb-4 text-5xl font-bold sm:text-4xl">{title}</h1>
-          <p className="mb-8 text-2xl text-gray-200">{description}</p>
+          <h1 className="mb-4 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl">
+            {title}
+          </h1>
+          <p className="mb-7 text-lg text-gray-200 sm:mb-8 sm:text-xl md:text-2xl">
+            {description}
+          </p>
         </div>
 
         <Mdx field={body} />

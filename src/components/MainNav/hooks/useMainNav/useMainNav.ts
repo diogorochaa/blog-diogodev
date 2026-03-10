@@ -7,8 +7,13 @@ export const useMainNav = () => {
     setIsOpenMenu((prevState) => !prevState)
   }, [])
 
+  const closeMenu = useCallback(() => {
+    setIsOpenMenu(false)
+  }, [])
+
   return {
     isOpenMenu,
     handleToggleMenu,
+    closeMenu,
   }
 }

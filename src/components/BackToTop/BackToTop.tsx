@@ -13,7 +13,7 @@ export const BackToTop = () => {
       {show && (
         <div className="pointer-events-none fixed inset-0 z-50 h-full min-h-screen w-full">
           <button
-            className="group pointer-events-auto absolute bottom-8 right-8 flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-l from-accent-purple to-link text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-glow-cyan"
+            className="group pointer-events-auto absolute bottom-5 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-linear-to-l from-accent-purple to-link text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-glow-cyan sm:bottom-8 sm:right-8 sm:h-12 sm:w-12"
             title="Voltar ao topo"
             aria-label="Voltar ao topo"
             onClick={() => window.scrollTo(0, 0)}

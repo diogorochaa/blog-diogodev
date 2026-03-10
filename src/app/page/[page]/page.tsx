@@ -80,7 +80,8 @@ export default async function Page({ params }: PageProps) {
     notFound()
   }
 
-  const { posts, numbPages } = await PostService.getAll({ currentPage })
+  const { posts, numbPages, totalPosts, postsPerPage } =
+    await PostService.getAll({ currentPage })
   const { prevPage, nextPage } = paginationPages(currentPage)
 
   if (!posts.length) {
@@ -90,13 +91,15 @@ export default async function Page({ params }: PageProps) {
   return (
     <div>
       <Reveal y={16}>
-        <PostsList posts={posts} />
+        <PostsList posts={posts} showMain={false} />
       </Reveal>
 
       <Reveal delay={0.1}>
         <Pagination
           currentPage={currentPage}
           numbPages={numbPages}
+          totalPosts={totalPosts}
+          postsPerPage={postsPerPage}
           prevPage={prevPage}
           nextPage={nextPage}
         />

@@ -105,7 +105,9 @@ export default function RootLayout({
         <Header />
 
         <Layout>
-          <div className="pt-32 pb-20 animate-soft-in">{children}</div>
+          <div className="animate-soft-in pt-24 pb-16 sm:pt-28 sm:pb-20">
+            {children}
+          </div>
         </Layout>
 
         <BackToTop />

@@ -37,7 +37,8 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
-  const { posts, currentPage, numbPages } = await PostService.getAll()
+  const { posts, currentPage, numbPages, totalPosts, postsPerPage } =
+    await PostService.getAll()
   const { prevPage, nextPage } = paginationPages(currentPage)
 
   const websiteJsonLd = {
@@ -89,6 +90,8 @@ export default async function Home() {
         <Pagination
           currentPage={currentPage}
           numbPages={numbPages}
+          totalPosts={totalPosts}
+          postsPerPage={postsPerPage}
           prevPage={prevPage}
           nextPage={nextPage}
         />

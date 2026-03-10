@@ -1,5 +1,6 @@
 type GridProps = {
   children: React.ReactNode
+  className?: string
   cols?: number
   sm?: number
   md?: number
@@ -11,6 +12,7 @@ type GridProps = {
 
 export const Grid = ({
   children,
+  className,
   cols = 1,
   sm,
   md,
@@ -27,12 +29,7 @@ export const Grid = ({
   const gapSize = gap ? `gap-${gap}` : ''
 
   const responsive = `${small} ${medium} ${large} ${extraLarge} ${extraExtraLarge} ${gapSize}`
+  const classes = `grid grid-cols-${cols} ${responsive} w-full ${className || ''}`
 
-  return (
-    <>
-      <div className={`grid grid-cols-${cols} ${responsive} w-full`}>
-        {children}
-      </div>
-    </>
-  )
+  return <div className={classes.trim()}>{children}</div>
 }
