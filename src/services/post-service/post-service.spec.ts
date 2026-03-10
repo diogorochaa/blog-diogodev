@@ -57,7 +57,7 @@ const loadPostService = async ({
     createClient: () => ({ getAllByType }),
   }))
 
-  const { PostService } = await import('./PostService')
+  const { PostService } = await import('./post-service')
 
   return { PostService, getAllByType }
 }

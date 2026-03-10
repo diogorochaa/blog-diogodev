@@ -2,9 +2,9 @@ import { cache } from 'react'
 
 import * as prismic from '@prismicio/client'
 
-import { paginationPosts } from '@/functions'
 import { BlogPost } from '@/models'
 import { createClient, hasPrismicConfig } from '@/prismicio'
+import { paginationPosts } from '@/utils'
 
 type GetPostAllParams = {
   limit?: number

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 import { siteConfig } from '@/config'
-import { paginationPages } from '@/functions'
 import { PostService } from '@/services'
+import { paginationPages } from '@/utils'
 
 import { Reveal } from '@/components/Motion'
 import { Pagination } from '@/components/Pagination'

@@ -1,4 +1,4 @@
-import { formatDate } from '@/functions'
+import { formatDate } from '@/utils'
 import NextLink from 'next/link'
 
 import { AnimatedCover } from '@/components/AnimatedCover'

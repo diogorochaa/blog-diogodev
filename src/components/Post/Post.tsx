@@ -1,4 +1,4 @@
-import { formatDate } from '@/functions'
+import { formatDate } from '@/utils'
 
 import { AnimatedCover } from '@/components/AnimatedCover'
 import { Mdx } from '@/components/Mdx'
