@@ -1,8 +1,4 @@
-import { HTMLAttributes } from 'react'
-
-type ListProps = HTMLAttributes<HTMLUListElement> & {
-  children: React.ReactNode
-}
+import type { ListProps } from './List.types'
 
 export const List = ({ children, ...rest }: ListProps) => {
   const { className, ...props } = rest

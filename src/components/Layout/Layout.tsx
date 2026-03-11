@@ -1,6 +1,4 @@
-type LayoutProps = {
-  children: React.ReactNode
-}
+import type { LayoutProps } from './Layout.types'
 
 export const Layout = ({ children }: LayoutProps) => {
   return (

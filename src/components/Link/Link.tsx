@@ -1,8 +1,4 @@
-import { AnchorHTMLAttributes } from 'react'
-
-type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  children: React.ReactNode
-}
+import type { LinkProps } from './Link.types'
 
 export const Link = ({ children, href, className, ...rest }: LinkProps) => {
   return (

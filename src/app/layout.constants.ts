@@ -1,0 +1,82 @@
+import type { Metadata } from 'next'
+import { Manrope, Sora } from 'next/font/google'
+
+import { siteConfig } from '@/config'
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-manrope',
+})
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-sora',
+})
+
+const OG_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+
+export const rootHtmlClassName = `${manrope.variable} ${sora.variable} scroll-smooth`
+
+export const prismicScriptSrc =
+  'https://static.cdn.prismic.io/prismic.js?new=true&repo=blog-diodev'
+
+export const rootMetadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    template: `%s | ${siteConfig.name}`,
+    default: siteConfig.name,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  alternates: {
+    canonical: '/',
+  },
+  keywords: [
+    'desenvolvimento web',
+    'next.js',
+    'typescript',
+    'prismic',
+    'frontend',
+    'backend',
+  ],
+  authors: [{ name: 'Diogo Rocha', url: siteConfig.url }],
+  creator: 'Diogo Rocha',
+  publisher: 'Diogo Rocha',
+  category: 'Tecnologia',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    creator: '@diogodev_',
+    images: [OG_IMAGE],
+  },
+}

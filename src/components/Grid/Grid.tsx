@@ -1,14 +1,4 @@
-type GridProps = {
-  children: React.ReactNode
-  className?: string
-  cols?: number
-  sm?: number
-  md?: number
-  lg?: number
-  xl?: number
-  xxl?: number
-  gap?: number
-}
+import type { GridProps } from './Grid.types'
 
 export const Grid = ({
   children,

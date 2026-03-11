@@ -1,6 +1,6 @@
 import { NoteIcon, TipIcon, WarningIcon } from '@/components/Icons'
 
-type NoteTypes = 'warning' | 'tip' | 'note'
+import type { NoteProps } from './Note.types'
 
 const Icons = {
   note: <NoteIcon size={26} />,
@@ -27,11 +27,6 @@ const ColorClasses = {
     container: 'bg-green-400/30',
     text: 'text-green-400',
   },
-}
-
-type NoteProps = {
-  children: React.ReactNode
-  type?: NoteTypes
 }
 
 export const Note = ({ children, type = 'note' }: NoteProps) => {

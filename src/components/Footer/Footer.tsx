@@ -7,11 +7,7 @@ import { List, ListItem } from '@/components/List'
 import { Logo } from '@/components/Logo'
 import { SocialMedia } from '@/components/SocialMedia'
 
-import { LocalNavItem } from '@/models'
-
-type FooterProps = {
-  items: LocalNavItem[]
-}
+import type { FooterProps } from './Footer.types'
 
 export const Footer = ({ items }: FooterProps) => {
   const fullYear = getCurrentYear()

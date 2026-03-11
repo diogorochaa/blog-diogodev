@@ -1,41 +1,33 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { siteConfig } from '@/config'
-import { PostService } from '@/services'
 import { paginationPages } from '@/utils'
 
-import { Reveal } from '@/components/Motion'
-import { Pagination } from '@/components/Pagination'
-import { PostsList } from '@/components/PostsList'
-
-const METADATA_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+import { PagedPostsContent } from './PagedPostsContent'
+import {
+  buildPagedPostsMetadata,
+  getPagedPosts,
+  getPagedPostsStaticParams,
+  parseCurrentPage,
+} from './page.data'
 
 export async function generateStaticParams() {
-  const { numbPages } = await PostService.getAll()
-
-  if (numbPages <= 1) {
-    return []
-  }
-
-  return Array.from({ length: numbPages - 1 }, (_, index) => ({
-    page: String(index + 2),
-  }))
+  return await getPagedPostsStaticParams()
 }
 
 export async function generateMetadata({
   params,
 }: PageProps<'/page/[page]'>): Promise<Metadata> {
   const { page } = await params
-  const currentPage = Number(page)
+  const currentPage = parseCurrentPage(page)
 
-  if (Number.isNaN(currentPage) || currentPage < 2) {
+  if (!currentPage) {
     return {
       title: 'Página não encontrada',
     }
   }
 
-  const { posts } = await PostService.getAll({ currentPage })
+  const { posts } = await getPagedPosts(currentPage)
 
   if (!posts.length) {
     return {
@@ -43,65 +35,41 @@ export async function generateMetadata({
     }
   }
 
-  return {
-    title: `Página ${currentPage}`,
-    description: `Página ${currentPage} com os posts mais recentes do blog.`,
-    alternates: {
-      canonical: `/page/${page}`,
-    },
-    openGraph: {
-      type: 'website',
-      url: `${siteConfig.url}/page/${page}`,
-      title: 'Página ' + currentPage,
-      description: `Página ${currentPage} com os posts mais recentes do blog.`,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: METADATA_IMAGE,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: posts[0].frontmatter.title,
-      description: posts[0].frontmatter.description,
-      images: [METADATA_IMAGE],
-    },
-  }
+  const title = `Página ${currentPage}`
+  const description = `Página ${currentPage} com os posts mais recentes do blog.`
+
+  return buildPagedPostsMetadata({
+    currentPage,
+    page,
+    title,
+    description,
+  })
 }
 
 export default async function Page({ params }: PageProps<'/page/[page]'>) {
   const { page } = await params
-  const currentPage = Number(page)
+  const currentPage = parseCurrentPage(page)
 
-  if (Number.isNaN(currentPage) || currentPage < 2) {
+  if (!currentPage) {
     notFound()
   }
 
-  const { posts, numbPages, totalPosts, postsPerPage } =
-    await PostService.getAll({ currentPage })
+  const { posts, numbPages, totalPosts, postsPerPage } = await getPagedPosts(
+    currentPage,
+  )
   const { prevPage, nextPage } = paginationPages(currentPage)
 
   if (!posts.length) {
     notFound()
   }
 
-  return (
-    <div>
-      <Reveal y={16}>
-        <PostsList posts={posts} showMain={false} />
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <Pagination
-          currentPage={currentPage}
-          numbPages={numbPages}
-          totalPosts={totalPosts}
-          postsPerPage={postsPerPage}
-          prevPage={prevPage}
-          nextPage={nextPage}
-        />
-      </Reveal>
-    </div>
-  )
+  return <PagedPostsContent
+    posts={posts}
+    currentPage={currentPage}
+    numbPages={numbPages}
+    totalPosts={totalPosts}
+    postsPerPage={postsPerPage}
+    prevPage={prevPage}
+    nextPage={nextPage}
+  />
 }

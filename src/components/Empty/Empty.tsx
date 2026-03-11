@@ -1,6 +1,4 @@
-type EmptyProps = {
-  children: React.ReactNode
-}
+import type { EmptyProps } from './Empty.types'
 
 export const Empty = ({ children }: EmptyProps) => {
   return (

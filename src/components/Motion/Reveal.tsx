@@ -1,16 +1,8 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { ReactNode } from 'react'
 
-type RevealProps = {
-  children: ReactNode
-  className?: string
-  delay?: number
-  duration?: number
-  y?: number
-  once?: boolean
-}
+import type { RevealProps } from './Reveal.types'
 
 export const Reveal = ({
   children,

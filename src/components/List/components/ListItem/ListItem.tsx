@@ -1,8 +1,4 @@
-import { LiHTMLAttributes } from 'react'
-
-type ListItemProps = LiHTMLAttributes<HTMLLIElement> & {
-  children: React.ReactNode
-}
+import type { ListItemProps } from './ListItem.types'
 
 export const ListItem = ({ children, ...rest }: ListItemProps) => {
   const { className, ...props } = rest

@@ -1,9 +1,6 @@
 import { CloseIcon, OpenIcon } from '@/components/Icons'
 
-type ToggleButtonProps = {
-  isOpenMenu: boolean
-  handleToggleMenu: () => void
-}
+import type { ToggleButtonProps } from './ToggleButton.types'
 
 export const ToggleButton = ({
   isOpenMenu = false,

@@ -2,11 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 
-import { SiteType } from '@/models'
-
-type ProfileProps = {
-  items: SiteType
-}
+import type { ProfileProps } from './Profile.types'
 
 export const Profile = ({ items }: ProfileProps) => {
   const prefersReducedMotion = useReducedMotion()

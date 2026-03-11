@@ -10,7 +10,7 @@ import {
   TerminalWindow,
 } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { type ReactNode, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Bar,
   BarChart,
@@ -24,17 +24,11 @@ import {
 
 import { formatYears, getCurrentYear, getYearsSince } from '@/utils'
 
-type Category = 'frontend' | 'backend'
-
-type ExperienceMeta = {
-  name: string
-  startYear: number
-  color: string
-  category: Category
-  icon: ReactNode
-}
-
-type ExperienceItem = ExperienceMeta & { years: number }
+import type {
+  Category,
+  ExperienceItem,
+  ExperienceMeta,
+} from './AboutExperience.types'
 
 const CATEGORY_COLORS: Record<Category, string> = {
   frontend: '#22d3ee',

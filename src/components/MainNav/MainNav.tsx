@@ -5,14 +5,11 @@ import { usePathname } from 'next/navigation'
 
 import { List, ListItem } from '@/components/List'
 
-import { LocalNavItem } from '@/models'
+import type { LocalNavItem } from '@/models'
 
 import { ToggleButton } from './components'
 import { useMainNav } from './hooks'
-
-type MainNavProps = {
-  items: LocalNavItem[]
-}
+import type { MainNavProps } from './MainNav.types'
 
 export const MainNav = ({ items }: MainNavProps) => {
   const { isOpenMenu, handleToggleMenu, closeMenu } = useMainNav()

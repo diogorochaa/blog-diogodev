@@ -6,12 +6,9 @@ import NextLink from 'next/link'
 import { AnimatedCover } from '@/components/AnimatedCover'
 import { Tag } from '@/components/Tag'
 
-import { BlogPost } from '@/models'
+import type { PostCardProps } from './PostCard.types'
 
-export type PostCardProps = {
-  post: BlogPost
-  isMain?: boolean
-}
+export type { PostCardProps } from './PostCard.types'
 
 export const PostCard = ({ post, isMain = false }: PostCardProps) => {
   const { frontmatter, readingTime, slug } = post

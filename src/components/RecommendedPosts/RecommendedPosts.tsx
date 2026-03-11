@@ -1,11 +1,7 @@
-import { BlogPost } from '@/models'
-
 import { Grid } from '@/components/Grid'
 import { PostCard } from '@/components/PostCard'
 
-type RecommendedPostsProps = {
-  posts: BlogPost[]
-}
+import type { RecommendedPostsProps } from './RecommendedPosts.types'
 
 export const RecommendedPosts = ({ posts }: RecommendedPostsProps) => {
   const postsRecommended = posts.slice(0, 2)

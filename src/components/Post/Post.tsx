@@ -3,13 +3,8 @@ import { formatDate } from '@/utils'
 import { AnimatedCover } from '@/components/AnimatedCover'
 import { Mdx } from '@/components/Mdx'
 
-import { BlogPost } from '@/models'
-
 import { BackButton } from './components'
-
-type PostProps = {
-  post: BlogPost
-}
+import type { PostProps } from './Post.types'
 
 export const Post = ({ post }: PostProps) => {
   const { body, frontmatter, readingTime } = post

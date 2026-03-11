@@ -2,10 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion'
 
-type AnimatedCoverProps = {
-  className?: string
-  compact?: boolean
-}
+import type { AnimatedCoverProps } from './AnimatedCover.types'
 
 export const AnimatedCover = ({
   className = '',

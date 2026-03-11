@@ -2,12 +2,7 @@ import { Grid } from '@/components/Grid'
 import { Reveal } from '@/components/Motion'
 import { PostCard } from '@/components/PostCard'
 
-import { BlogPost } from '@/models'
-
-type PostsListProps = {
-  posts: BlogPost[]
-  showMain?: boolean
-}
+import type { PostsListProps } from './PostsList.types'
 
 export const PostsList = ({ posts, showMain = true }: PostsListProps) => {
   const firstPost = showMain ? posts[0] : undefined

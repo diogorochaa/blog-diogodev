@@ -3,6 +3,7 @@ import { JSXMapSerializer, PrismicRichText } from '@prismicio/react'
 
 import '../../../styles/mdx.css'
 import { Note } from './components'
+import type { MdxProps } from './Mdx.types'
 
 const getRichTextLinkProps = (linkField: prismic.LinkField) => {
   const href = prismic.asLink(linkField) || '#'
@@ -88,10 +89,6 @@ const components: JSXMapSerializer = {
 
     return <span>{children}</span>
   },
-}
-
-type MdxProps = {
-  field: prismic.RichTextField
 }
 
 export const Mdx = ({ field = [] }: MdxProps) => {

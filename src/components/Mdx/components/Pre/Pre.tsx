@@ -1,9 +1,4 @@
-import { HTMLAttributes } from 'react'
-
-type PreProps = HTMLAttributes<HTMLPreElement> & {
-  children: React.ReactNode
-  'data-language'?: string
-}
+import type { PreProps } from './Pre.types'
 
 export const Pre = ({ children, ...props }: PreProps) => {
   const lang = `.${props['data-language'] ?? 'shell'}`

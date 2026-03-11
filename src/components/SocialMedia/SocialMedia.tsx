@@ -1,10 +1,6 @@
 import { List, ListItem } from '@/components/List'
 
-import { NavItem } from '@/models'
-
-type SocialMediaProps = {
-  items: NavItem[]
-}
+import type { SocialMediaProps } from './SocialMedia.types'
 
 export const SocialMedia = ({ items }: SocialMediaProps) => {
   return (

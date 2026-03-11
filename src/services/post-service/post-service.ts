@@ -6,18 +6,7 @@ import { BlogPost } from '@/models'
 import { createClient, hasPrismicConfig } from '@/prismicio'
 import { paginationPosts } from '@/utils'
 
-type GetPostAllParams = {
-  limit?: number
-  currentPage?: number
-}
-
-type PrismicPostData = {
-  title?: unknown
-  description?: unknown
-  content?: unknown
-  date?: string | null
-  tags?: unknown
-}
+import type { GetPostAllParams, PrismicPostData } from './post-service.types'
 
 const WORDS_PER_MINUTE = 200
 let hasWarnedMissingPrismicConfig = false

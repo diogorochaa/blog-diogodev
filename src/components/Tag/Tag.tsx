@@ -1,7 +1,6 @@
-export type TagProps = {
-  children: React.ReactNode
-  size?: 'xs' | 'sm' | 'md' | 'lg'
-}
+import type { TagProps } from './Tag.types'
+
+export type { TagProps } from './Tag.types'
 
 const sizeClasses = {
   xs: 'text-xs',
