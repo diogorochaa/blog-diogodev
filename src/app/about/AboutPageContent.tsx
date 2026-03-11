@@ -5,8 +5,6 @@ import { AboutPageContentProps } from './about.types'
 
 export const AboutPageContent = ({
   personJsonLd,
-  introText,
-  yearsOfExperienceLabel,
   publicRepos,
   followers,
   repos,
@@ -37,11 +35,6 @@ export const AboutPageContent = ({
             É um prazer te receber no meu blog! <br />
             Espero que meus artigos possam te ajudar de alguma forma, e se você
             tem alguma sugestão, me envie uma mensagem!
-          </p>
-
-          <p className="text-sm leading-relaxed text-gray-400 sm:text-base md:text-lg">
-            Atuo com desenvolvimento há {yearsOfExperienceLabel}, com foco em
-            frontend, performance e acessibilidade.
           </p>
 
           <div className="mt-3 grid grid-cols-1 gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4">

@@ -17,8 +17,6 @@ export type PersonJsonLd = {
 
 export type AboutPageContentProps = {
   personJsonLd: PersonJsonLd
-  introText: string
-  yearsOfExperienceLabel: string
   publicRepos: number
   followers: number
   repos: Repo[]
