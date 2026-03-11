@@ -22,6 +22,8 @@ import {
   YAxis,
 } from 'recharts'
 
+import { formatYears, getCurrentYear, getYearsSince } from '@/utils'
+
 type Category = 'frontend' | 'backend'
 
 type ExperienceMeta = {
@@ -94,21 +96,24 @@ const experienceMeta: ExperienceMeta[] = [
 export const AboutExperience = () => {
   const prefersReducedMotion = useReducedMotion()
   const [canRenderCharts, setCanRenderCharts] = useState(false)
+  const currentYear = getCurrentYear()
 
   useEffect(() => {
-    setCanRenderCharts(
-      typeof window !== 'undefined' &&
-        typeof window.ResizeObserver !== 'undefined',
-    )
+    const animationFrame = window.requestAnimationFrame(() => {
+      setCanRenderCharts(typeof window.ResizeObserver !== 'undefined')
+    })
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+    }
   }, [])
 
   const experience = useMemo<ExperienceItem[]>(() => {
-    const currentYear = new Date().getFullYear()
     return experienceMeta.map((item) => ({
       ...item,
-      years: currentYear - item.startYear,
+      years: getYearsSince(item.startYear, currentYear),
     }))
-  }, [])
+  }, [currentYear])
 
   const totalYears = useMemo(
     () => experience.reduce((acc, item) => acc + item.years, 0),
@@ -153,7 +158,7 @@ export const AboutExperience = () => {
           </div>
 
           <div className="rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 px-4 py-2 text-sm text-accent-cyan">
-            {totalYears} anos somados de experiência
+            {formatYears(totalYears)} somados de experiência
           </div>
         </div>
 
@@ -186,7 +191,7 @@ export const AboutExperience = () => {
                 </div>
 
                 <p className="mt-3 text-2xl font-bold text-accent-cyan">
-                  {item.years} anos
+                  {formatYears(item.years)}
                 </p>
 
                 <div className="mt-3 h-2 overflow-hidden rounded-full bg-secondary">
@@ -198,8 +203,8 @@ export const AboutExperience = () => {
                       prefersReducedMotion
                         ? undefined
                         : {
-                            width: `${Math.min((item.years / 15) * 100, 100)}%`,
-                          }
+                          width: `${Math.min((item.years / 15) * 100, 100)}%`,
+                        }
                     }
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.7, delay: 0.08 + index * 0.05 }}
@@ -252,10 +257,7 @@ export const AboutExperience = () => {
                         borderRadius: '12px',
                       }}
                       labelStyle={{ color: '#f8fafc' }}
-                      formatter={(value) => [
-                        `${Number(value)} anos`,
-                        'Experiência',
-                      ]}
+                      formatter={(value) => [formatYears(Number(value)), 'Experiência']}
                     />
                     <Bar
                       dataKey="years"
@@ -279,7 +281,7 @@ export const AboutExperience = () => {
                           backgroundColor: item.color,
                         }}
                       >
-                        {item.name} · {item.years}y
+                        {item.name} · {formatYears(item.years)}
                       </div>
                     </div>
                   ))}
@@ -341,7 +343,7 @@ export const AboutExperience = () => {
                       }}
                       labelStyle={{ color: '#f8fafc' }}
                       formatter={(value, _name, props) => [
-                        `${Number(value)} anos`,
+                        formatYears(Number(value)),
                         props.payload?.category === 'frontend'
                           ? 'Frontend'
                           : 'Backend',
@@ -379,10 +381,10 @@ export const AboutExperience = () => {
                       </div>
                       <div className="text-right text-sm">
                         <p className="font-bold text-white">
-                          {cat.total} anos total
+                          {formatYears(cat.total)} total
                         </p>
                         <p className="text-gray-400">
-                          ~{cat.media} anos de média
+                          ~{formatYears(cat.media)} de média
                         </p>
                       </div>
                     </div>

@@ -21,6 +21,40 @@ type PrismicPostData = {
 
 const WORDS_PER_MINUTE = 200
 let hasWarnedMissingPrismicConfig = false
+let hasWarnedPrismicNetworkFailure = false
+
+const postQuery = {
+  orderings: [
+    {
+      field: 'my.post.date',
+      direction: 'desc' as const,
+    },
+  ],
+}
+
+const isPrismicNetworkError = (error: unknown) => {
+  if (!(error instanceof Error)) {
+    return false
+  }
+
+  return /timeout|connect|fetch|econn|enotfound|eai_again/i.test(
+    `${error.name} ${error.message}`,
+  )
+}
+
+const getDocumentsWithRetry = async (
+  client: ReturnType<typeof createClient>,
+) => {
+  try {
+    return await client.getAllByType('post', postQuery)
+  } catch (firstError) {
+    if (!isPrismicNetworkError(firstError)) {
+      throw firstError
+    }
+
+    return await client.getAllByType('post', postQuery)
+  }
+}
 
 const normalizeTags = (dataTags: unknown, documentTags: string[]) => {
   if (documentTags.length > 0) {
@@ -80,14 +114,26 @@ const getAllPosts = cache(async (): Promise<BlogPost[]> => {
   }
 
   const client = createClient()
-  const documents = await client.getAllByType('post', {
-    orderings: [
-      {
-        field: 'my.post.date',
-        direction: 'desc',
-      },
-    ],
-  })
+  let documents: prismic.PrismicDocument[]
+
+  try {
+    documents = await getDocumentsWithRetry(client)
+  } catch (error) {
+    if (!isPrismicNetworkError(error)) {
+      throw error
+    }
+
+    if (!hasWarnedPrismicNetworkFailure) {
+      hasWarnedPrismicNetworkFailure = true
+      const reason =
+        error instanceof Error ? `${error.name}: ${error.message}` : 'unknown'
+      console.warn(
+        `Unable to reach Prismic. Returning an empty post list for now. (${reason})`,
+      )
+    }
+
+    return []
+  }
 
   return documents.map(toBlogPost)
 })

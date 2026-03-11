@@ -48,7 +48,6 @@ export const metadata: Metadata = {
   creator: 'Diogo Rocha',
   publisher: 'Diogo Rocha',
   category: 'Tecnologia',
-  themeColor: '#0a0a0f',
   robots: {
     index: true,
     follow: true,
@@ -93,6 +92,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      data-scroll-behavior="smooth"
       className={`${manrope.variable} ${sora.variable} scroll-smooth`}
     >
       <body className="bg-primary font-sans text-gray-100">

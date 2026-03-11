@@ -7,10 +7,6 @@ import { PostService } from '@/services'
 import { Reveal } from '@/components/Motion'
 import { Post } from '@/components/Post'
 
-type PostPageProps = {
-  params: { slug: string }
-}
-
 const METADATA_IMAGE = `${siteConfig.url}/assets/images/logo.png`
 
 export async function generateStaticParams() {
@@ -23,8 +19,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PostPageProps): Promise<Metadata> {
-  const { slug } = params
+}: PageProps<'/[slug]'>): Promise<Metadata> {
+  const { slug } = await params
   const post = await PostService.getBySlug(slug)
 
   if (!post) {
@@ -61,8 +57,9 @@ export async function generateMetadata({
   }
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const post = await PostService.getBySlug(params.slug)
+export default async function PostPage({ params }: PageProps<'/[slug]'>) {
+  const { slug } = await params
+  const post = await PostService.getBySlug(slug)
 
   if (!post) {
     notFound()

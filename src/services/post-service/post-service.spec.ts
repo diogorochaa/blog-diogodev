@@ -35,13 +35,15 @@ const makePrismicDoc = ({
 const loadPostService = async ({
   hasConfig,
   documents,
+  getAllByTypeMock,
 }: {
   hasConfig: boolean
   documents: ReturnType<typeof makePrismicDoc>[]
+  getAllByTypeMock?: ReturnType<typeof vi.fn>
 }) => {
   vi.resetModules()
 
-  const getAllByType = vi.fn().mockResolvedValue(documents)
+  const getAllByType = getAllByTypeMock ?? vi.fn().mockResolvedValue(documents)
 
   vi.doMock('react', async () => {
     const actual = await vi.importActual<typeof import('react')>('react')
@@ -153,6 +155,65 @@ describe('PostService', () => {
     expect(result.numbPages).toBe(1)
     expect(result.totalPosts).toBe(0)
     expect(result.postsPerPage).toBe(10)
+
+    warnSpy.mockRestore()
+  })
+
+  it('retries once when Prismic request times out and then succeeds', async () => {
+    const docs = [
+      makePrismicDoc({
+        id: '1',
+        uid: 'post-1',
+        date: '2024-01-01',
+        content: 'word '.repeat(30),
+      }),
+    ]
+
+    const getAllByType = vi
+      .fn()
+      .mockRejectedValueOnce(
+        new Error('ConnectTimeoutError: Connect Timeout Error'),
+      )
+      .mockResolvedValueOnce(docs)
+
+    const { PostService } = await loadPostService({
+      hasConfig: true,
+      documents: docs,
+      getAllByTypeMock: getAllByType,
+    })
+
+    const result = await PostService.getAll()
+
+    expect(getAllByType).toHaveBeenCalledTimes(2)
+    expect(result.totalPosts).toBe(1)
+    expect(result.posts[0].slug).toBe('post-1')
+  })
+
+  it('returns empty list when Prismic keeps failing with network errors', async () => {
+    const warnSpy = vi
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined)
+
+    const getAllByType = vi
+      .fn()
+      .mockRejectedValue(
+        new Error('ConnectTimeoutError: Connect Timeout Error'),
+      )
+
+    const { PostService } = await loadPostService({
+      hasConfig: true,
+      documents: [],
+      getAllByTypeMock: getAllByType,
+    })
+
+    const result = await PostService.getAll()
+
+    expect(getAllByType).toHaveBeenCalledTimes(2)
+    expect(result.posts).toEqual([])
+    expect(result.totalPosts).toBe(0)
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Unable to reach Prismic'),
+    )
 
     warnSpy.mockRestore()
   })

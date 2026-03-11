@@ -9,10 +9,6 @@ import { Reveal } from '@/components/Motion'
 import { Pagination } from '@/components/Pagination'
 import { PostsList } from '@/components/PostsList'
 
-type PageProps = {
-  params: { page: string }
-}
-
 const METADATA_IMAGE = `${siteConfig.url}/assets/images/logo.png`
 
 export async function generateStaticParams() {
@@ -29,8 +25,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
-  const currentPage = Number(params.page)
+}: PageProps<'/page/[page]'>): Promise<Metadata> {
+  const { page } = await params
+  const currentPage = Number(page)
 
   if (Number.isNaN(currentPage) || currentPage < 2) {
     return {
@@ -50,11 +47,11 @@ export async function generateMetadata({
     title: `Página ${currentPage}`,
     description: `Página ${currentPage} com os posts mais recentes do blog.`,
     alternates: {
-      canonical: `/page/${params.page}`,
+      canonical: `/page/${page}`,
     },
     openGraph: {
       type: 'website',
-      url: `${siteConfig.url}/page/${params.page}`,
+      url: `${siteConfig.url}/page/${page}`,
       title: 'Página ' + currentPage,
       description: `Página ${currentPage} com os posts mais recentes do blog.`,
       siteName: siteConfig.name,
@@ -73,8 +70,9 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({ params }: PageProps) {
-  const currentPage = Number(params.page)
+export default async function Page({ params }: PageProps<'/page/[page]'>) {
+  const { page } = await params
+  const currentPage = Number(page)
 
   if (Number.isNaN(currentPage) || currentPage < 2) {
     notFound()

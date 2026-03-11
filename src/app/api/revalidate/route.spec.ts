@@ -18,7 +18,7 @@ describe('POST /api/revalidate', () => {
     const response = await POST()
     const payload = await response.json()
 
-    expect(revalidateTagMock).toHaveBeenCalledWith('prismic')
+    expect(revalidateTagMock).toHaveBeenCalledWith('prismic', 'max')
     expect(payload.revalidated).toBe(true)
     expect(typeof payload.now).toBe('number')
   })

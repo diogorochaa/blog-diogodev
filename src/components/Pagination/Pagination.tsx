@@ -1,3 +1,5 @@
+import type { Route } from 'next'
+
 import NextLink from 'next/link'
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@/components/Icons'
@@ -7,8 +9,8 @@ type PaginationProps = {
   numbPages: number
   totalPosts: number
   postsPerPage: number
-  prevPage: string
-  nextPage: string
+  prevPage: Route
+  nextPage: Route
 }
 
 export const Pagination = ({

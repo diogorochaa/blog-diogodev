@@ -1,10 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { formatYears, getYearsSince } from '@/utils'
+
 import AboutPage from './page'
 
 describe('/about page', () => {
   const fetchMock = vi.fn()
+  const yearsOfExperienceLabel = formatYears(getYearsSince(2019))
 
   beforeEach(() => {
     vi.stubGlobal('fetch', fetchMock)
@@ -49,6 +52,11 @@ describe('/about page', () => {
     expect(screen.getByText('Sobre mim')).toBeInTheDocument()
     expect(screen.getByText('repo-teste')).toBeInTheDocument()
     expect(screen.getByText('Bio de teste')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        new RegExp(`Atuo com desenvolvimento há ${yearsOfExperienceLabel}`, 'i'),
+      ),
+    ).toBeInTheDocument()
   })
 
   it('uses fallback text when github requests fail', async () => {

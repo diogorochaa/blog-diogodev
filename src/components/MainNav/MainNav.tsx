@@ -5,20 +5,20 @@ import { usePathname } from 'next/navigation'
 
 import { List, ListItem } from '@/components/List'
 
-import { NavItem } from '@/models'
+import { LocalNavItem } from '@/models'
 
 import { ToggleButton } from './components'
 import { useMainNav } from './hooks'
 
 type MainNavProps = {
-  items: NavItem[]
+  items: LocalNavItem[]
 }
 
 export const MainNav = ({ items }: MainNavProps) => {
   const { isOpenMenu, handleToggleMenu, closeMenu } = useMainNav()
   const pathname = usePathname() || '/'
 
-  const isActive = (href: string) => {
+  const isActive = (href: LocalNavItem['href']) => {
     if (href === '/') {
       return pathname === '/'
     }

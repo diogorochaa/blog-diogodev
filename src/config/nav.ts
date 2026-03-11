@@ -1,6 +1,6 @@
-import { MainNavType } from '@/models'
+import { LocalMainNavType } from '@/models'
 
-export const mainNavConfig: MainNavType = {
+export const mainNavConfig: LocalMainNavType = {
   mainNav: [
     {
       title: 'Home',

@@ -1,3 +1,5 @@
+import type { Route } from 'next'
+
 import { formatDate } from '@/utils'
 import NextLink from 'next/link'
 
@@ -16,6 +18,7 @@ export const PostCard = ({ post, isMain = false }: PostCardProps) => {
   const { title, description, date, tags } = frontmatter
 
   const formattedDate = formatDate(date)
+  const postPath = `/${slug}` as Route
 
   return (
     <NextLink
@@ -25,7 +28,7 @@ export const PostCard = ({ post, isMain = false }: PostCardProps) => {
       ]
         .filter(Boolean)
         .join(' ')}
-      href={slug}
+      href={postPath}
     >
       <div
         className={[

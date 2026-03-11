@@ -1,19 +1,20 @@
 import Link from 'next/link'
 
 import { siteConfig, socialLinkConfig } from '@/config'
+import { getCurrentYear } from '@/utils'
 
 import { List, ListItem } from '@/components/List'
 import { Logo } from '@/components/Logo'
 import { SocialMedia } from '@/components/SocialMedia'
 
-import { NavItem } from '@/models'
+import { LocalNavItem } from '@/models'
 
 type FooterProps = {
-  items: NavItem[]
+  items: LocalNavItem[]
 }
 
 export const Footer = ({ items }: FooterProps) => {
-  const fullYear = new Date().getFullYear()
+  const fullYear = getCurrentYear()
 
   return (
     <footer className="mt-14 flex flex-col border-t border-accent-purple/30 bg-secondary/50 pb-8 pt-8 backdrop-blur-sm animate-soft-in sm:mt-20 sm:pt-10">

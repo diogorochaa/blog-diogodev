@@ -4,16 +4,16 @@ Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 
 ## Stack
 
-- Next.js 13
-- React 18
+- Next.js 16
+- React 19
 - TypeScript
 - Tailwind CSS
 - Prismic (CMS)
 
 ## Requisitos
 
-- Node.js 18+
-- npm 9+
+- Node.js 24+
+- npm 10+
 
 ## Configuracao do Prismic
 
@@ -56,6 +56,8 @@ npm run lint
 npm run format:check
 npm run test:run
 ```
+
+`npm run typecheck` executa `next typegen` antes do TypeScript para manter os tipos do App Router atualizados no Next 16.
 
 Para rodar tudo de uma vez:
 

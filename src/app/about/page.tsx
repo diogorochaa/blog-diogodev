@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { siteConfig } from '@/config'
+import { formatYears, getYearsSince } from '@/utils'
 
 import { AboutExperience } from '@/components/AboutExperience'
 import { Reveal } from '@/components/Motion'
@@ -101,6 +102,7 @@ export default async function AboutPage() {
 
   const displayLocation = location || 'Brasil'
   const displayName = name || 'Diogo Rocha'
+  const yearsOfExperienceLabel = formatYears(getYearsSince(2019))
 
   const personJsonLd = {
     '@context': 'https://schema.org',
@@ -146,8 +148,13 @@ export default async function AboutPage() {
           </h2>
 
           <p className="text-base leading-relaxed text-gray-300 sm:text-lg md:text-xl">
-            {bio ||
-              `É um prazer te receber no meu blog! Atualmente trabalho ${company ? `no ${company}` : 'como desenvolvedor'} e moro em ${displayLocation}. Espero que meus artigos possam te ajudar de alguma forma, e se você tem alguma sugestão, me envie uma mensagem!`}
+            É um prazer te receber no meu blog! <br />
+            Espero que meus artigos possam te ajudar de alguma forma, e se você tem alguma sugestão, me envie uma mensagem!
+          </p>
+
+          <p className="text-sm leading-relaxed text-gray-400 sm:text-base md:text-lg">
+            Atuo com desenvolvimento há {yearsOfExperienceLabel}, com foco em
+            frontend, performance e acessibilidade.
           </p>
 
           <div className="mt-3 grid grid-cols-1 gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4">
@@ -169,7 +176,7 @@ export default async function AboutPage() {
             </div>
           </div>
         </div>
-      </Reveal>
+      </Reveal >
 
       <Reveal delay={0.1} y={18}>
         <AboutExperience />
@@ -225,6 +232,6 @@ export default async function AboutPage() {
           </div>
         </div>
       </Reveal>
-    </div>
+    </div >
   )
 }
