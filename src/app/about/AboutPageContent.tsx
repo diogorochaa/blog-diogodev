@@ -40,10 +40,6 @@ export const AboutPageContent = ({
           </p>
 
           <p className="text-sm leading-relaxed text-gray-400 sm:text-base md:text-lg">
-            {introText}
-          </p>
-
-          <p className="text-sm leading-relaxed text-gray-400 sm:text-base md:text-lg">
             Atuo com desenvolvimento há {yearsOfExperienceLabel}, com foco em
             frontend, performance e acessibilidade.
           </p>
