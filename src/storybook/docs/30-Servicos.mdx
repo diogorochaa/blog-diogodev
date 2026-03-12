@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Docs/Servicos" />
+
+# Servicos e contratos
+
+## Servico principal
+
+### `PostService`
+
+Arquivo: `src/services/post-service/post-service.ts`
+
+Metodos publicos:
+
+- `getAll({ limit = 10, currentPage = 1 })`
+- `getBySlug(slug: string)`
+- `getAllSlugs()`
+
+Barrel de export:
+
+- `src/services/post-service/index.ts`
+- `src/services/index.ts`
+
+## Contratos de tipo
+
+Arquivo: `src/services/post-service/post-service.types.ts`
+
+- `GetPostAllParams`
+  - `limit?: number`
+  - `currentPage?: number`
+- `PrismicPostData`
+  - `title?: unknown`
+  - `description?: unknown`
+  - `content?: unknown`
+  - `date?: string | null`
+  - `tags?: unknown`
+
+## Comportamento importante de resiliencia
+
+- Cache de leitura em `getAllPosts` usando `react cache`
+- Retry unico para falhas de rede em chamadas ao Prismic
+- Fallback para lista vazia quando:
+  - configuracao Prismic nao existe (`PRISMIC_REPOSITORY_NAME` ausente)
+  - falha de rede com timeout/conexao
+- Warnings de console emitidos uma unica vez por tipo de falha para reduzir ruido
+
+## Transformacoes feitas no servico
+
+- Conversao `PrismicDocument` -> `BlogPost`
+- Normalizacao de tags com fallback para `document.tags`
+- Calculo de tempo de leitura com base em 200 palavras/minuto
+- Paginacao local via utilitario `paginationPosts`
+
+## Exemplo de uso
+
+```ts
+import { PostService } from '@/services'
+
+const { posts, currentPage, numbPages } = await PostService.getAll({
+  limit: 10,
+  currentPage: 1,
+})
+
+const post = await PostService.getBySlug('meu-slug')
+const slugs = await PostService.getAllSlugs()
+```

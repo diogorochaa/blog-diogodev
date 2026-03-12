@@ -1,13 +1,25 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { formatYears, getYearsSince } from '@/utils'
-
 import AboutPage from './page'
+
+function getPersonJsonLdDescription() {
+  const scripts = document.querySelectorAll('script[type="application/ld+json"]')
+  const script = scripts.item(scripts.length - 1)
+
+  if (!script?.textContent) {
+    throw new Error('Expected person JSON-LD script to be rendered')
+  }
+
+  const personJsonLd = JSON.parse(script.textContent) as {
+    description?: string
+  }
+
+  return personJsonLd.description
+}
 
 describe('/about page', () => {
   const fetchMock = vi.fn()
-  const yearsOfExperienceLabel = formatYears(getYearsSince(2019))
 
   beforeEach(() => {
     vi.stubGlobal('fetch', fetchMock)
@@ -50,13 +62,9 @@ describe('/about page', () => {
     render(await AboutPage())
 
     expect(screen.getByText('Sobre mim')).toBeInTheDocument()
+    expect(screen.getByText('Experiência Técnica')).toBeInTheDocument()
     expect(screen.getByText('repo-teste')).toBeInTheDocument()
-    expect(screen.getByText('Bio de teste')).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        new RegExp(`Atuo com desenvolvimento há ${yearsOfExperienceLabel}`, 'i'),
-      ),
-    ).toBeInTheDocument()
+    expect(getPersonJsonLdDescription()).toBe('Bio de teste')
   })
 
   it('uses fallback text when github requests fail', async () => {
@@ -64,7 +72,7 @@ describe('/about page', () => {
 
     render(await AboutPage())
 
-    expect(screen.getByText(/como desenvolvedor/i)).toBeInTheDocument()
-    expect(screen.getByText(/moro em brasil/i)).toBeInTheDocument()
+    expect(getPersonJsonLdDescription()).toMatch(/como desenvolvedor/i)
+    expect(getPersonJsonLdDescription()).toMatch(/moro em brasil/i)
   })
 })

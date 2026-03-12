@@ -59,6 +59,38 @@ npm run test:run
 
 `npm run typecheck` executa `next typegen` antes do TypeScript para manter os tipos do App Router atualizados no Next 16.
 
+## Storybook
+
+Para abrir a documentacao e os playgrounds dos componentes:
+
+```bash
+npm run storybook
+```
+
+Para gerar o build estatico da documentacao:
+
+```bash
+npm run build-storybook
+```
+
+Para rodar os testes dos stories com Vitest:
+
+```bash
+npm run test:storybook:run
+```
+
+Em Linux, se o Chromium da Playwright reclamar de bibliotecas nativas ausentes, prepare as dependencias locais uma vez antes dos testes:
+
+```bash
+npm run test:storybook:prepare
+```
+
+Para executar testes unitarios e de Storybook no mesmo comando:
+
+```bash
+npm run test:all
+```
+
 Para rodar tudo de uma vez:
 
 ```bash

@@ -1,24 +1,20 @@
 'use client'
 
 export {
-  // General
-  X as CloseIcon,
-  List as OpenIcon,
-
   // Arrows
   ArrowLeft as ArrowLeftIcon,
   ArrowRight as ArrowRightIcon,
   ArrowUp as ArrowUpIcon,
-
+  // General
+  X as CloseIcon,
+  GithubLogo as GithubIcon,
+  InstagramLogo as InstagramIcon,
+  // Social Icons
+  LinkedinLogo as LinkedinIcon,
   // Notes
   Note as NoteIcon,
-  WarningDiamond as WarningIcon,
+  List as OpenIcon,
   Lightbulb as TipIcon,
-
-  // Social Icons
-  FacebookLogo as FacebookIcon,
-  LinkedinLogo as LinkedinIcon,
-  InstagramLogo as InstagramIcon,
   TwitterLogo as TwitterIcon,
-  GithubLogo as GithubIcon,
+  WarningDiamond as WarningIcon,
 } from '@phosphor-icons/react'

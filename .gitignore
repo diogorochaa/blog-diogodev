@@ -37,3 +37,8 @@ next-env.d.ts
 
 # content layer
 .contentlayer
+
+*storybook.log
+storybook-static
+.cache/playwright-debs
+.cache/playwright-libs

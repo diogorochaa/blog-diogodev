@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Docs/Componentes" />
+
+# Catalogo de componentes
+
+## Componentes principais (publicos via barrel)
+
+| Componente       | Caminho                                                | Papel principal                                |
+| ---------------- | ------------------------------------------------------ | ---------------------------------------------- |
+| AboutExperience  | `src/components/AboutExperience/AboutExperience.tsx`   | Exibe timeline de experiencia na pagina About  |
+| AnimatedCover    | `src/components/AnimatedCover/AnimatedCover.tsx`       | Capa visual animada para areas de destaque     |
+| BackToTop        | `src/components/BackToTop/BackToTop.tsx`               | Acao de retorno ao topo da pagina              |
+| Empty            | `src/components/Empty/Empty.tsx`                       | Estado vazio reutilizavel                      |
+| Footer           | `src/components/Footer/Footer.tsx`                     | Rodape global com links e navegacao secundaria |
+| Grid             | `src/components/Grid/Grid.tsx`                         | Layout em grid reutilizavel                    |
+| Header           | `src/components/Header/Header.tsx`                     | Cabecalho principal da aplicacao               |
+| Icons            | `src/components/Icons/Icons.tsx`                       | Colecao de icones reutilizaveis                |
+| Layout           | `src/components/Layout/Layout.tsx`                     | Estrutura base de pagina                       |
+| List             | `src/components/List/List.tsx`                         | Lista generica para composicao de conteudo     |
+| Logo             | `src/components/Logo/Logo.tsx`                         | Marca/logotipo do site                         |
+| MainNav          | `src/components/MainNav/MainNav.tsx`                   | Navegacao principal                            |
+| Mdx              | `src/components/Mdx/Mdx.tsx`                           | Renderizacao de conteudo rich text/MDX-like    |
+| Reveal           | `src/components/Motion/Reveal.tsx`                     | Animacao de entrada para elementos             |
+| Pagination       | `src/components/Pagination/Pagination.tsx`             | Navegacao entre paginas                        |
+| Post             | `src/components/Post/Post.tsx`                         | Layout de leitura de post individual           |
+| PostCard         | `src/components/PostCard/PostCard.tsx`                 | Card de preview de post                        |
+| PostsList        | `src/components/PostsList/PostsList.tsx`               | Lista de posts com composicao de cards         |
+| Profile          | `src/components/Profile/Profile.tsx`                   | Bloco de perfil do autor                       |
+| RecommendedPosts | `src/components/RecommendedPosts/RecommendedPosts.tsx` | Secao de posts recomendados                    |
+| SocialMedia      | `src/components/SocialMedia/SocialMedia.tsx`           | Links para redes sociais                       |
+| Tag              | `src/components/Tag/Tag.tsx`                           | Marcador visual de categoria/tag               |
+
+## Subcomponentes internos
+
+| Componente   | Caminho                                                           | Uso                                |
+| ------------ | ----------------------------------------------------------------- | ---------------------------------- |
+| ListItem     | `src/components/List/components/ListItem/ListItem.tsx`            | Item interno de listas             |
+| ToggleButton | `src/components/MainNav/components/ToggleButton/ToggleButton.tsx` | Controle de menu (mobile/nav)      |
+| Note         | `src/components/Mdx/components/Note/Note.tsx`                     | Bloco de nota/chamada no conteudo  |
+| BackButton   | `src/components/Post/components/BackButton/BackButton.tsx`        | Botao de retorno em pagina de post |
+
+## Padrao recomendado para novos componentes
+
+1. Criar `Componente.tsx`
+2. Criar `Componente.types.ts`
+3. Exportar no `index.ts` da pasta
+4. Documentar neste catalogo e, quando aplicavel, adicionar `*.stories.tsx`

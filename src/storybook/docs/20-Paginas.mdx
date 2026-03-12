@@ -1,0 +1,57 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Docs/Paginas" />
+
+# Mapa de paginas (App Router)
+
+## Rotas principais
+
+| Rota               | Arquivo principal                  | Responsabilidade                                                     |
+| ------------------ | ---------------------------------- | -------------------------------------------------------------------- |
+| `/`                | `src/app/page.tsx`                 | Home com listagem inicial de posts, paginacao e JSON-LD de site/blog |
+| `/about`           | `src/app/about/page.tsx`           | Perfil do autor + repositorios GitHub + JSON-LD de pessoa            |
+| `/[slug]`          | `src/app/[slug]/page.tsx`          | Pagina de post individual, metadata dinamica e fallback `notFound()` |
+| `/page/[page]`     | `src/app/page/[page]/page.tsx`     | Paginacao de posts por numero de pagina                              |
+| `/slice-simulator` | `src/app/slice-simulator/page.tsx` | Simulador de slices do Prismic                                       |
+
+## Modulos por rota
+
+### Home (`src/app`)
+
+- `home.constants.ts`: metadata da rota
+- `home.data.ts`: builders de JSON-LD
+- `HomePageContent.tsx`: camada de apresentacao da home
+
+### About (`src/app/about`)
+
+- `about.constants.ts`: metadata da rota
+- `about.data.ts`: integracao com API do GitHub e JSON-LD
+- `AboutPageContent.tsx`: apresentacao da pagina
+
+### Post por slug (`src/app/[slug]`)
+
+- `post.constants.ts`: constantes e defaults da rota
+- `post.data.ts`: busca por slug, static params e metadata
+- `PostPageContent.tsx`: apresentacao de conteudo de post
+- `not-found.tsx`: estado de pagina nao encontrada
+- `SlugNotFoundContent.tsx`: apresentacao de not-found da rota
+
+### Paginacao (`src/app/page/[page]`)
+
+- `page.constants.ts`: constantes de paginacao
+- `page.data.ts`: parse de params, metadata e dados paginados
+- `PagedPostsContent.tsx`: apresentacao da listagem paginada
+
+### Slice Simulator (`src/app/slice-simulator`)
+
+- `slice-simulator.data.ts`: resolve slices a partir de `searchParams`
+- `SliceSimulatorPageContent.tsx`: apresentacao do simulador
+
+## Arquivos estruturais de SEO e shell
+
+| Arquivo                         | Papel                              |
+| ------------------------------- | ---------------------------------- |
+| `src/app/layout.tsx`            | Root layout global                 |
+| `src/app/robots.ts`             | Politica de rastreamento para bots |
+| `src/app/sitemap.ts`            | Geracao de sitemap                 |
+| `src/app/RootLayoutContent.tsx` | Conteudo de apresentacao do layout |

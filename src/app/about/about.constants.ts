@@ -5,7 +5,6 @@ import { Profile } from '@/models'
 
 export const GITHUB_USER = 'diogorochaa'
 export const GITHUB_API_BASE_URL = 'https://api.github.com'
-export const PROFILE_START_YEAR = 2019
 
 const ABOUT_DESCRIPTION =
   'Conheça mais sobre Diogo Rocha, trajetória e projetos em destaque.'

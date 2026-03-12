@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Docs/Visao Geral" />
+
+# Visao geral da arquitetura
+
+Este Storybook foi configurado para ser um hub de documentacao tecnica do projeto.
+
+## Escopo desta documentacao
+
+- Components: catalogo dos componentes de UI em `src/components`
+- Paginas: mapa das rotas e organizacao dos modulos em `src/app`
+- Servicos: contratos e comportamento do dominio em `src/services`
+
+## Convencoes do projeto
+
+- App Router com split de arquivos por rota:
+  - `page.tsx` como orquestrador
+  - `*.data.ts` para leitura e preparacao de dados
+  - `*.constants.ts` para metadados e constantes
+  - `*.types.ts` para contratos locais
+  - `*Content.tsx` para camada de apresentacao
+- Componentes com tipagem local (`*.types.ts`) e barrel (`index.ts`)
+- Servicos expostos via barrel para importacao com alias `@/services`
+
+## Fluxo padrao de pagina
+
+1. `page.tsx` resolve params e chama servicos/data layer
+2. `*.data.ts` transforma dados para consumo de UI
+3. `*Content.tsx` recebe props prontas
+4. Componentes de `src/components` renderizam o resultado final
+
+## Como usar este Storybook
+
+- Comece por `Docs/Componentes` para conhecer o catalogo de UI
+- Use `Docs/Paginas` para entender responsabilidades por rota
+- Consulte `Docs/Servicos` para contratos de dados e resiliencia
