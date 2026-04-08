@@ -4,7 +4,10 @@ import { siteConfig } from '@/config'
 import { BlogPost } from '@/models'
 import { PostService } from '@/services'
 
-import { POST_METADATA_IMAGE } from './post.constants'
+import {
+  buildPostMetadataImagePath,
+  buildPostMetadataImageUrl,
+} from './post.constants'
 import { PostJsonLd } from './post.types'
 
 export const getPostStaticParams = async () => {
@@ -20,6 +23,8 @@ export const getPostBySlug = async (slug: string) => {
 }
 
 export const buildPostMetadata = (post: BlogPost): Metadata => {
+  const postMetadataImagePath = buildPostMetadataImagePath(post.slug)
+
   return {
     title: post.frontmatter.title,
     description: post.frontmatter.description,
@@ -35,7 +40,7 @@ export const buildPostMetadata = (post: BlogPost): Metadata => {
       siteName: siteConfig.name,
       images: [
         {
-          url: POST_METADATA_IMAGE,
+          url: postMetadataImagePath,
         },
       ],
     },
@@ -43,12 +48,14 @@ export const buildPostMetadata = (post: BlogPost): Metadata => {
       card: 'summary_large_image',
       title: post.frontmatter.title,
       description: post.frontmatter.description,
-      images: [POST_METADATA_IMAGE],
+      images: [postMetadataImagePath],
     },
   }
 }
 
 export const buildPostJsonLd = (post: BlogPost): PostJsonLd => {
+  const postMetadataImageUrl = buildPostMetadataImageUrl(post.slug)
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -69,9 +76,9 @@ export const buildPostJsonLd = (post: BlogPost): PostJsonLd => {
       name: siteConfig.name,
       logo: {
         '@type': 'ImageObject',
-        url: POST_METADATA_IMAGE,
+        url: `${siteConfig.url}/opengraph-image`,
       },
     },
-    image: [POST_METADATA_IMAGE],
+    image: [postMetadataImageUrl],
   }
 }
