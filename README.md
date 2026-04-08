@@ -35,9 +35,11 @@ Crie um arquivo `.env.local` na raiz:
 ```bash
 PRISMIC_REPOSITORY_NAME=seu-repositorio
 PRISMIC_ACCESS_TOKEN=
+NEXT_PUBLIC_SITE_URL=https://seu-dominio.com
 ```
 
 `PRISMIC_ACCESS_TOKEN` so e necessario se seu repositorio nao for publico.
+`NEXT_PUBLIC_SITE_URL` define a URL publica usada em canonical, Open Graph e Twitter Cards.
 
 ## Rodando o projeto
 

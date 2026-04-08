@@ -15,7 +15,7 @@ const sora = Sora({
   variable: '--font-sora',
 })
 
-const OG_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+const OG_IMAGE = '/opengraph-image'
 
 export const rootHtmlClassName = `${manrope.variable} ${sora.variable} scroll-smooth`
 

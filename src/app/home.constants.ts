@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { siteConfig } from '@/config'
 
-const OG_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+const OG_IMAGE = '/opengraph-image'
 
 export const homeMetadata: Metadata = {
   description: siteConfig.description,

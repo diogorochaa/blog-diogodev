@@ -9,7 +9,7 @@ export const GITHUB_API_BASE_URL = 'https://api.github.com'
 const ABOUT_DESCRIPTION =
   'Conheça mais sobre Diogo Rocha, trajetória e projetos em destaque.'
 
-const OG_IMAGE = `${siteConfig.url}/assets/images/logo.png`
+const OG_IMAGE = '/opengraph-image'
 
 export const githubFetchOptions = {
   next: { revalidate: 3600 },
