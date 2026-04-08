@@ -27,7 +27,10 @@ const meta = {
     },
   },
   render: ({ title, subtitle, surfaceTone }: any) => (
-    <StorySurface surfaceTone={surfaceTone} className="mx-auto max-w-4xl p-6 sm:p-10">
+    <StorySurface
+      surfaceTone={surfaceTone}
+      className="mx-auto max-w-4xl p-6 sm:p-10"
+    >
       <Profile
         items={{
           ...siteConfig,
@@ -57,7 +60,8 @@ export const Default = {
 
 export const ShortSubtitle = {
   args: {
-    subtitle: 'Interface, performance e documentacao como parte do produto final.',
+    subtitle:
+      'Interface, performance e documentacao como parte do produto final.',
   },
 }
 

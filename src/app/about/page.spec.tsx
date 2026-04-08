@@ -4,7 +4,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AboutPage from './page'
 
 function getPersonJsonLdDescription() {
-  const scripts = document.querySelectorAll('script[type="application/ld+json"]')
+  const scripts = document.querySelectorAll(
+    'script[type="application/ld+json"]',
+  )
   const script = scripts.item(scripts.length - 1)
 
   if (!script?.textContent) {

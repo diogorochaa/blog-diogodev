@@ -61,9 +61,10 @@ export const HomeActive = {
     const canvas = within(canvasElement)
 
     await expect(canvas.getByText(args.panelTitle)).toBeInTheDocument()
-    await expect(
-      canvas.getByRole('link', { name: 'Home' }),
-    ).toHaveAttribute('aria-current', 'page')
+    await expect(canvas.getByRole('link', { name: 'Home' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    )
   },
 }
 

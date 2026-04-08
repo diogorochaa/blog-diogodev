@@ -20,10 +20,20 @@ export default defineConfig([
       camelcase: 'off',
     },
   },
+  {
+    files: ['**/*.stories.ts', '**/*.stories.tsx'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
   globalIgnores([
     '.next/**',
     'out/**',
     'build/**',
+    'storybook-static/**',
+    'sb-addons/**',
+    'sb-common-assets/**',
+    'sb-manager/**',
     'next-env.d.ts',
     'node_modules/**',
     'src/slices/index.ts',

@@ -15,11 +15,7 @@ export const RootLayoutContent = ({
   htmlClassName,
 }: RootLayoutContentProps) => {
   return (
-    <html
-      lang="pt-BR"
-      data-scroll-behavior="smooth"
-      className={htmlClassName}
-    >
+    <html lang="pt-BR" data-scroll-behavior="smooth" className={htmlClassName}>
       <body className="bg-primary font-sans text-gray-100">
         <Script async defer src={prismicScriptSrc} />
 

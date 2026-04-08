@@ -1,6 +1,10 @@
 import { AboutPageContent } from './AboutPageContent'
 import { aboutMetadata } from './about.constants'
-import { buildPersonJsonLd, getApiGithub, getApiGithubRepos } from './about.data'
+import {
+  buildPersonJsonLd,
+  getApiGithub,
+  getApiGithubRepos,
+} from './about.data'
 
 export const metadata = aboutMetadata
 

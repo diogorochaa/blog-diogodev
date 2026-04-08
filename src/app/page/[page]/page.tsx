@@ -54,22 +54,23 @@ export default async function Page({ params }: PageProps<'/page/[page]'>) {
     notFound()
   }
 
-  const { posts, numbPages, totalPosts, postsPerPage } = await getPagedPosts(
-    currentPage,
-  )
+  const { posts, numbPages, totalPosts, postsPerPage } =
+    await getPagedPosts(currentPage)
   const { prevPage, nextPage } = paginationPages(currentPage)
 
   if (!posts.length) {
     notFound()
   }
 
-  return <PagedPostsContent
-    posts={posts}
-    currentPage={currentPage}
-    numbPages={numbPages}
-    totalPosts={totalPosts}
-    postsPerPage={postsPerPage}
-    prevPage={prevPage}
-    nextPage={nextPage}
-  />
+  return (
+    <PagedPostsContent
+      posts={posts}
+      currentPage={currentPage}
+      numbPages={numbPages}
+      totalPosts={totalPosts}
+      postsPerPage={postsPerPage}
+      prevPage={prevPage}
+      nextPage={nextPage}
+    />
+  )
 }

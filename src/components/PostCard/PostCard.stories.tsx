@@ -79,7 +79,10 @@ const meta = {
     })
 
     return (
-      <StorySurface surfaceTone={surfaceTone} className="mx-auto max-w-4xl p-4 sm:p-6">
+      <StorySurface
+        surfaceTone={surfaceTone}
+        className="mx-auto max-w-4xl p-4 sm:p-6"
+      >
         <PostCard post={post} isMain={isMain} />
       </StorySurface>
     )

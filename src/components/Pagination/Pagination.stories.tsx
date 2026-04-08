@@ -79,7 +79,10 @@ const meta = {
         : (`/page/${safeCurrentPage + 1}` as Route)
 
     return (
-      <StorySurface surfaceTone={surfaceTone} className="mx-auto max-w-5xl p-4 sm:p-6">
+      <StorySurface
+        surfaceTone={surfaceTone}
+        className="mx-auto max-w-5xl p-4 sm:p-6"
+      >
         <Pagination
           currentPage={safeCurrentPage}
           numbPages={safeNumbPages}

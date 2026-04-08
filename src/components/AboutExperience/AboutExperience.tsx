@@ -197,8 +197,8 @@ export const AboutExperience = () => {
                       prefersReducedMotion
                         ? undefined
                         : {
-                          width: `${Math.min((item.years / 15) * 100, 100)}%`,
-                        }
+                            width: `${Math.min((item.years / 15) * 100, 100)}%`,
+                          }
                     }
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.7, delay: 0.08 + index * 0.05 }}
@@ -251,7 +251,10 @@ export const AboutExperience = () => {
                         borderRadius: '12px',
                       }}
                       labelStyle={{ color: '#f8fafc' }}
-                      formatter={(value) => [formatYears(Number(value)), 'Experiência']}
+                      formatter={(value) => [
+                        formatYears(Number(value)),
+                        'Experiência',
+                      ]}
                     />
                     <Bar
                       dataKey="years"

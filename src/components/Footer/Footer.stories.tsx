@@ -59,7 +59,9 @@ export const Default = {
   play: async ({ canvasElement, args }: any) => {
     const canvas = within(canvasElement)
 
-    await expect(canvas.getByRole('link', { name: args.homeLabel })).toBeInTheDocument()
+    await expect(
+      canvas.getByRole('link', { name: args.homeLabel }),
+    ).toBeInTheDocument()
     await expect(canvas.getByText('Social')).toBeInTheDocument()
   },
 }

@@ -44,11 +44,7 @@ export const StorySurface = ({
 }: StorySurfaceProps) => {
   return (
     <div
-      className={[
-        'w-full',
-        getStorySurfaceClassName(surfaceTone),
-        className,
-      ]
+      className={['w-full', getStorySurfaceClassName(surfaceTone), className]
         .filter(Boolean)
         .join(' ')}
     >
