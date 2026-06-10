@@ -146,31 +146,43 @@ Authorization: Bearer <PRISMIC_WEBHOOK_SECRET>
 
 ## Deploy automatico na Vercel apos CI
 
-Este projeto ja possui um job na CI que pode disparar deploy de producao na Vercel somente quando o push na `main` passar em `check`, `test` e `build`.
+Este projeto ja possui um job na CI que pode disparar deploy de producao na Vercel somente quando o push na `main` passar em `verify` (e `build`, se configurado).
 
 Para ativar:
 
 1. Na Vercel, abra o projeto em `Settings > Git > Deploy Hooks`.
 2. Crie um Deploy Hook para o branch `main`.
 3. Copie a URL do hook.
-4. No GitHub, adicione um secret no repositorio em `Settings > Secrets and variables > Actions`:
+4. No GitHub, adicione em `Settings > Secrets and variables > Actions`:
+
+**Secret** (obrigatorio para o deploy hook):
 
 ```bash
 VERCEL_DEPLOY_HOOK_URL=https://api.vercel.com/v1/integrations/deploy/...
-PRISMIC_REPOSITORY_NAME=seu-repositorio
-PRISMIC_ACCESS_TOKEN=          # obrigatorio se o repositorio Prismic for privado
+```
+
+**Secrets** (opcional — so se quiser rodar `npm run build` tambem na CI):
+
+```bash
+PRISMIC_ACCESS_TOKEN=seu-token-permanente
+```
+
+**Variable** (opcional na CI; padrao `blog-diodev`):
+
+```bash
+PRISMIC_REPOSITORY_NAME=blog-diodev
 ```
 
 Na Vercel (`Settings > Environment Variables`), configure pelo menos:
 
 ```bash
-PRISMIC_REPOSITORY_NAME=seu-repositorio
+PRISMIC_REPOSITORY_NAME=blog-diodev
 NEXT_PUBLIC_SITE_URL=https://seu-dominio.com
 PRISMIC_WEBHOOK_SECRET=seu-secret-de-webhook
-PRISMIC_ACCESS_TOKEN=          # se o repositorio for privado
+PRISMIC_ACCESS_TOKEN=seu-token-permanente
 ```
 
-O build valida a conexao com o Prismic em CI e na Vercel. Sem `PRISMIC_REPOSITORY_NAME` correto, o deploy nao gera as paginas dos posts.
+O build com validacao do Prismic roda na Vercel. Na CI, o build e ignorado se `PRISMIC_ACCESS_TOKEN` nao estiver no GitHub — nesse caso a Vercel faz o build com as env vars dela.
 
 Observacao:
 

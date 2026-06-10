@@ -10,7 +10,7 @@ if (!repositoryName) {
   console.error(
     [
       'Build abortado: PRISMIC_REPOSITORY_NAME nao esta definido.',
-      'Configure no GitHub Secrets (CI) e nas Environment Variables da Vercel.',
+      'Configure nas Environment Variables da Vercel ou em GitHub > Settings > Secrets and variables > Actions > Variables (PRISMIC_REPOSITORY_NAME).',
     ].join('\n'),
   )
   process.exit(1)

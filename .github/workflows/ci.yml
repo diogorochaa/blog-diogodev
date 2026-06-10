@@ -36,12 +36,20 @@ jobs:
         run: npm run verify
 
       - name: Build project
+        if: ${{ secrets.PRISMIC_ACCESS_TOKEN != '' }}
         run: npm run build
         env:
           CI: true
-          PRISMIC_REPOSITORY_NAME: ${{ secrets.PRISMIC_REPOSITORY_NAME }}
+          PRISMIC_REPOSITORY_NAME: ${{ vars.PRISMIC_REPOSITORY_NAME || 'blog-diodev' }}
           PRISMIC_ACCESS_TOKEN: ${{ secrets.PRISMIC_ACCESS_TOKEN }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://example.com' }}
+
+      - name: Skip build in CI
+        if: ${{ secrets.PRISMIC_ACCESS_TOKEN == '' }}
+        run: |
+          echo "Build na CI ignorado: PRISMIC_ACCESS_TOKEN nao esta no GitHub Secrets."
+          echo "O deploy na Vercel usa as Environment Variables do projeto e faz o build la."
+          echo "Para validar o build tambem na CI, adicione PRISMIC_ACCESS_TOKEN em Settings > Secrets and variables > Actions."
 
   deploy-vercel:
     runs-on: ubuntu-latest
