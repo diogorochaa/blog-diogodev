@@ -1,4 +1,3 @@
-import { Reveal } from '@/components/Motion'
 import { Pagination } from '@/components/Pagination'
 import { PostsList } from '@/components/PostsList'
 import { Profile } from '@/components/Profile'
@@ -23,25 +22,21 @@ export const PostsFeed = ({
   return (
     <>
       {showProfile ? (
-        <Reveal className="mb-10 sm:mb-12" y={18}>
+        <div className="mb-10 sm:mb-12">
           <Profile items={siteConfig} />
-        </Reveal>
+        </div>
       ) : null}
 
-      <Reveal delay={showProfile ? 0.06 : 0} y={14}>
-        <PostsList posts={posts} layout={isHomeLayout ? 'home' : 'grid'} />
-      </Reveal>
+      <PostsList posts={posts} layout={isHomeLayout ? 'home' : 'grid'} />
 
-      <Reveal delay={0.1}>
-        <Pagination
-          currentPage={currentPage}
-          numbPages={numbPages}
-          totalPosts={totalPosts}
-          postsPerPage={postsPerPage}
-          prevPage={prevPage}
-          nextPage={nextPage}
-        />
-      </Reveal>
+      <Pagination
+        currentPage={currentPage}
+        numbPages={numbPages}
+        totalPosts={totalPosts}
+        postsPerPage={postsPerPage}
+        prevPage={prevPage}
+        nextPage={nextPage}
+      />
     </>
   )
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 60
+
 import { PostPageContent } from './PostPageContent'
 import {
   buildPostJsonLd,

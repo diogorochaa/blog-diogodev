@@ -25,7 +25,7 @@ export const MainNav = ({ items }: MainNavProps) => {
 
   return (
     <>
-      <nav className="hidden items-center justify-between lg:flex animate-soft-in">
+      <nav className="hidden items-center justify-between lg:flex">
         <List>
           {items.map((item) => {
             const itemIsActive = isActive(item.href)

@@ -5,11 +5,11 @@ import { Empty } from '@/components/Empty'
 export default function NotFound() {
   return (
     <Empty>
-      <h1 className="text-center text-4xl font-extrabold animate-slide-up">
+      <h1 className="text-center text-4xl font-extrabold">
         Página não encontrada
       </h1>
 
-      <p className="mt-4 text-center text-xl text-gray-400 animate-slide-up">
+      <p className="mt-4 text-center text-xl text-gray-400">
         O endereço pode estar incorreto ou a página foi removida.
       </p>
 

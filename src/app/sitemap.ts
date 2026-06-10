@@ -3,6 +3,8 @@ import type { MetadataRoute } from 'next'
 import { siteConfig } from '@/config'
 import { PostService } from '@/services'
 
+export const revalidate = 60
+
 const toAbsoluteUrl = (path: string) => new URL(path, siteConfig.url).toString()
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

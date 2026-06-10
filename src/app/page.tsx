@@ -6,6 +6,7 @@ import { homeMetadata } from './home.constants'
 import { buildBlogJsonLd, buildWebsiteJsonLd } from './home.data'
 
 export const metadata = homeMetadata
+export const revalidate = 60
 
 export default async function Home() {
   const { posts, currentPage, numbPages, totalPosts, postsPerPage } =

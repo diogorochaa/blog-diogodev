@@ -12,7 +12,7 @@ export const Post = ({ post }: PostProps) => {
   const isoDate = toIsoDate(date)
 
   return (
-    <div className="flex flex-col items-center justify-center animate-soft-in">
+    <div className="flex flex-col items-center justify-center">
       <div className="flex w-full justify-items-start pb-3 sm:pb-4">
         <BackButton />
       </div>

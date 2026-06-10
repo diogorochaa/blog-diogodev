@@ -22,9 +22,7 @@ export const RootLayoutContent = ({
         <Header />
 
         <Layout>
-          <div className="animate-soft-in pt-24 pb-16 sm:pt-28 sm:pb-20">
-            {children}
-          </div>
+          <div className="pt-24 pb-16 sm:pt-28 sm:pb-20">{children}</div>
         </Layout>
 
         <BackToTop />

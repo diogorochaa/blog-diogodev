@@ -1,19 +1,8 @@
-'use client'
-
-import { motion, useReducedMotion } from 'framer-motion'
-
 import type { ProfileProps } from './Profile.types'
 
 export const Profile = ({ items }: ProfileProps) => {
-  const prefersReducedMotion = useReducedMotion()
-
   return (
-    <motion.section
-      className="panel-vivid relative overflow-hidden px-6 py-8 sm:px-8 sm:py-10"
-      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
-      animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <section className="panel-vivid relative overflow-hidden px-6 py-8 sm:px-8 sm:py-10">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
@@ -39,6 +28,6 @@ export const Profile = ({ items }: ProfileProps) => {
           {items.subtitle}
         </p>
       </div>
-    </motion.section>
+    </section>
   )
 }

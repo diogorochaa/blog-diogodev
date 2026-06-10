@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 
 import { paginationPages } from '@/utils'
 
+export const revalidate = 60
+
 import { PagedPostsContent } from './PagedPostsContent'
 import {
   buildPagedPostsMetadata,
