@@ -1,4 +1,4 @@
-import { SiteType } from '@/models'
+import type { SiteType } from '@/models'
 
 const fallbackSiteUrl = 'http://localhost:3000'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? fallbackSiteUrl

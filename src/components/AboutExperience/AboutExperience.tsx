@@ -10,7 +10,7 @@ import {
   TerminalWindow,
 } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useEffect, useMemo, useState } from 'react'
 import {
   Bar,
   BarChart,
@@ -21,71 +21,40 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-
+import type { ExperienceIconKey } from '@/config/experience'
+import { experienceEntries } from '@/config/experience'
 import { formatYears, getCurrentYear, getYearsSince } from '@/utils'
 
-import type {
-  Category,
-  ExperienceItem,
-  ExperienceMeta,
-} from './AboutExperience.types'
+import type { Category, ExperienceItem } from './AboutExperience.types'
 
 const CATEGORY_COLORS: Record<Category, string> = {
   frontend: '#22d3ee',
   backend: '#8b5cf6',
 }
 
-const experienceMeta: ExperienceMeta[] = [
-  {
-    name: 'JavaScript',
-    startYear: 2019,
-    color: '#facc15',
-    category: 'frontend',
-    icon: <FileJs size={24} weight="duotone" color="#facc15" />,
+const chartTooltipStyle = {
+  contentStyle: {
+    background: '#0f172a',
+    borderRadius: '12px',
   },
+  labelStyle: { color: '#f8fafc', fontWeight: 600 },
+  itemStyle: { color: '#e2e8f0' },
+} as const
+
+const experienceIcons: Record<ExperienceIconKey, (color: string) => ReactNode> =
   {
-    name: 'CSS',
-    startYear: 2019,
-    color: '#38bdf8',
-    category: 'frontend',
-    icon: <FileCss size={24} weight="duotone" color="#38bdf8" />,
-  },
-  {
-    name: 'HTML',
-    startYear: 2019,
-    color: '#fb923c',
-    category: 'frontend',
-    icon: <FileHtml size={24} weight="duotone" color="#fb923c" />,
-  },
-  {
-    name: 'React',
-    startYear: 2020,
-    color: '#22d3ee',
-    category: 'frontend',
-    icon: <Atom size={24} weight="duotone" color="#22d3ee" />,
-  },
-  {
-    name: 'Next.js',
-    startYear: 2021,
-    color: '#f8fafc',
-    category: 'frontend',
-    icon: <BracketsCurly size={24} weight="duotone" color="#f8fafc" />,
-  },
-  {
-    name: 'Node.js',
-    startYear: 2022,
-    color: '#4ade80',
-    category: 'backend',
-    icon: <TerminalWindow size={24} weight="duotone" color="#4ade80" />,
-  },
-  {
-    name: 'Docker',
-    startYear: 2023,
-    color: '#3b82f6',
-    category: 'backend',
-    icon: <Cube size={24} weight="duotone" color="#3b82f6" />,
-  },
-]
+    javascript: (color) => <FileJs size={24} weight="duotone" color={color} />,
+    css: (color) => <FileCss size={24} weight="duotone" color={color} />,
+    html: (color) => <FileHtml size={24} weight="duotone" color={color} />,
+    react: (color) => <Atom size={24} weight="duotone" color={color} />,
+    nextjs: (color) => (
+      <BracketsCurly size={24} weight="duotone" color={color} />
+    ),
+    nodejs: (color) => (
+      <TerminalWindow size={24} weight="duotone" color={color} />
+    ),
+    docker: (color) => <Cube size={24} weight="duotone" color={color} />,
+  }
 
 export const AboutExperience = () => {
   const prefersReducedMotion = useReducedMotion()
@@ -103,8 +72,9 @@ export const AboutExperience = () => {
   }, [])
 
   const experience = useMemo<ExperienceItem[]>(() => {
-    return experienceMeta.map((item) => ({
+    return experienceEntries.map((item) => ({
       ...item,
+      icon: experienceIcons[item.iconKey](item.color),
       years: getYearsSince(item.startYear, currentYear),
     }))
   }, [currentYear])
@@ -246,11 +216,11 @@ export const AboutExperience = () => {
                     <Tooltip
                       cursor={{ fill: 'rgba(148, 163, 184, 0.12)' }}
                       contentStyle={{
-                        background: '#0f172a',
+                        ...chartTooltipStyle.contentStyle,
                         border: '1px solid rgba(34, 211, 238, 0.35)',
-                        borderRadius: '12px',
                       }}
-                      labelStyle={{ color: '#f8fafc' }}
+                      labelStyle={chartTooltipStyle.labelStyle}
+                      itemStyle={chartTooltipStyle.itemStyle}
                       formatter={(value) => [
                         formatYears(Number(value)),
                         'Experiência',
@@ -334,11 +304,11 @@ export const AboutExperience = () => {
                     <Tooltip
                       cursor={{ fill: 'rgba(148, 163, 184, 0.12)' }}
                       contentStyle={{
-                        background: '#0f172a',
+                        ...chartTooltipStyle.contentStyle,
                         border: '1px solid rgba(139, 92, 246, 0.35)',
-                        borderRadius: '12px',
                       }}
-                      labelStyle={{ color: '#f8fafc' }}
+                      labelStyle={chartTooltipStyle.labelStyle}
+                      itemStyle={chartTooltipStyle.itemStyle}
                       formatter={(value, _name, props) => [
                         formatYears(Number(value)),
                         props.payload?.category === 'frontend'

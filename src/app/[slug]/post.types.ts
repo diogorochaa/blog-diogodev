@@ -1,4 +1,4 @@
-import { BlogPost } from '@/models'
+import type { BlogPost } from '@/models'
 
 export type PostJsonLd = {
   '@context': 'https://schema.org'

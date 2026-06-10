@@ -1,3 +1,4 @@
+export * from './cover-variant'
 export * from './format-date'
 export * from './pagination-pages'
 export * from './pagination-posts'

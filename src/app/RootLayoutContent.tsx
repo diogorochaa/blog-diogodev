@@ -1,14 +1,12 @@
 import Script from 'next/script'
-
-import { mainNavConfig } from '@/config'
-
 import { BackToTop } from '@/components/BackToTop'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Layout } from '@/components/Layout'
+import { mainNavConfig } from '@/config'
 
 import { prismicScriptSrc } from './layout.constants'
-import { RootLayoutContentProps } from './layout.types'
+import type { RootLayoutContentProps } from './layout.types'
 
 export const RootLayoutContent = ({
   children,
@@ -17,7 +15,9 @@ export const RootLayoutContent = ({
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" className={htmlClassName}>
       <body className="bg-primary font-sans text-gray-100">
-        <Script async defer src={prismicScriptSrc} />
+        {prismicScriptSrc ? (
+          <Script async defer src={prismicScriptSrc} />
+        ) : null}
 
         <Header />
 

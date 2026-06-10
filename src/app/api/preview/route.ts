@@ -1,5 +1,5 @@
 import { redirectToPreviewURL } from '@prismicio/next'
-import { NextRequest, NextResponse } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 import { createClient, hasPrismicConfig } from '../../../prismicio'
 

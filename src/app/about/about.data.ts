@@ -1,49 +1,14 @@
 import { siteConfig } from '@/config'
-import { Profile, Repo } from '@/models'
+import type { GithubProfile } from '@/models'
+import { GithubService } from '@/services'
 
-import {
-  GITHUB_API_BASE_URL,
-  GITHUB_USER,
-  githubFetchOptions,
-  profileFallback,
-} from './about.constants'
-import { PersonJsonLd } from './about.types'
+import type { PersonJsonLd } from './about.types'
 
-export async function getApiGithub(): Promise<Profile> {
-  try {
-    const response = await fetch(
-      `${GITHUB_API_BASE_URL}/users/${GITHUB_USER}`,
-      githubFetchOptions,
-    )
+export const getGithubProfile = () => GithubService.getProfile()
 
-    if (!response.ok) {
-      return profileFallback
-    }
+export const getGithubRepos = () => GithubService.getRepos()
 
-    return await response.json()
-  } catch {
-    return profileFallback
-  }
-}
-
-export async function getApiGithubRepos(): Promise<Repo[]> {
-  try {
-    const response = await fetch(
-      `${GITHUB_API_BASE_URL}/users/${GITHUB_USER}/repos?sort=updated&per_page=6`,
-      githubFetchOptions,
-    )
-
-    if (!response.ok) {
-      return []
-    }
-
-    return await response.json()
-  } catch {
-    return []
-  }
-}
-
-export const buildPersonJsonLd = (profile: Profile): PersonJsonLd => {
+export const buildPersonJsonLd = (profile: GithubProfile): PersonJsonLd => {
   const displayLocation = profile.location || 'Brasil'
   const displayName = profile.name || 'Diogo Rocha'
 

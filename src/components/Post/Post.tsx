@@ -1,7 +1,6 @@
-import { formatDate } from '@/utils'
-
 import { AnimatedCover } from '@/components/AnimatedCover'
-import { Mdx } from '@/components/Mdx'
+import { RichText } from '@/components/RichText'
+import { formatDate, getCoverVariant, toIsoDate } from '@/utils'
 
 import { BackButton } from './components'
 import type { PostProps } from './Post.types'
@@ -10,6 +9,7 @@ export const Post = ({ post }: PostProps) => {
   const { body, frontmatter, readingTime } = post
   const { title, description, date } = frontmatter
   const formattedDate = formatDate(date)
+  const isoDate = toIsoDate(date)
 
   return (
     <div className="flex flex-col items-center justify-center animate-soft-in">
@@ -18,15 +18,21 @@ export const Post = ({ post }: PostProps) => {
       </div>
 
       <div className="relative h-52 w-full sm:h-72 md:h-96">
-        <AnimatedCover className="h-full w-full animate-soft-in" />
+        <AnimatedCover
+          className="h-full w-full"
+          variant={getCoverVariant(post.slug)}
+        />
       </div>
 
       <div className="w-full max-w-4xl">
         <div className="mt-7 sm:mt-10">
-          <p className="mb-2 text-sm text-gray-200 sm:text-base">
+          <time
+            className="mb-2 block text-sm text-gray-200 sm:text-base"
+            dateTime={isoDate}
+          >
             {formattedDate} • {readingTime} minutos de leitura
-          </p>
-          <h1 className="mb-4 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl">
+          </time>
+          <h1 className="text-gradient-vivid mb-4 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl">
             {title}
           </h1>
           <p className="mb-7 text-lg text-gray-200 sm:mb-8 sm:text-xl md:text-2xl">
@@ -34,7 +40,7 @@ export const Post = ({ post }: PostProps) => {
           </p>
         </div>
 
-        <Mdx field={body} />
+        <RichText field={body} />
       </div>
     </div>
   )

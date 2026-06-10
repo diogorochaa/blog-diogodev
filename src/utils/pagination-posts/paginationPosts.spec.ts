@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { BlogPost } from '@/models'
+import type { BlogPost } from '@/models'
 
 import { paginationPosts } from './paginationPosts'
 

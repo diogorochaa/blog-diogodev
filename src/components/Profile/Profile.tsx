@@ -8,48 +8,37 @@ export const Profile = ({ items }: ProfileProps) => {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <motion.div
-      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 26 }}
+    <motion.section
+      className="panel-vivid relative overflow-hidden px-6 py-8 sm:px-8 sm:py-10"
+      initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
       animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="flex flex-col items-center gap-3 text-center">
-        <motion.div
-          className="mx-auto mb-2 h-0.5 w-24 rounded-full bg-gradient-cyan"
-          initial={prefersReducedMotion ? undefined : { scaleX: 0, opacity: 0 }}
-          animate={prefersReducedMotion ? undefined : { scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.16, ease: 'easeOut' }}
-          style={{ transformOrigin: 'center' }}
-        />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(34, 211, 238, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.06) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-accent-purple/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-8 bottom-0 h-36 w-36 rounded-full bg-accent-cyan/15 blur-3xl" />
 
-        <motion.div
-          initial={
-            prefersReducedMotion
-              ? undefined
-              : { opacity: 0, y: 18, filter: 'blur(6px)', scale: 0.98 }
-          }
-          animate={
-            prefersReducedMotion
-              ? undefined
-              : { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }
-          }
-          transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <h1 className="font-display text-4xl font-bold leading-tight text-transparent bg-clip-text bg-linear-to-r from-accent-purple via-accent-cyan to-accent-pink md:text-5xl lg:text-6xl">
-            {items.title}
-          </h1>
-        </motion.div>
+      <div className="relative z-10 flex flex-col items-center gap-4 text-center">
+        <span className="rounded-full border border-accent-cyan/40 bg-accent-cyan/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
+          Developer Blog
+        </span>
 
-        <motion.div
-          initial={prefersReducedMotion ? undefined : { opacity: 0, y: 14 }}
-          animate={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <p className="max-w-2xl text-lg leading-relaxed text-gray-300 md:text-xl">
-            {items.subtitle}
-          </p>
-        </motion.div>
+        <h1 className="text-gradient-vivid max-w-3xl font-display text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
+          {items.title}
+        </h1>
+
+        <p className="max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">
+          {items.subtitle}
+        </p>
       </div>
-    </motion.div>
+    </motion.section>
   )
 }

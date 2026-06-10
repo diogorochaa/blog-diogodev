@@ -2,12 +2,11 @@ import type { ReactNode } from 'react'
 
 export type Category = 'frontend' | 'backend'
 
-export type ExperienceMeta = {
+export type ExperienceItem = {
   name: string
   startYear: number
   color: string
   category: Category
   icon: ReactNode
+  years: number
 }
-
-export type ExperienceItem = ExperienceMeta & { years: number }

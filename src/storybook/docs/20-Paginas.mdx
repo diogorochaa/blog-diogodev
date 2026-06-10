@@ -6,13 +6,12 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 ## Rotas principais
 
-| Rota               | Arquivo principal                  | Responsabilidade                                                     |
-| ------------------ | ---------------------------------- | -------------------------------------------------------------------- |
-| `/`                | `src/app/page.tsx`                 | Home com listagem inicial de posts, paginacao e JSON-LD de site/blog |
-| `/about`           | `src/app/about/page.tsx`           | Perfil do autor + repositorios GitHub + JSON-LD de pessoa            |
-| `/[slug]`          | `src/app/[slug]/page.tsx`          | Pagina de post individual, metadata dinamica e fallback `notFound()` |
-| `/page/[page]`     | `src/app/page/[page]/page.tsx`     | Paginacao de posts por numero de pagina                              |
-| `/slice-simulator` | `src/app/slice-simulator/page.tsx` | Simulador de slices do Prismic                                       |
+| Rota           | Arquivo principal              | Responsabilidade                                                     |
+| -------------- | ------------------------------ | -------------------------------------------------------------------- |
+| `/`            | `src/app/page.tsx`             | Home com listagem inicial de posts, paginacao e JSON-LD de site/blog |
+| `/about`       | `src/app/about/page.tsx`       | Perfil do autor + repositorios GitHub + JSON-LD de pessoa            |
+| `/[slug]`      | `src/app/[slug]/page.tsx`      | Pagina de post individual, metadata dinamica e fallback `notFound()` |
+| `/page/[page]` | `src/app/page/[page]/page.tsx` | Paginacao de posts por numero de pagina                              |
 
 ## Modulos por rota
 
@@ -41,11 +40,6 @@ import { Meta } from '@storybook/addon-docs/blocks'
 - `page.constants.ts`: constantes de paginacao
 - `page.data.ts`: parse de params, metadata e dados paginados
 - `PagedPostsContent.tsx`: apresentacao da listagem paginada
-
-### Slice Simulator (`src/app/slice-simulator`)
-
-- `slice-simulator.data.ts`: resolve slices a partir de `searchParams`
-- `SliceSimulatorPageContent.tsx`: apresentacao do simulador
 
 ## Arquivos estruturais de SEO e shell
 

@@ -19,8 +19,11 @@ const OG_IMAGE = '/opengraph-image'
 
 export const rootHtmlClassName = `${manrope.variable} ${sora.variable} scroll-smooth`
 
-export const prismicScriptSrc =
-  'https://static.cdn.prismic.io/prismic.js?new=true&repo=blog-diodev'
+const prismicRepositoryName = process.env.PRISMIC_REPOSITORY_NAME ?? ''
+
+export const prismicScriptSrc = prismicRepositoryName
+  ? `https://static.cdn.prismic.io/prismic.js?new=true&repo=${prismicRepositoryName}`
+  : null
 
 export const rootMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

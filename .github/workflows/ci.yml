@@ -33,13 +33,15 @@ jobs:
         run: npm ci --prefer-offline --no-audit
 
       - name: Run quality checks
-        run: npm run check
-
-      - name: Run tests
-        run: npm run test:run
+        run: npm run verify
 
       - name: Build project
         run: npm run build
+        env:
+          CI: true
+          PRISMIC_REPOSITORY_NAME: ${{ secrets.PRISMIC_REPOSITORY_NAME }}
+          PRISMIC_ACCESS_TOKEN: ${{ secrets.PRISMIC_ACCESS_TOKEN }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://example.com' }}
 
   deploy-vercel:
     runs-on: ubuntu-latest

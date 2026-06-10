@@ -1,8 +1,8 @@
 import { siteConfig } from '@/config'
 
-import { BlogPost } from '@/models'
+import type { BlogPost } from '@/models'
 
-import { HomeBlogJsonLd, HomeWebsiteJsonLd } from './home.types'
+import type { HomeBlogJsonLd, HomeWebsiteJsonLd } from './home.types'
 
 export const buildWebsiteJsonLd = (): HomeWebsiteJsonLd => {
   return {

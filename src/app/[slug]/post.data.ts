@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
 
 import { siteConfig } from '@/config'
-import { BlogPost } from '@/models'
+import { buildPageMetadata } from '@/lib/seo/buildMetadata'
+import type { BlogPost } from '@/models'
 import { PostService } from '@/services'
 
 import {
   buildPostMetadataImagePath,
   buildPostMetadataImageUrl,
 } from './post.constants'
-import { PostJsonLd } from './post.types'
+import type { PostJsonLd } from './post.types'
 
 export const getPostStaticParams = async () => {
   const slugs = await PostService.getAllSlugs()
@@ -25,32 +26,14 @@ export const getPostBySlug = async (slug: string) => {
 export const buildPostMetadata = (post: BlogPost): Metadata => {
   const postMetadataImagePath = buildPostMetadataImagePath(post.slug)
 
-  return {
+  return buildPageMetadata({
     title: post.frontmatter.title,
     description: post.frontmatter.description,
-    alternates: {
-      canonical: `/${post.slug}`,
-    },
-    openGraph: {
-      type: 'article',
-      url: `${siteConfig.url}/${post.slug}`,
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
-      publishedTime: post.frontmatter.date,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: postMetadataImagePath,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.frontmatter.title,
-      description: post.frontmatter.description,
-      images: [postMetadataImagePath],
-    },
-  }
+    path: `/${post.slug}`,
+    image: postMetadataImagePath,
+    openGraphType: 'article',
+    publishedTime: post.frontmatter.date,
+  })
 }
 
 export const buildPostJsonLd = (post: BlogPost): PostJsonLd => {

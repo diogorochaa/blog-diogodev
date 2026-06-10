@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
-@import 'tailwindcss';
-@config '../tailwind.config.js';
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap");
+@import "../styles/tailwind-theme.css";
 
 :root {
   color-scheme: dark;
-  --font-manrope: 'Manrope';
-  --font-sora: 'Sora';
+  --font-manrope: "Manrope";
+  --font-sora: "Sora";
 }
 
 @layer base {
@@ -60,6 +59,18 @@ pre::-webkit-scrollbar {
 }
 
 @layer utilities {
+  .text-gradient-vivid {
+    @apply bg-linear-to-r from-accent-cyan via-accent-purple to-accent-pink bg-clip-text text-transparent;
+  }
+
+  .card-vivid {
+    @apply rounded-2xl border border-white/10 bg-surface-card/90 backdrop-blur-md;
+  }
+
+  .panel-vivid {
+    @apply rounded-2xl border border-accent-purple/30 bg-surface-elevated/70 backdrop-blur-md;
+  }
+
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in;
   }

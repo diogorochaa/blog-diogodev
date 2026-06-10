@@ -1,7 +1,7 @@
 import { setDefaultResultOrder } from 'node:dns'
 
 import * as prismic from '@prismicio/client'
-import { CreateClientConfig, enableAutoPreviews } from '@prismicio/next'
+import { type CreateClientConfig, enableAutoPreviews } from '@prismicio/next'
 
 // Some environments expose an IPv6 DNS result that is unreachable.
 // Prioritizing IPv4 avoids transient connect timeouts to Prismic's CDN.

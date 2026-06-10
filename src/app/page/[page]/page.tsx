@@ -39,7 +39,6 @@ export async function generateMetadata({
   const description = `Página ${currentPage} com os posts mais recentes do blog.`
 
   return buildPagedPostsMetadata({
-    currentPage,
     page,
     title,
     description,
@@ -58,7 +57,7 @@ export default async function Page({ params }: PageProps<'/page/[page]'>) {
     await getPagedPosts(currentPage)
   const { prevPage, nextPage } = paginationPages(currentPage)
 
-  if (!posts.length) {
+  if (currentPage > numbPages || !posts.length) {
     notFound()
   }
 

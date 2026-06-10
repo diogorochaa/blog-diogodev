@@ -1,8 +1,6 @@
-import { Reveal } from '@/components/Motion'
-import { Pagination } from '@/components/Pagination'
-import { PostsList } from '@/components/PostsList'
+import { PostsFeed } from '@/components/PostsFeed'
 
-import { PagedPostsContentProps } from './page.types'
+import type { PagedPostsContentProps } from './page.types'
 
 export const PagedPostsContent = ({
   posts,
@@ -15,20 +13,16 @@ export const PagedPostsContent = ({
 }: PagedPostsContentProps) => {
   return (
     <div>
-      <Reveal y={16}>
-        <PostsList posts={posts} showMain={false} />
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        <Pagination
-          currentPage={currentPage}
-          numbPages={numbPages}
-          totalPosts={totalPosts}
-          postsPerPage={postsPerPage}
-          prevPage={prevPage}
-          nextPage={nextPage}
-        />
-      </Reveal>
+      <PostsFeed
+        posts={posts}
+        currentPage={currentPage}
+        numbPages={numbPages}
+        totalPosts={totalPosts}
+        postsPerPage={postsPerPage}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        showMainPost={false}
+      />
     </div>
   )
 }

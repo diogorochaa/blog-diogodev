@@ -1,52 +1,79 @@
 import type { Route } from 'next'
-
-import { formatDate } from '@/utils'
 import NextLink from 'next/link'
-
 import { AnimatedCover } from '@/components/AnimatedCover'
 import { Tag } from '@/components/Tag'
+import { formatDate, getCoverVariant, toIsoDate } from '@/utils'
 
 import type { PostCardProps } from './PostCard.types'
 
 export type { PostCardProps } from './PostCard.types'
 
-export const PostCard = ({ post, isMain = false }: PostCardProps) => {
+export const PostCard = ({
+  post,
+  variant = 'grid',
+  isMain = false,
+}: PostCardProps) => {
+  const resolvedVariant = isMain ? 'carousel' : variant
   const { frontmatter, readingTime, slug } = post
   const { title, description, date, tags } = frontmatter
 
   const formattedDate = formatDate(date)
+  const isoDate = toIsoDate(date)
   const postPath = `/${slug}` as Route
+  const coverVariant = getCoverVariant(slug)
+  const isCarousel = resolvedVariant === 'carousel'
 
   return (
     <NextLink
       className={[
-        'group flex w-full flex-col rounded-xl border border-accent-purple/20 bg-linear-to-br from-secondary/80 to-secondary/60 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-accent-cyan/55 text-center hover:shadow-glow-cyan animate-soft-in',
-        isMain ? 'mb-6' : 'h-full',
-      ]
-        .filter(Boolean)
-        .join(' ')}
+        'card-vivid group flex h-full w-full flex-col text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-vivid',
+        isCarousel ? 'min-h-[22rem]' : 'min-h-[20rem]',
+      ].join(' ')}
       href={postPath}
     >
-      <div className="relative h-60 w-full sm:h-72 md:h-80">
-        <AnimatedCover className="h-full w-full" compact />
+      <div
+        className={[
+          'relative w-full overflow-hidden',
+          isCarousel ? 'h-44 sm:h-48' : 'h-40 sm:h-44',
+        ].join(' ')}
+      >
+        <AnimatedCover
+          className="h-full w-full rounded-b-none rounded-t-[0.9rem]"
+          compact
+          variant={coverVariant}
+        />
+        {tags?.[0] ? (
+          <div className="absolute left-3 top-3 z-20">
+            <Tag size="xs">{tags[0]}</Tag>
+          </div>
+        ) : null}
       </div>
 
-      <div className="flex items-center flex-1 flex-col pt-3">
-        <div className="mb-3 flex flex-wrap gap-2">
-          {tags?.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
-        </div>
-
-        <time className="text-gray-400">
-          {formattedDate} • {readingTime} minutos de leitura
+      <div className="flex flex-1 flex-col gap-3 p-4 sm:p-5">
+        <time
+          className="text-xs font-medium uppercase tracking-wide text-gray-400"
+          dateTime={isoDate}
+        >
+          {formattedDate} · {readingTime} min
         </time>
 
-        <p className="mt-2 wrap-break-word text-xl leading-tight font-bold text-white transition-colors duration-300 group-hover:text-accent-cyan sm:text-2xl">
+        <h3
+          className={[
+            'line-clamp-2 font-display font-bold leading-tight text-white transition-colors duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-linear-to-r group-hover:from-accent-cyan group-hover:via-accent-purple group-hover:to-accent-pink',
+            isCarousel ? 'text-lg sm:text-xl' : 'text-base sm:text-lg',
+          ].join(' ')}
+        >
           {title}
-        </p>
+        </h3>
 
-        <p className="mt-3 line-clamp-3 text-gray-300">{description}</p>
+        <p
+          className={[
+            'line-clamp-3 text-sm leading-relaxed text-gray-400',
+            isCarousel ? 'sm:line-clamp-4' : '',
+          ].join(' ')}
+        >
+          {description}
+        </p>
       </div>
     </NextLink>
   )

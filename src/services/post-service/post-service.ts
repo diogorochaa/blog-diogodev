@@ -1,16 +1,22 @@
+import * as prismic from '@prismicio/client'
 import { cache } from 'react'
 
-import * as prismic from '@prismicio/client'
-
-import { BlogPost } from '@/models'
+import type { BlogPost } from '@/models'
 import { createClient, hasPrismicConfig } from '@/prismicio'
 import { paginationPosts } from '@/utils'
 
 import type { GetPostAllParams, PrismicPostData } from './post-service.types'
 
 const WORDS_PER_MINUTE = 200
+const PRISMIC_MAX_ATTEMPTS = 3
+const PRISMIC_RETRY_DELAY_MS = 500
 let hasWarnedMissingPrismicConfig = false
 let hasWarnedPrismicNetworkFailure = false
+
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, ms)
+  })
 
 const postQuery = {
   orderings: [
@@ -31,18 +37,29 @@ const isPrismicNetworkError = (error: unknown) => {
   )
 }
 
+const shouldFailOnNetworkError = () =>
+  process.env.NODE_ENV === 'production' && hasPrismicConfig
+
 const getDocumentsWithRetry = async (
   client: ReturnType<typeof createClient>,
 ) => {
-  try {
-    return await client.getAllByType('post', postQuery)
-  } catch (firstError) {
-    if (!isPrismicNetworkError(firstError)) {
-      throw firstError
-    }
+  let lastError: unknown
 
-    return await client.getAllByType('post', postQuery)
+  for (let attempt = 1; attempt <= PRISMIC_MAX_ATTEMPTS; attempt++) {
+    try {
+      return await client.getAllByType('post', postQuery)
+    } catch (error) {
+      lastError = error
+
+      if (!isPrismicNetworkError(error) || attempt === PRISMIC_MAX_ATTEMPTS) {
+        throw error
+      }
+
+      await sleep(PRISMIC_RETRY_DELAY_MS * attempt)
+    }
   }
+
+  throw lastError
 }
 
 const normalizeTags = (dataTags: unknown, documentTags: string[]) => {
@@ -112,6 +129,10 @@ const getAllPosts = cache(async (): Promise<BlogPost[]> => {
       throw error
     }
 
+    if (shouldFailOnNetworkError()) {
+      throw error
+    }
+
     if (!hasWarnedPrismicNetworkFailure) {
       hasWarnedPrismicNetworkFailure = true
       const reason =
@@ -148,8 +169,33 @@ export const PostService = {
     }
   },
   getBySlug: async (slug: string) => {
+    if (!hasPrismicConfig) {
+      return undefined
+    }
+
     const posts = await getAllPosts()
-    return posts.find((post) => post.slug === slug)
+    const fromList = posts.find((post) => post.slug === slug)
+
+    if (fromList) {
+      return fromList
+    }
+
+    const client = createClient()
+
+    try {
+      const document = await client.getByUID('post', slug)
+      return toBlogPost(document)
+    } catch (error) {
+      if (error instanceof prismic.NotFoundError) {
+        return undefined
+      }
+
+      if (isPrismicNetworkError(error) && shouldFailOnNetworkError()) {
+        throw error
+      }
+
+      throw error
+    }
   },
   getAllSlugs: async () => {
     const posts = await getAllPosts()

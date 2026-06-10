@@ -1,7 +1,7 @@
 import { Empty } from '@/components/Empty'
 import { RecommendedPosts } from '@/components/RecommendedPosts'
 
-import { SlugNotFoundContentProps } from './not-found.types'
+import type { SlugNotFoundContentProps } from './not-found.types'
 
 export const SlugNotFoundContent = ({ posts }: SlugNotFoundContentProps) => {
   return (

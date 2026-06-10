@@ -1,4 +1,4 @@
-import { LocalMainNavType } from '@/models'
+import type { LocalMainNavType } from '@/models'
 
 export const mainNavConfig: LocalMainNavType = {
   mainNav: [

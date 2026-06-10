@@ -1,11 +1,7 @@
-import { Reveal } from '@/components/Motion'
-import { Pagination } from '@/components/Pagination'
-import { PostsList } from '@/components/PostsList'
-import { Profile } from '@/components/Profile'
+import { JsonLd } from '@/components/JsonLd'
+import { PostsFeed } from '@/components/PostsFeed'
 
-import { siteConfig } from '@/config'
-
-import { HomePageContentProps } from './home.types'
+import type { HomePageContentProps } from './home.types'
 
 export const HomePageContent = ({
   websiteJsonLd,
@@ -20,33 +16,18 @@ export const HomePageContent = ({
 }: HomePageContentProps) => {
   return (
     <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      <JsonLd data={[websiteJsonLd, blogJsonLd]} />
+
+      <PostsFeed
+        posts={posts}
+        currentPage={currentPage}
+        numbPages={numbPages}
+        totalPosts={totalPosts}
+        postsPerPage={postsPerPage}
+        prevPage={prevPage}
+        nextPage={nextPage}
+        showProfile
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
-      />
-
-      <Reveal className="my-10" y={22}>
-        <Profile items={siteConfig} />
-      </Reveal>
-
-      <Reveal delay={0.08}>
-        <PostsList posts={posts} />
-      </Reveal>
-
-      <Reveal delay={0.14}>
-        <Pagination
-          currentPage={currentPage}
-          numbPages={numbPages}
-          totalPosts={totalPosts}
-          postsPerPage={postsPerPage}
-          prevPage={prevPage}
-          nextPage={nextPage}
-        />
-      </Reveal>
     </main>
   )
 }

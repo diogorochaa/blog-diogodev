@@ -1,0 +1,7 @@
+.rich-text pre {
+  overflow-x: auto;
+}
+
+.rich-text code {
+  word-break: break-word;
+}

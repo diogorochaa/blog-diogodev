@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatDate } from './formatDate'
+import { formatDate, toIsoDate } from './formatDate'
 
 describe('formatDate', () => {
   it('formats date using pt-BR long style', () => {
@@ -10,5 +10,19 @@ describe('formatDate', () => {
     }).format(new Date(input))
 
     expect(formatDate(input)).toBe(expected)
+  })
+
+  it('returns fallback label for invalid dates', () => {
+    expect(formatDate('invalid-date')).toBe('Data indisponível')
+  })
+})
+
+describe('toIsoDate', () => {
+  it('returns ISO string for valid dates', () => {
+    expect(toIsoDate('2024-03-10')).toBe(new Date('2024-03-10').toISOString())
+  })
+
+  it('returns undefined for invalid dates', () => {
+    expect(toIsoDate('invalid-date')).toBeUndefined()
   })
 })

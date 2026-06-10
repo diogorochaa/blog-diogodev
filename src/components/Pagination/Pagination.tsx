@@ -21,7 +21,7 @@ export const Pagination = ({
     : 0
 
   return (
-    <div className="animate-soft-in flex w-full flex-col items-start gap-3 pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+    <div className="panel-vivid mt-8 flex w-full flex-col items-start gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-5">
       <div className="order-2 w-full sm:order-1 sm:w-auto sm:min-w-35">
         {!isFirst && (
           <NextLink

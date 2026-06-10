@@ -9,6 +9,7 @@ Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 - TypeScript
 - Tailwind CSS
 - Prismic (CMS)
+- Vitest + Storybook
 
 ## Requisitos
 
@@ -30,16 +31,24 @@ Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 
 ## Variaveis de ambiente
 
-Crie um arquivo `.env.local` na raiz:
+Copie o template e preencha suas credenciais:
 
 ```bash
-PRISMIC_REPOSITORY_NAME=seu-repositorio
-PRISMIC_ACCESS_TOKEN=
-NEXT_PUBLIC_SITE_URL=https://seu-dominio.com
+cp .env.example .env.local
 ```
 
-`PRISMIC_ACCESS_TOKEN` so e necessario se seu repositorio nao for publico.
-`NEXT_PUBLIC_SITE_URL` define a URL publica usada em canonical, Open Graph e Twitter Cards.
+Variaveis em [`.env.example`](.env.example):
+
+```bash
+PRISMIC_REPOSITORY_NAME=blog-diodev
+PRISMIC_ACCESS_TOKEN=
+PRISMIC_WEBHOOK_SECRET=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
+
+- `PRISMIC_ACCESS_TOKEN` so e necessario se seu repositorio nao for publico.
+- `PRISMIC_WEBHOOK_SECRET` protege o endpoint `POST /api/revalidate` (envie `Authorization: Bearer <secret>` no webhook do Prismic).
+- `NEXT_PUBLIC_SITE_URL` e obrigatoria em producao para canonical, Open Graph e Twitter Cards.
 
 ## Rodando o projeto
 
@@ -52,14 +61,30 @@ Abra `http://localhost:3000`.
 
 ## Qualidade de codigo
 
+O projeto usa [Biome](https://biomejs.dev/) para lint e formatacao.
+
 ```bash
 npm run typecheck
 npm run lint
-npm run format:check
+npm run format
 npm run test:run
 ```
 
-`npm run typecheck` executa `next typegen` antes do TypeScript para manter os tipos do App Router atualizados no Next 16.
+- `npm run typecheck` executa `next typegen` antes do TypeScript para manter os tipos do App Router atualizados no Next 16.
+- `npm run lint` e `npm run check` executam `biome check` (lint + formatacao).
+- `npm run lint:fix` aplica correcoes automaticas do Biome.
+
+Para validar tudo de uma vez:
+
+```bash
+npm run verify
+npm run test:all
+npm run build
+```
+
+## Tailwind CSS v4
+
+O tema (cores, fontes, gradientes, sombras e safelist do grid) fica em [`styles/tailwind-theme.css`](styles/tailwind-theme.css) com `@theme` e `@source` nativos do Tailwind v4. O app importa esse arquivo via [`styles/globals.css`](styles/globals.css).
 
 ## Storybook
 
@@ -93,11 +118,13 @@ Para executar testes unitarios e de Storybook no mesmo comando:
 npm run test:all
 ```
 
-Para rodar tudo de uma vez:
+## Arquitetura
 
-```bash
-npm run verify
-```
+- Rotas em `src/app` com split `page.tsx` / `*.data.ts` / `*Content.tsx`
+- Servicos em `src/services` (`PostService`, `GithubService`)
+- Conteudo rich text do Prismic em `src/components/RichText`
+- SEO compartilhado em `src/lib/seo/buildMetadata.ts`
+- Listagem de posts reutilizada em `src/components/PostsFeed`
 
 ## Publicando posts
 
@@ -107,6 +134,15 @@ npm run verify
 4. Publique o documento.
 
 Os posts publicados passam a aparecer no blog automaticamente.
+
+## Webhook de revalidacao
+
+Configure no Prismic um webhook apontando para:
+
+```bash
+POST https://seu-dominio.com/api/revalidate
+Authorization: Bearer <PRISMIC_WEBHOOK_SECRET>
+```
 
 ## Deploy automatico na Vercel apos CI
 
@@ -121,7 +157,20 @@ Para ativar:
 
 ```bash
 VERCEL_DEPLOY_HOOK_URL=https://api.vercel.com/v1/integrations/deploy/...
+PRISMIC_REPOSITORY_NAME=seu-repositorio
+PRISMIC_ACCESS_TOKEN=          # obrigatorio se o repositorio Prismic for privado
 ```
+
+Na Vercel (`Settings > Environment Variables`), configure pelo menos:
+
+```bash
+PRISMIC_REPOSITORY_NAME=seu-repositorio
+NEXT_PUBLIC_SITE_URL=https://seu-dominio.com
+PRISMIC_WEBHOOK_SECRET=seu-secret-de-webhook
+PRISMIC_ACCESS_TOKEN=          # se o repositorio for privado
+```
+
+O build valida a conexao com o Prismic em CI e na Vercel. Sem `PRISMIC_REPOSITORY_NAME` correto, o deploy nao gera as paginas dos posts.
 
 Observacao:
 

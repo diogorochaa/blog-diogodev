@@ -1,4 +1,4 @@
-import { Repo } from '@/models'
+import type { Repo } from '@/models'
 
 export type PersonJsonLd = {
   '@context': 'https://schema.org'
@@ -17,6 +17,7 @@ export type PersonJsonLd = {
 
 export type AboutPageContentProps = {
   personJsonLd: PersonJsonLd
+  avatarUrl: string
   publicRepos: number
   followers: number
   repos: Repo[]

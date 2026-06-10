@@ -1,4 +1,4 @@
-export type Profile = {
+export type GithubProfile = {
   avatar_url: string
   name: string
   company: string | null

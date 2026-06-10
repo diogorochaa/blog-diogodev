@@ -1,24 +1,36 @@
+import Image from 'next/image'
+import NextLink from 'next/link'
+
 import { AboutExperience } from '@/components/AboutExperience'
+import { JsonLd } from '@/components/JsonLd'
 import { Reveal } from '@/components/Motion'
 
-import { AboutPageContentProps } from './about.types'
+import type { AboutPageContentProps } from './about.types'
 
 export const AboutPageContent = ({
   personJsonLd,
+  avatarUrl,
   publicRepos,
   followers,
   repos,
 }: AboutPageContentProps) => {
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-10 animate-soft-in sm:gap-12">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+      <JsonLd data={personJsonLd} />
 
       <Reveal y={20}>
         <div className="mb-5 flex flex-col items-center gap-3 text-center animate-slide-up sm:mb-8 sm:gap-4">
-          <div className="text-6xl animate-float-slow md:text-7xl">👨‍💻</div>
+          {avatarUrl ? (
+            <Image
+              src={avatarUrl}
+              alt="Foto de perfil do Diogo Rocha"
+              width={112}
+              height={112}
+              className="h-28 w-28 rounded-full border-2 border-accent-cyan/40 object-cover"
+            />
+          ) : (
+            <div className="text-6xl animate-float-slow md:text-7xl">👨‍💻</div>
+          )}
           <h1 className="animate-slide-up bg-linear-to-r from-accent-purple via-accent-cyan to-accent-pink bg-clip-text text-3xl font-bold text-transparent sm:text-4xl md:text-5xl">
             Sobre mim
           </h1>
@@ -32,9 +44,10 @@ export const AboutPageContent = ({
           </h2>
 
           <p className="text-base leading-relaxed text-gray-300 sm:text-lg md:text-xl">
-            É um prazer te receber no meu blog! <br />
-            Espero que meus artigos possam te ajudar de alguma forma, e se você
-            tem alguma sugestão, me envie uma mensagem!
+            É um prazer te receber no meu blog!
+            <br />
+            Espero que meus artigos possam te ajudar de alguma forma. Se você
+            tiver alguma sugestão, me envie uma mensagem!
           </p>
 
           <div className="mt-3 grid grid-cols-1 gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4">
@@ -75,7 +88,7 @@ export const AboutPageContent = ({
                 <a
                   className="group flex cursor-pointer flex-col gap-4 rounded-xl border border-accent-purple/20 bg-linear-to-br from-secondary/80 to-secondary/60 p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-accent-cyan/55 hover:shadow-glow-cyan"
                   href={repo.html_url}
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   <div className="flex items-center gap-3">
@@ -92,12 +105,12 @@ export const AboutPageContent = ({
                   </p>
 
                   <div className="flex items-center justify-between border-t border-accent-purple/20 pt-4">
-                    {repo.language && (
+                    {repo.language ? (
                       <div className="flex items-center gap-2 text-sm text-gray-400">
                         <div className="h-3 w-3 rounded-full bg-accent-cyan" />
                         {repo.language}
                       </div>
-                    )}
+                    ) : null}
 
                     <div className="flex items-center gap-4 text-sm text-gray-400">
                       <div className="flex items-center gap-1">
@@ -112,6 +125,20 @@ export const AboutPageContent = ({
               </Reveal>
             ))}
           </div>
+
+          {repos.length === 0 ? (
+            <p className="text-center text-gray-400">
+              Nenhum repositório disponível no momento.{' '}
+              <NextLink
+                href="https://github.com/diogorochaa"
+                className="text-accent-cyan hover:underline"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Visite meu GitHub
+              </NextLink>
+            </p>
+          ) : null}
         </div>
       </Reveal>
     </div>

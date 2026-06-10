@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@source "../src/**/*.{js,ts,jsx,tsx}";
+@source inline("grid-cols-{1..6}");
+@source inline("sm:grid-cols-{1..6}");
+@source inline("md:grid-cols-{1..6}");
+@source inline("lg:grid-cols-{1..6}");
+@source inline("xl:grid-cols-{1..6}");
+@source inline("2xl:grid-cols-{1..6}");
+@source inline("gap-{1..12}");
+@source inline("sm:gap-{1..12}");
+@source inline("md:gap-{1..12}");
+@source inline("lg:gap-{1..12}");
+@source inline("xl:gap-{1..12}");
+@source inline("2xl:gap-{1..12}");
+
+@theme {
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui;
+  --font-display: var(--font-sora), ui-sans-serif, system-ui;
+  --font-permanent: "Permanent Marker", cursive;
+  --font-foldit: "Foldit", cursive;
+
+  --color-primary: #05050a;
+  --color-secondary: #12121f;
+  --color-surface-elevated: #1a1a2e;
+  --color-surface-card: #16162a;
+  --color-accent-cyan: #22d3ee;
+  --color-accent-purple: #a855f7;
+  --color-accent-blue: #3b82f6;
+  --color-accent-pink: #f472b6;
+  --color-accent-orange: #fb923c;
+  --color-accent-lime: #a3e635;
+  --color-link: #22d3ee;
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-primary: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 100%
+  );
+  --background-image-gradient-cyan: linear-gradient(
+    135deg,
+    #22d3ee 0%,
+    #3b82f6 100%
+  );
+  --background-image-gradient-vivid: linear-gradient(
+    135deg,
+    #22d3ee 0%,
+    #a855f7 45%,
+    #f472b6 100%
+  );
+  --background-image-gradient-card: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.14) 0%,
+    rgba(34, 211, 238, 0.12) 100%
+  );
+  --background-image-gradient-border: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.9),
+    rgba(168, 85, 247, 0.9),
+    rgba(244, 114, 182, 0.9)
+  );
+
+  --shadow-glow: 0 0 24px rgba(168, 85, 247, 0.35);
+  --shadow-glow-cyan: 0 0 24px rgba(34, 211, 238, 0.4);
+  --shadow-glow-vivid:
+    0 0 28px rgba(34, 211, 238, 0.22), 0 0 40px rgba(168, 85, 247, 0.18);
+}

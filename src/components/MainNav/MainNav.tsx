@@ -34,8 +34,8 @@ export const MainNav = ({ items }: MainNavProps) => {
               <ListItem
                 className={
                   itemIsActive
-                    ? 'bg-link text-primary font-medium scale-[1.02]'
-                    : undefined
+                    ? 'border border-accent-cyan/40 bg-accent-cyan/15 font-medium text-accent-cyan shadow-glow-cyan'
+                    : 'border border-transparent text-gray-300 hover:border-accent-purple/30 hover:text-white'
                 }
                 key={item.title}
               >
@@ -69,7 +69,9 @@ export const MainNav = ({ items }: MainNavProps) => {
                   <ListItem
                     className={[
                       'border-b border-gray-600 py-3 first:pt-1 last:border-b-0',
-                      itemIsActive ? 'bg-link text-primary font-medium' : '',
+                      itemIsActive
+                        ? 'border border-accent-cyan/40 bg-accent-cyan/15 font-medium text-accent-cyan'
+                        : 'text-gray-300',
                     ]
                       .filter(Boolean)
                       .join(' ')}

@@ -2,8 +2,8 @@ import { expect, within } from 'storybook/test'
 
 import { mockPosts } from '@/storybook/mocks/blog'
 import {
-  StorySurface,
   createMockPost,
+  StorySurface,
   storySurfaceOptions,
 } from '@/storybook/story-helpers'
 import { PostsList } from './PostsList'
@@ -14,7 +14,7 @@ const meta = {
   tags: ['autodocs', 'test'],
   parameters: {
     controls: {
-      include: ['count', 'featuredTitle', 'showMain', 'surfaceTone'],
+      include: ['count', 'featuredTitle', 'layout', 'surfaceTone'],
     },
   },
   argTypes: {
@@ -30,15 +30,16 @@ const meta = {
       name: 'featured title',
       control: 'text',
     },
-    showMain: {
-      control: 'boolean',
+    layout: {
+      control: 'select',
+      options: ['home', 'grid'],
     },
     surfaceTone: {
       control: 'select',
       options: storySurfaceOptions,
     },
   },
-  render: ({ count, featuredTitle, showMain, surfaceTone }: any) => {
+  render: ({ count, featuredTitle, layout, surfaceTone }: any) => {
     const posts = mockPosts.slice(0, Math.max(1, count)).map((_, index) => {
       return createMockPost({
         index,
@@ -51,14 +52,14 @@ const meta = {
         surfaceTone={surfaceTone}
         className="mx-auto max-w-6xl p-4 sm:p-6"
       >
-        <PostsList posts={posts} showMain={showMain} />
+        <PostsList posts={posts} layout={layout} />
       </StorySurface>
     )
   },
   args: {
     count: mockPosts.length,
     featuredTitle: 'Arquitetura Next.js + Prismic para blogs escalaveis',
-    showMain: true,
+    layout: 'home',
     surfaceTone: 'primary',
   },
 }
@@ -75,7 +76,7 @@ export const Default = {
 
 export const GridOnly = {
   args: {
-    showMain: false,
+    layout: 'grid',
   },
 }
 

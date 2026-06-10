@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { siteConfig } from '@/config'
+import { buildPageMetadata } from '@/lib/seo/buildMetadata'
 import { PostService } from '@/services'
 
 import { PAGED_POSTS_METADATA_IMAGE } from './page.constants'
@@ -8,7 +8,7 @@ import { PAGED_POSTS_METADATA_IMAGE } from './page.constants'
 export const parseCurrentPage = (page: string) => {
   const currentPage = Number(page)
 
-  if (Number.isNaN(currentPage) || currentPage < 2) {
+  if (!Number.isInteger(currentPage) || currentPage < 2) {
     return null
   }
 
@@ -32,39 +32,18 @@ export const getPagedPosts = async (currentPage: number) => {
 }
 
 export const buildPagedPostsMetadata = ({
-  currentPage,
   page,
   title,
   description,
 }: {
-  currentPage: number
   page: string
   title: string
   description: string
 }): Metadata => {
-  return {
+  return buildPageMetadata({
     title,
     description,
-    alternates: {
-      canonical: `/page/${page}`,
-    },
-    openGraph: {
-      type: 'website',
-      url: `${siteConfig.url}/page/${page}`,
-      title: `Página ${currentPage}`,
-      description,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: PAGED_POSTS_METADATA_IMAGE,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [PAGED_POSTS_METADATA_IMAGE],
-    },
-  }
+    path: `/page/${page}`,
+    image: PAGED_POSTS_METADATA_IMAGE,
+  })
 }

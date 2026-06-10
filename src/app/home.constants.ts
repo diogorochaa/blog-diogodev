@@ -1,30 +1,7 @@
-import type { Metadata } from 'next'
-
 import { siteConfig } from '@/config'
+import { buildPageMetadata } from '@/lib/seo/buildMetadata'
 
-const OG_IMAGE = '/opengraph-image'
-
-export const homeMetadata: Metadata = {
+export const homeMetadata = buildPageMetadata({
   description: siteConfig.description,
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    type: 'website',
-    title: siteConfig.name,
-    url: siteConfig.url,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: OG_IMAGE,
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [OG_IMAGE],
-  },
-}
+  path: '/',
+})

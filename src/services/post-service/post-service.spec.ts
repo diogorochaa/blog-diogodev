@@ -1,3 +1,4 @@
+import * as prismic from '@prismicio/client'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const makePrismicDoc = ({
@@ -36,14 +37,27 @@ const loadPostService = async ({
   hasConfig,
   documents,
   getAllByTypeMock,
+  getByUIDMock,
 }: {
   hasConfig: boolean
   documents: ReturnType<typeof makePrismicDoc>[]
   getAllByTypeMock?: ReturnType<typeof vi.fn>
+  getByUIDMock?: ReturnType<typeof vi.fn>
 }) => {
   vi.resetModules()
 
   const getAllByType = getAllByTypeMock ?? vi.fn().mockResolvedValue(documents)
+  const getByUID =
+    getByUIDMock ??
+    vi.fn().mockImplementation((_type: string, uid: string) => {
+      const document = documents.find((doc) => doc.uid === uid)
+
+      if (!document) {
+        throw new prismic.NotFoundError('Document not found', '', '')
+      }
+
+      return Promise.resolve(document)
+    })
 
   vi.doMock('react', async () => {
     const actual = await vi.importActual<typeof import('react')>('react')
@@ -56,18 +70,19 @@ const loadPostService = async ({
 
   vi.doMock('@/prismicio', () => ({
     hasPrismicConfig: hasConfig,
-    createClient: () => ({ getAllByType }),
+    createClient: () => ({ getAllByType, getByUID }),
   }))
 
   const { PostService } = await import('./post-service')
 
-  return { PostService, getAllByType }
+  return { PostService, getAllByType, getByUID }
 }
 
 describe('PostService', () => {
   afterEach(() => {
     vi.clearAllMocks()
     vi.resetModules()
+    vi.unstubAllEnvs()
   })
 
   it('returns paginated posts and page count', async () => {
@@ -109,7 +124,7 @@ describe('PostService', () => {
     expect(result.posts[0].slug).toBe('post-3')
   })
 
-  it('returns post by slug and all slugs list', async () => {
+  it('returns post by slug from cached list and all slugs list', async () => {
     const docs = [
       makePrismicDoc({
         id: '1',
@@ -126,7 +141,7 @@ describe('PostService', () => {
       }),
     ]
 
-    const { PostService } = await loadPostService({
+    const { PostService, getAllByType } = await loadPostService({
       hasConfig: true,
       documents: docs,
     })
@@ -134,8 +149,31 @@ describe('PostService', () => {
     const post = await PostService.getBySlug('post-2')
     const slugs = await PostService.getAllSlugs()
 
+    expect(getAllByType).toHaveBeenCalledWith('post', {
+      orderings: [{ field: 'my.post.date', direction: 'desc' }],
+    })
     expect(post?.frontmatter.title).toBe('Title post-2')
     expect(slugs).toEqual(['post-1', 'post-2'])
+  })
+
+  it('returns undefined when slug is not found', async () => {
+    const docs = [
+      makePrismicDoc({
+        id: '1',
+        uid: 'post-1',
+        date: '2024-01-01',
+        content: 'word '.repeat(20),
+      }),
+    ]
+
+    const { PostService } = await loadPostService({
+      hasConfig: true,
+      documents: docs,
+    })
+
+    const post = await PostService.getBySlug('missing-post')
+
+    expect(post).toBeUndefined()
   })
 
   it('returns empty list when Prismic config is missing', async () => {
@@ -189,7 +227,9 @@ describe('PostService', () => {
     expect(result.posts[0].slug).toBe('post-1')
   })
 
-  it('returns empty list when Prismic keeps failing with network errors', async () => {
+  it('returns empty list when Prismic keeps failing with network errors in development', async () => {
+    vi.stubEnv('NODE_ENV', 'development')
+
     const warnSpy = vi
       .spyOn(console, 'warn')
       .mockImplementation(() => undefined)
@@ -208,7 +248,7 @@ describe('PostService', () => {
 
     const result = await PostService.getAll()
 
-    expect(getAllByType).toHaveBeenCalledTimes(2)
+    expect(getAllByType).toHaveBeenCalledTimes(3)
     expect(result.posts).toEqual([])
     expect(result.totalPosts).toBe(0)
     expect(warnSpy).toHaveBeenCalledWith(
@@ -216,5 +256,24 @@ describe('PostService', () => {
     )
 
     warnSpy.mockRestore()
+  })
+
+  it('throws when Prismic keeps failing with network errors in production', async () => {
+    vi.stubEnv('NODE_ENV', 'production')
+
+    const getAllByType = vi
+      .fn()
+      .mockRejectedValue(
+        new Error('ConnectTimeoutError: Connect Timeout Error'),
+      )
+
+    const { PostService } = await loadPostService({
+      hasConfig: true,
+      documents: [],
+      getAllByTypeMock: getAllByType,
+    })
+
+    await expect(PostService.getAll()).rejects.toThrow('Connect Timeout Error')
+    expect(getAllByType).toHaveBeenCalledTimes(3)
   })
 })

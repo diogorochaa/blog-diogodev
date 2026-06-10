@@ -6,11 +6,10 @@ import { PostService } from '@/services'
 const toAbsoluteUrl = (path: string) => new URL(path, siteConfig.url).toString()
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [slugs, { numbPages }] = await Promise.all([
-    PostService.getAllSlugs(),
+  const [{ numbPages }, slugs] = await Promise.all([
     PostService.getAll(),
+    PostService.getAllSlugs(),
   ])
-
   const lastModified = new Date()
 
   const staticRoutes: MetadataRoute.Sitemap = [

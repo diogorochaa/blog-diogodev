@@ -1,8 +1,8 @@
 import { expect, within } from 'storybook/test'
 
 import {
-  StorySurface,
   createMockPost,
+  StorySurface,
   splitCommaSeparatedValues,
   storySurfaceOptions,
 } from '@/storybook/story-helpers'
@@ -21,7 +21,7 @@ const meta = {
         'readingTime',
         'tagsInput',
         'slug',
-        'isMain',
+        'variant',
         'surfaceTone',
       ],
     },
@@ -51,8 +51,9 @@ const meta = {
     slug: {
       control: 'text',
     },
-    isMain: {
-      control: 'boolean',
+    variant: {
+      control: 'select',
+      options: ['grid', 'carousel'],
     },
     surfaceTone: {
       control: 'select',
@@ -66,7 +67,7 @@ const meta = {
     readingTime,
     tagsInput,
     slug,
-    isMain,
+    variant,
     surfaceTone,
   }: any) => {
     const post = createMockPost({
@@ -83,7 +84,7 @@ const meta = {
         surfaceTone={surfaceTone}
         className="mx-auto max-w-4xl p-4 sm:p-6"
       >
-        <PostCard post={post} isMain={isMain} />
+        <PostCard post={post} variant={variant} />
       </StorySurface>
     )
   },
@@ -95,7 +96,7 @@ const meta = {
     readingTime: 8,
     tagsInput: 'nextjs, prismic, arquitetura',
     slug: 'arquitetura-nextjs-prismic',
-    isMain: false,
+    variant: 'grid',
     surfaceTone: 'primary',
   },
 }
@@ -111,9 +112,9 @@ export const Default = {
   },
 }
 
-export const MainHighlight = {
+export const CarouselHighlight = {
   args: {
-    isMain: true,
+    variant: 'carousel',
   },
 }
 
