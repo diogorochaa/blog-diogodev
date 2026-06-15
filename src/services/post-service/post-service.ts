@@ -201,4 +201,16 @@ export const PostService = {
     const posts = await getAllPosts()
     return posts.map((post) => post.slug)
   },
+  getSearchIndex: async () => {
+    const posts = await getAllPosts()
+
+    return posts.map((post) => ({
+      slug: post.slug,
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      tags: post.frontmatter.tags,
+      date: post.frontmatter.date,
+      readingTime: post.readingTime,
+    }))
+  },
 }

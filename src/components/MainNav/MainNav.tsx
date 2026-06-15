@@ -51,7 +51,7 @@ export const MainNav = ({ items }: MainNavProps) => {
         </List>
       </nav>
 
-      <div className="z-50 flex transition-colors duration-300 hover:text-accent-cyan lg:hidden">
+      <div className="z-50 flex shrink-0 items-center gap-1 transition-colors duration-300 hover:text-accent-cyan lg:hidden">
         <ToggleButton
           isOpenMenu={isOpenMenu}
           handleToggleMenu={handleToggleMenu}

@@ -1,1 +1,1 @@
-export { Header } from './Header'
+export { Header, HeaderShell } from './Header'

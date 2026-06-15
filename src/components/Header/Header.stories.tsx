@@ -1,12 +1,22 @@
 import { expect, userEvent, within } from 'storybook/test'
-
+import type { PostSearchItem } from '@/models/post-search'
+import { mockPosts } from '@/storybook/mocks/blog'
 import { StorySurface, storySurfaceOptions } from '@/storybook/story-helpers'
 
-import { Header } from './Header'
+import { HeaderShell } from './Header'
+
+const mockSearchItems: PostSearchItem[] = mockPosts.map((post) => ({
+  slug: post.slug,
+  title: post.frontmatter.title,
+  description: post.frontmatter.description,
+  tags: post.frontmatter.tags,
+  date: post.frontmatter.date,
+  readingTime: post.readingTime,
+}))
 
 const meta = {
   title: 'Components/Header',
-  component: Header,
+  component: HeaderShell,
   tags: ['autodocs', 'test'],
   parameters: {
     layout: 'fullscreen',
@@ -37,7 +47,7 @@ const meta = {
   },
   render: ({ panelTitle, panelDescription, surfaceTone }: any) => (
     <StorySurface surfaceTone={surfaceTone} className="min-h-screen">
-      <Header />
+      <HeaderShell searchIndex={mockSearchItems} />
       <main className="mx-auto max-w-5xl px-4 pt-28 sm:pt-32">
         <section className="rounded-xl border border-accent-purple/30 bg-secondary/50 p-6">
           <h2 className="text-2xl font-bold">{panelTitle}</h2>
@@ -65,6 +75,7 @@ export const HomeActive = {
       'aria-current',
       'page',
     )
+    await expect(canvas.getByPlaceholderText('Procurar...')).toBeInTheDocument()
   },
 }
 
