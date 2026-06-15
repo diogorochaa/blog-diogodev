@@ -7,4 +7,6 @@ export const aboutMetadata = buildPageMetadata({
   title: 'Sobre mim',
   description: ABOUT_DESCRIPTION,
   path: '/about',
+  image: '/about/opengraph-image',
+  imageAlt: 'Sobre mim | Blog diogodev_',
 })

@@ -1,6 +1,9 @@
 import NextLink from 'next/link'
 
 import { Empty } from '@/components/Empty'
+import { notFoundMetadata } from '@/lib/seo/notFoundMetadata'
+
+export const metadata = notFoundMetadata
 
 export default function NotFound() {
   return (

@@ -1,1 +1,2 @@
-export const PAGED_POSTS_METADATA_IMAGE = '/opengraph-image'
+export const buildPagedPostsMetadataImagePath = (page: string) =>
+  `/page/${page}/opengraph-image`

@@ -1,23 +1,22 @@
 import { ImageResponse } from 'next/og'
 
-import { siteConfig } from '@/config'
 import {
   BrandOgImage,
   ogImageContentType,
   ogImageSize,
 } from '@/lib/seo/og-image'
 
-export const alt = siteConfig.name
+export const alt = 'Sobre mim | Blog diogodev_'
 export const size = ogImageSize
 export const contentType = ogImageContentType
 
-export default function OpenGraphImage() {
+export default function AboutOpenGraphImage() {
   return new ImageResponse(
     <BrandOgImage
-      badge="Blog"
-      title={siteConfig.name}
-      description={siteConfig.description}
-      footer="diogodev_"
+      badge="Sobre mim"
+      title="Diogo Rocha"
+      description="Trajetória, experiência e projetos em destaque."
+      footer="blog.diogodev"
     />,
     {
       ...size,

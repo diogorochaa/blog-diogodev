@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 
 import { siteConfig } from '@/config'
-import { buildPageMetadata } from '@/lib/seo/buildMetadata'
+import {
+  buildAuthorMetadata,
+  buildPageMetadata,
+  buildSiteLogoUrl,
+} from '@/lib/seo/buildMetadata'
 import type { BlogPost } from '@/models'
 import { PostService } from '@/services'
 
@@ -25,14 +29,20 @@ export const getPostBySlug = async (slug: string) => {
 
 export const buildPostMetadata = (post: BlogPost): Metadata => {
   const postMetadataImagePath = buildPostMetadataImagePath(post.slug)
+  const primaryTag = post.frontmatter.tags[0]
 
   return buildPageMetadata({
     title: post.frontmatter.title,
     description: post.frontmatter.description,
     path: `/${post.slug}`,
     image: postMetadataImagePath,
+    imageAlt: post.frontmatter.title,
     openGraphType: 'article',
     publishedTime: post.frontmatter.date,
+    modifiedTime: post.frontmatter.date,
+    authors: buildAuthorMetadata(),
+    tags: post.frontmatter.tags,
+    section: primaryTag,
   })
 }
 
@@ -59,9 +69,30 @@ export const buildPostJsonLd = (post: BlogPost): PostJsonLd => {
       name: siteConfig.name,
       logo: {
         '@type': 'ImageObject',
-        url: `${siteConfig.url}/opengraph-image`,
+        url: buildSiteLogoUrl(),
       },
     },
     image: [postMetadataImageUrl],
+  }
+}
+
+export const buildPostBreadcrumbJsonLd = (post: BlogPost) => {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: post.frontmatter.title,
+        item: `${siteConfig.url}/${post.slug}`,
+      },
+    ],
   }
 }

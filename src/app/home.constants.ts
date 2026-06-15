@@ -4,4 +4,6 @@ import { buildPageMetadata } from '@/lib/seo/buildMetadata'
 export const homeMetadata = buildPageMetadata({
   description: siteConfig.description,
   path: '/',
+  image: '/opengraph-image',
+  imageAlt: siteConfig.name,
 })

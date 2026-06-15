@@ -3,6 +3,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { Post } from '@/components/Post'
 import { buildPostTocItems } from '@/utils/toc'
 
+import { buildPostBreadcrumbJsonLd } from './post.data'
 import type { PostPageContentProps } from './post.types'
 
 export const PostPageContent = ({ post, postJsonLd }: PostPageContentProps) => {
@@ -12,9 +13,11 @@ export const PostPageContent = ({ post, postJsonLd }: PostPageContentProps) => {
     body: post.body,
   })
 
+  const breadcrumbJsonLd = buildPostBreadcrumbJsonLd(post)
+
   return (
     <>
-      <JsonLd data={postJsonLd} />
+      <JsonLd data={[postJsonLd, breadcrumbJsonLd]} />
       <PostWithToc items={items}>
         <Post
           post={post}

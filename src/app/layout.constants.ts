@@ -2,6 +2,11 @@ import type { Metadata } from 'next'
 import { Manrope, Sora } from 'next/font/google'
 
 import { siteConfig } from '@/config'
+import {
+  OG_IMAGE_SIZE,
+  TWITTER_CREATOR,
+  TWITTER_SITE,
+} from '@/lib/seo/metadata.constants'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -69,17 +74,18 @@ export const rootMetadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 1200,
-        height: 630,
+        width: OG_IMAGE_SIZE.width,
+        height: OG_IMAGE_SIZE.height,
         alt: siteConfig.name,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
+    site: TWITTER_SITE,
     title: siteConfig.name,
     description: siteConfig.description,
-    creator: '@diogodev_',
+    creator: TWITTER_CREATOR,
     images: [OG_IMAGE],
   },
 }

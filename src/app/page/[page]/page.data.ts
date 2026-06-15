@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { buildPageMetadata } from '@/lib/seo/buildMetadata'
 import { PostService } from '@/services'
 
-import { PAGED_POSTS_METADATA_IMAGE } from './page.constants'
+import { buildPagedPostsMetadataImagePath } from './page.constants'
 
 export const parseCurrentPage = (page: string) => {
   const currentPage = Number(page)
@@ -44,6 +44,7 @@ export const buildPagedPostsMetadata = ({
     title,
     description,
     path: `/page/${page}`,
-    image: PAGED_POSTS_METADATA_IMAGE,
+    image: buildPagedPostsMetadataImagePath(page),
+    imageAlt: `Página ${page} | Blog diogodev_`,
   })
 }
