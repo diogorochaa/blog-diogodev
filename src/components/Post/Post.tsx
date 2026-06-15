@@ -5,14 +5,17 @@ import { formatDate, getCoverVariant, toIsoDate } from '@/utils'
 import { BackButton } from './components'
 import type { PostProps } from './Post.types'
 
-export const Post = ({ post }: PostProps) => {
+export const Post = ({ post, titleId, headingIdsInOrder }: PostProps) => {
   const { body, frontmatter, readingTime } = post
   const { title, description, date } = frontmatter
   const formattedDate = formatDate(date)
   const isoDate = toIsoDate(date)
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <article
+      id="post-content"
+      className="flex flex-col items-center justify-center"
+    >
       <div className="flex w-full justify-items-start pb-3 sm:pb-4">
         <BackButton />
       </div>
@@ -32,7 +35,10 @@ export const Post = ({ post }: PostProps) => {
           >
             {formattedDate} • {readingTime} minutos de leitura
           </time>
-          <h1 className="text-gradient-vivid mb-4 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl">
+          <h1
+            id={titleId}
+            className="text-gradient-vivid mb-4 scroll-mt-24 text-3xl leading-tight font-bold sm:text-4xl md:text-5xl"
+          >
             {title}
           </h1>
           <p className="mb-7 text-lg text-gray-200 sm:mb-8 sm:text-xl md:text-2xl">
@@ -40,8 +46,8 @@ export const Post = ({ post }: PostProps) => {
           </p>
         </div>
 
-        <RichText field={body} />
+        <RichText field={body} headingIdsInOrder={headingIdsInOrder} />
       </div>
-    </div>
+    </article>
   )
 }
