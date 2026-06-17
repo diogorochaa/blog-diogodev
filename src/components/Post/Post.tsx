@@ -20,15 +20,17 @@ export const Post = ({ post, titleId, headingIdsInOrder }: PostProps) => {
         <BackButton />
       </div>
 
-      <div className="relative h-52 w-full sm:h-72 md:h-96">
-        <AnimatedCover
-          className="h-full w-full"
-          variant={getCoverVariant(post.slug)}
-        />
-      </div>
-
       <div className="w-full max-w-4xl">
-        <div className="mt-7 sm:mt-10">
+        <div className="relative h-14 w-full sm:h-16">
+          <AnimatedCover
+            className="h-full w-full rounded-lg"
+            compact
+            badgeLabel="Conteúdo"
+            variant={getCoverVariant(post.slug)}
+          />
+        </div>
+
+        <div className="mt-4 sm:mt-5">
           <time
             className="mb-2 block text-sm text-gray-200 sm:text-base"
             dateTime={isoDate}
