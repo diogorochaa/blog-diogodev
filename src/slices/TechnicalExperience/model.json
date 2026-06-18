@@ -1,0 +1,91 @@
+{
+  "id": "technical_experience",
+  "type": "SharedSlice",
+  "name": "TechnicalExperience",
+  "description": "Experiência técnica editável com gráficos opcionais.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "heading": {
+          "type": "Text",
+          "config": {
+            "label": "Heading",
+            "placeholder": "Experiência Técnica"
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": "Linha do tempo das tecnologias."
+          }
+        },
+        "show_charts": {
+          "type": "Boolean",
+          "config": {
+            "label": "Show charts",
+            "default_value": true
+          }
+        }
+      },
+      "items": {
+        "name": {
+          "type": "Text",
+          "config": {
+            "label": "Name",
+            "placeholder": "React"
+          }
+        },
+        "start_year": {
+          "type": "Number",
+          "config": {
+            "label": "Start year",
+            "placeholder": "2020"
+          }
+        },
+        "category": {
+          "type": "Select",
+          "config": {
+            "label": "Category",
+            "options": ["frontend", "backend"],
+            "default_value": "frontend"
+          }
+        },
+        "icon_key": {
+          "type": "Select",
+          "config": {
+            "label": "Icon key",
+            "options": [
+              "javascript",
+              "typescript",
+              "css",
+              "html",
+              "react",
+              "nextjs",
+              "nodejs",
+              "docker",
+              "database",
+              "cloud",
+              "git",
+              "terminal",
+              "code"
+            ],
+            "default_value": "code"
+          }
+        },
+        "color": {
+          "type": "Text",
+          "config": {
+            "label": "Color",
+            "placeholder": "#22d3ee"
+          }
+        }
+      }
+    }
+  ]
+}

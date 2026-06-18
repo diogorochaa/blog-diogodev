@@ -1,0 +1,92 @@
+{
+  "id": "home",
+  "label": "Home",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "hero_badge": {
+        "type": "Text",
+        "config": {
+          "label": "Hero badge",
+          "placeholder": "Developer Blog"
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": "Engenheiro de software e criador de conteúdo."
+        }
+      },
+      "subtitle": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Subtitle",
+          "placeholder": "Texto principal da home",
+          "single": "paragraph"
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "Description",
+          "placeholder": "Descrição usada em SEO e previews"
+        }
+      },
+      "featured_posts_limit": {
+        "type": "Number",
+        "config": {
+          "label": "Featured posts limit",
+          "placeholder": "10"
+        }
+      },
+      "og_title": {
+        "type": "Text",
+        "config": {
+          "label": "Open Graph title",
+          "placeholder": "Blog | diogodev_"
+        }
+      },
+      "og_description": {
+        "type": "Text",
+        "config": {
+          "label": "Open Graph description",
+          "placeholder": "Descrição usada no preview de links"
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "profile_hero": {
+              "type": "SharedSlice"
+            },
+            "rich_text_section": {
+              "type": "SharedSlice"
+            },
+            "card_grid": {
+              "type": "SharedSlice"
+            },
+            "about_intro_stats": {
+              "type": "SharedSlice"
+            },
+            "technical_experience": {
+              "type": "SharedSlice"
+            },
+            "posts_feed": {
+              "type": "SharedSlice"
+            },
+            "github_projects": {
+              "type": "SharedSlice"
+            },
+            "recommended_posts": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

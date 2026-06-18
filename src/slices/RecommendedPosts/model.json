@@ -1,0 +1,47 @@
+{
+  "id": "recommended_posts",
+  "type": "SharedSlice",
+  "name": "RecommendedPosts",
+  "description": "Lista de artigos recomendados configurada pelo Prismic.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "heading": {
+          "type": "Text",
+          "config": {
+            "label": "Heading",
+            "placeholder": "Artigos recomendados"
+          }
+        },
+        "source": {
+          "type": "Select",
+          "config": {
+            "label": "Source",
+            "options": ["latest", "tag"],
+            "default_value": "latest"
+          }
+        },
+        "tag": {
+          "type": "Text",
+          "config": {
+            "label": "Tag",
+            "placeholder": "react"
+          }
+        },
+        "limit": {
+          "type": "Number",
+          "config": {
+            "label": "Limit",
+            "placeholder": "2"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

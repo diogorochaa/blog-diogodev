@@ -16,10 +16,11 @@ Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 - Node.js 24+
 - npm 10+
 
-## Configuracao do Prismic
+## Configuracao do Prismic e Slice Machine
 
 1. Crie um repositorio no Prismic.
-2. Crie um Custom Type chamado `post`.
+2. Crie ou publique pelo Slice Machine um Custom Type repeatable chamado `post`
+   com API ID `post`.
 3. Adicione os campos abaixo no `post`:
 
 - `title` (Rich Text - single paragraph recomendado)
@@ -28,6 +29,115 @@ Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 - `content` (Rich Text)
 
 4. Opcional: use as tags nativas do documento no Prismic para categorizar posts.
+
+O modelo local fica em [`customtypes/post/index.json`](customtypes/post/index.json).
+Ele deve continuar separado do modelo `page`: posts aparecem em `/<uid>` e paginas
+editoriais aparecem em `/pages/<uid>`.
+
+### Slice Machine
+
+Os Custom Types `home`, `about` e `page` sao versionados neste repositorio em
+[`customtypes`](customtypes). Para editar/testar esses modelos localmente, rode:
+
+```bash
+npm run dev
+npm run slicemachine
+```
+
+Abra a interface local do Slice Machine, faca login no Prismic quando solicitado
+e publique os modelos no repositorio `blog-diodev` quando estiverem validados.
+
+Para abrir a UI automaticamente:
+
+```bash
+npm run slicemachine:open
+```
+
+### Custom Type `home` (single type)
+
+Modelo versionado em [`customtypes/home/index.json`](customtypes/home/index.json):
+
+- `hero_badge` (Key Text)
+- `title` (Key Text)
+- `subtitle` (Rich Text ou Text)
+- `description` (Text)
+- `featured_posts_limit` (Number)
+- `og_title` (Key Text)
+- `og_description` (Text)
+- `slices` (Slice Zone)
+
+### Custom Type `about` (single type)
+
+Modelo versionado em [`customtypes/about/index.json`](customtypes/about/index.json):
+
+- `title` (Key Text)
+- `greeting` (Key Text)
+- `intro` (Rich Text ou Text)
+- `avatar_alt` (Key Text)
+- `repos_label` (Key Text)
+- `followers_label` (Key Text)
+- `experience_heading` (Key Text)
+- `experience_description` (Text)
+- `projects_heading` (Key Text)
+- `empty_projects_text` (Text)
+- `github_link_label` (Key Text)
+- `seo_title` (Key Text)
+- `seo_description` (Text)
+- `og_title` (Key Text)
+- `og_description` (Text)
+- `slices` (Slice Zone)
+
+Adicione tambem um grupo repetivel `experiences` com os campos:
+
+- `name` (Key Text)
+- `start_year` (Number)
+- `category` (Select: `frontend`, `backend`)
+- `icon_key` (Select: `javascript`, `typescript`, `css`, `html`, `react`,
+  `nextjs`, `nodejs`, `docker`, `database`, `cloud`, `git`, `terminal`, `code`)
+- `color` (Color ou Key Text com hexadecimal, exemplo `#22d3ee`)
+
+Se os documentos `home` ou `about` ainda nao existirem no Prismic, o app usa
+fallbacks locais para manter o site funcionando.
+
+### Custom Type `page` (repeatable)
+
+Modelo versionado em [`customtypes/page/index.json`](customtypes/page/index.json):
+
+- `uid` (UID)
+- `title` (Key Text)
+- `description` (Text)
+- `show_in_header` (Boolean)
+- `nav_label` (Key Text)
+- `nav_order` (Number)
+- `show_in_footer` (Boolean)
+- `footer_label` (Key Text)
+- `footer_order` (Number)
+- `slices` (Slice Zone)
+
+As paginas editoriais usam a rota dedicada `src/app/pages/[uid]/page.tsx`,
+publicadas em `/pages/<uid>`. A rota de posts continua separada em
+`src/app/[slug]/page.tsx`, publicada em `/<slug>`, entao os posts existentes nao
+mudam de URL.
+
+### Shared Slices
+
+Os slices ficam em [`src/slices`](src/slices), cada um com `model.json` e
+`index.tsx`:
+
+- `ProfileHero`: hero editorial com badge, titulo, subtitulo, alinhamento e superficie.
+- `RichTextSection`: bloco de texto rico sem sumario.
+- `CardGrid`: grid de cards editaveis com icones controlados.
+- `AboutIntroStats`: intro do About com estatisticas do GitHub vindas do servidor.
+- `TechnicalExperience`: experiencia tecnica editavel com graficos opcionais.
+- `PostsFeed`: feed de posts por ultimos posts ou tag.
+- `GitHubProjects`: projetos do GitHub com limite e layout configuraveis.
+- `RecommendedPosts`: lista simples de posts recomendados por ultimos posts ou tag.
+
+Slices dinamicos continuam buscando dados no servidor via `PostService` e
+`GithubService`. O `SliceRenderer` e compartilhado por Home, About e
+`/pages/[uid]`, buscando dados dinamicos apenas quando o slice precisa. O
+Prismic configura texto, ordem, limite, fonte e layout, mas nao executa queries
+livres nem CSS arbitrario.
 
 ## Variaveis de ambiente
 
@@ -58,6 +168,12 @@ npm run dev
 ```
 
 Abra `http://localhost:3000`.
+
+Para editar modelos de conteudo no Slice Machine:
+
+```bash
+npm run slicemachine
+```
 
 ## Qualidade de codigo
 
@@ -121,8 +237,10 @@ npm run test:all
 ## Arquitetura
 
 - Rotas em `src/app` com split `page.tsx` / `*.data.ts` / `*Content.tsx`
-- Servicos em `src/services` (`PostService`, `GithubService`)
+- Servicos em `src/services` (`PostService`, `GithubService`, `ContentService`)
+- `ContentService` centraliza `home`, `about`, `page`, links de header e links de footer vindos do Prismic
 - Conteudo rich text do Prismic em `src/components/RichText`
+- Slice Zone renderizada por `src/components/SliceRenderer`
 - SEO compartilhado em `src/lib/seo/buildMetadata.ts`
 - Listagem de posts reutilizada em `src/components/PostsFeed`
 
@@ -135,6 +253,29 @@ npm run test:all
 
 Os posts publicados passam a aparecer no blog automaticamente.
 
+## Publicando paginas editoriais
+
+1. Crie um novo documento do tipo `page` no Prismic.
+2. Defina o `UID` do documento.
+3. Preencha `title`, `description` e monte o conteudo pela Slice Zone.
+4. Publique o documento.
+
+Essas paginas ficam em `/pages/<uid>`. Essa rota e independente dos posts, que
+continuam em `/<slug>`.
+
+Para exibir uma pagina editorial no header, marque `show_in_header` como
+verdadeiro. Use `nav_label` para controlar o texto do link no menu e
+`nav_order` para ordenar os links dinamicos depois dos links fixos (`Home` e
+`Sobre mim`). Paginas sem `show_in_header` continuam publicadas, mas nao entram
+no menu principal. Quando duas paginas usam a mesma ordem, o desempate e feito
+pelo label em `pt-BR`.
+
+Para exibir uma pagina editorial no footer, marque `show_in_footer` como
+verdadeiro. Use `footer_label` para controlar o texto do link no rodape e
+`footer_order` para ordenar os links dinamicos depois dos links fixos.
+Esse controle e independente do header. Quando duas paginas usam a mesma ordem,
+o desempate tambem e feito pelo label em `pt-BR`.
+
 ## Webhook de revalidacao
 
 Configure no Prismic um webhook apontando para:
@@ -143,6 +284,10 @@ Configure no Prismic um webhook apontando para:
 POST https://seu-dominio.com/api/revalidate
 Authorization: Bearer <PRISMIC_WEBHOOK_SECRET>
 ```
+
+Mudancas em `home`, `about`, `page`, Slice Zone ou campos de navegacao de
+header/footer dependem da revalidacao para refletir em producao quando o site
+estiver usando cache da Vercel/Next.
 
 ## Deploy automatico na Vercel apos CI
 

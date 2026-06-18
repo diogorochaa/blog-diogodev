@@ -1,0 +1,105 @@
+{
+  "id": "page",
+  "label": "Page",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": "sobre-o-projeto"
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": "Título da página"
+        }
+      },
+      "description": {
+        "type": "Text",
+        "config": {
+          "label": "Description",
+          "placeholder": "Descrição usada em SEO e previews"
+        }
+      },
+      "show_in_header": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show in header",
+          "default_value": false
+        }
+      },
+      "nav_label": {
+        "type": "Text",
+        "config": {
+          "label": "Navigation label",
+          "placeholder": "Nome no menu"
+        }
+      },
+      "nav_order": {
+        "type": "Number",
+        "config": {
+          "label": "Navigation order",
+          "placeholder": "10"
+        }
+      },
+      "show_in_footer": {
+        "type": "Boolean",
+        "config": {
+          "label": "Show in footer",
+          "default_value": false
+        }
+      },
+      "footer_label": {
+        "type": "Text",
+        "config": {
+          "label": "Footer label",
+          "placeholder": "Nome no rodapé"
+        }
+      },
+      "footer_order": {
+        "type": "Number",
+        "config": {
+          "label": "Footer order",
+          "placeholder": "10"
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "profile_hero": {
+              "type": "SharedSlice"
+            },
+            "rich_text_section": {
+              "type": "SharedSlice"
+            },
+            "card_grid": {
+              "type": "SharedSlice"
+            },
+            "about_intro_stats": {
+              "type": "SharedSlice"
+            },
+            "technical_experience": {
+              "type": "SharedSlice"
+            },
+            "posts_feed": {
+              "type": "SharedSlice"
+            },
+            "github_projects": {
+              "type": "SharedSlice"
+            },
+            "recommended_posts": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
+}

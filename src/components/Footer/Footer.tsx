@@ -2,12 +2,14 @@ import Link from 'next/link'
 import { List, ListItem } from '@/components/List'
 import { Logo } from '@/components/Logo'
 import { SocialMedia } from '@/components/SocialMedia'
-import { siteConfig, socialLinkConfig } from '@/config'
-import { getCurrentYear } from '@/utils'
+import { mainNavConfig, siteConfig, socialLinkConfig } from '@/config'
+import type { LocalNavItem } from '@/models'
+import { ContentService } from '@/services'
+import { buildPageNavItems, getCurrentYear } from '@/utils'
 
 import type { FooterProps } from './Footer.types'
 
-export const Footer = ({ items }: FooterProps) => {
+export const FooterShell = ({ items }: FooterProps) => {
   const fullYear = getCurrentYear()
 
   return (
@@ -56,4 +58,17 @@ export const Footer = ({ items }: FooterProps) => {
       </div>
     </footer>
   )
+}
+
+export const Footer = async () => {
+  const footerPages = await ContentService.getFooterPages()
+  const items: LocalNavItem[] = [
+    ...mainNavConfig.mainNav,
+    ...buildPageNavItems({
+      pages: footerPages,
+      getLabel: (page) => page.footerLabel,
+    }),
+  ]
+
+  return <FooterShell items={items} />
 }

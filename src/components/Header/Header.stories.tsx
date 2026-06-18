@@ -1,4 +1,6 @@
+import type { Route } from 'next'
 import { expect, userEvent, within } from 'storybook/test'
+import { mainNavConfig } from '@/config'
 import type { PostSearchItem } from '@/models/post-search'
 import { mockPosts } from '@/storybook/mocks/blog'
 import { StorySurface, storySurfaceOptions } from '@/storybook/story-helpers'
@@ -13,6 +15,11 @@ const mockSearchItems: PostSearchItem[] = mockPosts.map((post) => ({
   date: post.frontmatter.date,
   readingTime: post.readingTime,
 }))
+
+const mockNavItems = [
+  ...mainNavConfig.mainNav,
+  { title: 'Labs', href: '/pages/labs' as Route },
+]
 
 const meta = {
   title: 'Components/Header',
@@ -47,7 +54,7 @@ const meta = {
   },
   render: ({ panelTitle, panelDescription, surfaceTone }: any) => (
     <StorySurface surfaceTone={surfaceTone} className="min-h-screen">
-      <HeaderShell searchIndex={mockSearchItems} />
+      <HeaderShell searchIndex={mockSearchItems} navItems={mockNavItems} />
       <main className="mx-auto max-w-5xl px-4 pt-28 sm:pt-32">
         <section className="rounded-xl border border-accent-purple/30 bg-secondary/50 p-6">
           <h2 className="text-2xl font-bold">{panelTitle}</h2>
@@ -76,6 +83,10 @@ export const HomeActive = {
       'page',
     )
     await expect(canvas.getByPlaceholderText('Procurar...')).toBeInTheDocument()
+    await expect(canvas.getByRole('link', { name: 'Labs' })).toHaveAttribute(
+      'href',
+      '/pages/labs',
+    )
   },
 }
 

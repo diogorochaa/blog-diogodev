@@ -1,0 +1,69 @@
+{
+  "id": "posts_feed",
+  "type": "SharedSlice",
+  "name": "PostsFeed",
+  "description": "Feed configurável de posts vindos do servidor.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "heading": {
+          "type": "Text",
+          "config": {
+            "label": "Heading",
+            "placeholder": "Últimas publicações"
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": "Descrição do feed"
+          }
+        },
+        "source": {
+          "type": "Select",
+          "config": {
+            "label": "Source",
+            "options": ["latest", "tag"],
+            "default_value": "latest"
+          }
+        },
+        "tag": {
+          "type": "Text",
+          "config": {
+            "label": "Tag",
+            "placeholder": "nextjs"
+          }
+        },
+        "limit": {
+          "type": "Number",
+          "config": {
+            "label": "Limit",
+            "placeholder": "6"
+          }
+        },
+        "layout": {
+          "type": "Select",
+          "config": {
+            "label": "Layout",
+            "options": ["home", "grid"],
+            "default_value": "grid"
+          }
+        },
+        "show_pagination": {
+          "type": "Boolean",
+          "config": {
+            "label": "Show pagination",
+            "default_value": false
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

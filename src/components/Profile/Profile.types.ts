@@ -1,5 +1,5 @@
-import type { SiteType } from '@/models'
+import type { HomeContent } from '@/models'
 
 export type ProfileProps = {
-  items: SiteType
+  items: HomeContent
 }

@@ -25,6 +25,27 @@ Metodos publicos:
 
 Usado pela pagina `/about` para exibir estatisticas e repositorios em destaque.
 
+## ContentService
+
+Arquivo: `src/services/content-service/content-service.ts`
+
+Metodos publicos:
+
+- `getHomeContent()`
+- `getAboutContent()`
+- `getPageByUID(uid)`
+- `getPageUIDs()`
+- `getHeaderPages()`
+- `getFooterPages()`
+
+Responsabilidades:
+
+- Mapear custom types Prismic para modelos internos.
+- Manter fallbacks locais para `home` e `about`.
+- Retornar paginas editoriais `page` para `/pages/[uid]`.
+- Filtrar paginas ativas no header/footer por `show_in_header` e `show_in_footer`.
+- Ordenar links dinamicos por `nav_order`/`footer_order` e depois por label em `pt-BR`.
+
 ## Comportamento importante de resiliencia
 
 - Cache de leitura em `getAllPosts` usando `react cache`
@@ -32,6 +53,8 @@ Usado pela pagina `/about` para exibir estatisticas e repositorios em destaque.
 - Em producao, falhas de rede com configuracao Prismic valida interrompem o carregamento (fail-fast)
 - Em desenvolvimento, fallback para lista vazia com warning unico no console
 - GithubService valida shape da resposta e usa fallback seguro
+- ContentService retorna fallback para `home`/`about` quando o documento nao existe
+- Listas de paginas editoriais retornam vazio quando nao ha configuracao Prismic
 
 ## Transformacoes no PostService
 
@@ -43,7 +66,7 @@ Usado pela pagina `/about` para exibir estatisticas e repositorios em destaque.
 ## Exemplo de uso
 
 ```ts
-import { GithubService, PostService } from '@/services'
+import { ContentService, GithubService, PostService } from '@/services'
 
 const { posts, currentPage, numbPages } = await PostService.getAll({
   limit: 10,
@@ -52,4 +75,5 @@ const { posts, currentPage, numbPages } = await PostService.getAll({
 
 const post = await PostService.getBySlug('meu-slug')
 const profile = await GithubService.getProfile()
+const headerPages = await ContentService.getHeaderPages()
 ```

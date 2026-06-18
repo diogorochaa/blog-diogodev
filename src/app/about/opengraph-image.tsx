@@ -6,16 +6,20 @@ import {
   ogImageSize,
 } from '@/lib/seo/og-image'
 
+import { getAboutContent } from './about.data'
+
 export const alt = 'Sobre mim | Blog diogodev_'
 export const size = ogImageSize
 export const contentType = ogImageContentType
 
-export default function AboutOpenGraphImage() {
+export default async function AboutOpenGraphImage() {
+  const content = await getAboutContent()
+
   return new ImageResponse(
     <BrandOgImage
-      badge="Sobre mim"
-      title="Diogo Rocha"
-      description="Trajetória, experiência e projetos em destaque."
+      badge={content.title}
+      title={content.ogTitle}
+      description={content.ogDescription}
       footer="blog.diogodev"
     />,
     {

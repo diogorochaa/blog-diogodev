@@ -1,15 +1,23 @@
+import type { Metadata } from 'next'
+
 import { AboutPageContent } from './AboutPageContent'
-import { aboutMetadata } from './about.constants'
 import {
+  buildAboutMetadata,
   buildPersonJsonLd,
+  getAboutContent,
   getGithubProfile,
   getGithubRepos,
 } from './about.data'
 
-export const metadata = aboutMetadata
+export const revalidate = 60
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return await buildAboutMetadata()
+}
 
 export default async function AboutPage() {
-  const [profile, repos] = await Promise.all([
+  const [aboutContent, profile, repos] = await Promise.all([
+    getAboutContent(),
     getGithubProfile(),
     getGithubRepos(),
   ])
@@ -18,6 +26,7 @@ export default async function AboutPage() {
 
   return (
     <AboutPageContent
+      aboutContent={aboutContent}
       personJsonLd={personJsonLd}
       avatarUrl={profile.avatar_url}
       publicRepos={profile.public_repos}

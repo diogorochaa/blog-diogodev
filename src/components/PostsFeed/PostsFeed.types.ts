@@ -1,6 +1,6 @@
 import type { Route } from 'next'
 
-import type { BlogPost } from '@/models'
+import type { BlogPost, HomeContent } from '@/models'
 
 export type PostsFeedProps = {
   posts: BlogPost[]
@@ -10,6 +10,7 @@ export type PostsFeedProps = {
   postsPerPage: number
   prevPage: Route
   nextPage: Route
+  profileContent?: HomeContent
   showProfile?: boolean
   showMainPost?: boolean
 }

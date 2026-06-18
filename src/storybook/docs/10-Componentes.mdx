@@ -13,8 +13,10 @@ import { Meta } from '@storybook/addon-docs/blocks'
 | BackToTop        | `src/components/BackToTop/BackToTop.tsx`               | Acao de retorno ao topo da pagina              |
 | Empty            | `src/components/Empty/Empty.tsx`                       | Estado vazio reutilizavel                      |
 | Footer           | `src/components/Footer/Footer.tsx`                     | Rodape global com links e navegacao secundaria |
+| GitHubProjectCard | `src/components/GitHubProjectCard/GitHubProjectCard.tsx` | Card reutilizavel para repositorios GitHub |
 | Grid             | `src/components/Grid/Grid.tsx`                         | Layout em grid reutilizavel                    |
 | Header           | `src/components/Header/Header.tsx`                     | Cabecalho principal da aplicacao               |
+| HeaderSearch     | `src/components/HeaderSearch/header-search.tsx`        | Busca de posts com sugestoes no header         |
 | Icons            | `src/components/Icons/Icons.tsx`                       | Colecao de icones reutilizaveis                |
 | Layout           | `src/components/Layout/Layout.tsx`                     | Estrutura base de pagina                       |
 | List             | `src/components/List/List.tsx`                         | Lista generica para composicao de conteudo     |
@@ -29,6 +31,7 @@ import { Meta } from '@storybook/addon-docs/blocks'
 | Profile          | `src/components/Profile/Profile.tsx`                   | Bloco de perfil do autor                       |
 | RecommendedPosts | `src/components/RecommendedPosts/RecommendedPosts.tsx` | Secao de posts recomendados                    |
 | SocialMedia      | `src/components/SocialMedia/SocialMedia.tsx`           | Links para redes sociais                       |
+| SliceRenderer    | `src/components/SliceRenderer/SliceRenderer.tsx`       | Renderizacao server-aware de slices Prismic    |
 | Tag              | `src/components/Tag/Tag.tsx`                           | Marcador visual de categoria/tag               |
 
 ## Subcomponentes internos
@@ -39,6 +42,12 @@ import { Meta } from '@storybook/addon-docs/blocks'
 | ToggleButton | `src/components/MainNav/components/ToggleButton/ToggleButton.tsx` | Controle de menu (mobile/nav)      |
 | Note         | `src/components/RichText/components/Note/Note.tsx`                | Bloco de nota/chamada no conteudo  |
 | BackButton   | `src/components/Post/components/BackButton/BackButton.tsx`        | Botao de retorno em pagina de post |
+
+## Componentes com wrapper async
+
+- `Header` busca indice de posts e paginas ativas no Prismic; `HeaderShell` recebe dados prontos para testes/stories.
+- `Footer` busca paginas ativas no Prismic; `FooterShell` recebe links prontos para testes/stories.
+- `SliceRenderer` roda no servidor e busca `PostService` ou `GithubService` apenas quando o slice dinamico precisa.
 
 ## Padrao recomendado para novos componentes
 

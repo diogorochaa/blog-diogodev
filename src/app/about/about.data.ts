@@ -1,12 +1,27 @@
 import { siteConfig } from '@/config'
+import { buildPageMetadata } from '@/lib/seo/buildMetadata'
 import type { GithubProfile } from '@/models'
-import { GithubService } from '@/services'
+import { ContentService, GithubService } from '@/services'
 
 import type { PersonJsonLd } from './about.types'
+
+export const getAboutContent = () => ContentService.getAboutContent()
 
 export const getGithubProfile = () => GithubService.getProfile()
 
 export const getGithubRepos = () => GithubService.getRepos()
+
+export const buildAboutMetadata = async () => {
+  const content = await getAboutContent()
+
+  return buildPageMetadata({
+    title: content.seoTitle,
+    description: content.seoDescription,
+    path: '/about',
+    image: '/about/opengraph-image',
+    imageAlt: `${content.ogTitle} | ${siteConfig.name}`,
+  })
+}
 
 export const buildPersonJsonLd = (profile: GithubProfile): PersonJsonLd => {
   const displayLocation = profile.location || 'Brasil'

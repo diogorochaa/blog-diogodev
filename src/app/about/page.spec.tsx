@@ -1,7 +1,25 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { fallbackAboutContent } from '@/config'
+
 import AboutPage from './page'
+
+const serviceMocks = vi.hoisted(() => ({
+  getAboutContent: vi.fn(),
+  getProfile: vi.fn(),
+  getRepos: vi.fn(),
+}))
+
+vi.mock('@/services', () => ({
+  ContentService: {
+    getAboutContent: serviceMocks.getAboutContent,
+  },
+  GithubService: {
+    getProfile: serviceMocks.getProfile,
+    getRepos: serviceMocks.getRepos,
+  },
+}))
 
 function getPersonJsonLdDescription() {
   const scripts = document.querySelectorAll(
@@ -21,45 +39,35 @@ function getPersonJsonLdDescription() {
 }
 
 describe('/about page', () => {
-  const fetchMock = vi.fn()
-
   beforeEach(() => {
-    vi.stubGlobal('fetch', fetchMock)
+    serviceMocks.getAboutContent.mockResolvedValue(fallbackAboutContent)
   })
 
   afterEach(() => {
-    vi.unstubAllGlobals()
     vi.clearAllMocks()
   })
 
   it('renders github profile and repos when requests succeed', async () => {
-    fetchMock
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          avatar_url: '',
-          name: 'Diogo Rocha',
-          company: 'ACME',
-          location: 'Sao Paulo',
-          bio: 'Bio de teste',
-          public_repos: 12,
-          followers: 34,
-        }),
-      })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => [
-          {
-            id: 1,
-            name: 'repo-teste',
-            description: 'descricao',
-            html_url: 'https://github.com/diogorochaa/repo-teste',
-            language: 'TypeScript',
-            stargazers_count: 10,
-            forks_count: 3,
-          },
-        ],
-      })
+    serviceMocks.getProfile.mockResolvedValue({
+      avatar_url: '',
+      name: 'Diogo Rocha',
+      company: 'ACME',
+      location: 'Sao Paulo',
+      bio: 'Bio de teste',
+      public_repos: 12,
+      followers: 34,
+    })
+    serviceMocks.getRepos.mockResolvedValue([
+      {
+        id: 1,
+        name: 'repo-teste',
+        description: 'descricao',
+        html_url: 'https://github.com/diogorochaa/repo-teste',
+        language: 'TypeScript',
+        stargazers_count: 10,
+        forks_count: 3,
+      },
+    ])
 
     render(await AboutPage())
 
@@ -70,7 +78,16 @@ describe('/about page', () => {
   })
 
   it('uses fallback text when github requests fail', async () => {
-    fetchMock.mockRejectedValue(new Error('network error'))
+    serviceMocks.getProfile.mockResolvedValue({
+      avatar_url: '',
+      name: 'Diogo Rocha',
+      company: null,
+      location: 'Brasil',
+      bio: '',
+      public_repos: 0,
+      followers: 0,
+    })
+    serviceMocks.getRepos.mockResolvedValue([])
 
     render(await AboutPage())
 

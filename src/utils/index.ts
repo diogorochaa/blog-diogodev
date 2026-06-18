@@ -1,5 +1,6 @@
 export * from './cover-variant'
 export * from './format-date'
+export * from './page-nav-items'
 export * from './pagination-pages'
 export * from './pagination-posts'
 export * from './search-posts'

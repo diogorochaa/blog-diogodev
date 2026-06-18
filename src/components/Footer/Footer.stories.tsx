@@ -3,11 +3,11 @@ import type { Route } from 'next'
 import { expect, within } from 'storybook/test'
 
 import { StorySurface, storySurfaceOptions } from '@/storybook/story-helpers'
-import { Footer } from './Footer'
+import { FooterShell } from './Footer'
 
 const meta = {
   title: 'Components/Footer',
-  component: Footer,
+  component: FooterShell,
   tags: ['autodocs', 'test'],
   parameters: {
     layout: 'fullscreen',
@@ -37,11 +37,12 @@ const meta = {
 
     if (showSecondaryLink) {
       items.push({ title: aboutLabel, href: '/about' as Route })
+      items.push({ title: 'Labs', href: '/pages/labs' as Route })
     }
 
     return (
       <StorySurface surfaceTone={surfaceTone} className="min-h-screen">
-        <Footer items={items} />
+        <FooterShell items={items} />
       </StorySurface>
     )
   },
@@ -63,6 +64,10 @@ export const Default = {
       canvas.getByRole('link', { name: args.homeLabel }),
     ).toBeInTheDocument()
     await expect(canvas.getByText('Social')).toBeInTheDocument()
+    await expect(canvas.getByRole('link', { name: 'Labs' })).toHaveAttribute(
+      'href',
+      '/pages/labs',
+    )
   },
 }
 

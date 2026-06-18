@@ -1,6 +1,6 @@
 import { expect, within } from 'storybook/test'
 
-import { siteConfig } from '@/config'
+import { fallbackHomeContent } from '@/config'
 import { StorySurface, storySurfaceOptions } from '@/storybook/story-helpers'
 
 import { Profile } from './Profile'
@@ -33,7 +33,7 @@ const meta = {
     >
       <Profile
         items={{
-          ...siteConfig,
+          ...fallbackHomeContent,
           title,
           subtitle,
         }}
@@ -41,8 +41,8 @@ const meta = {
     </StorySurface>
   ),
   args: {
-    title: siteConfig.title,
-    subtitle: siteConfig.subtitle,
+    title: fallbackHomeContent.title,
+    subtitle: fallbackHomeContent.subtitle,
     surfaceTone: 'primary',
   },
 }

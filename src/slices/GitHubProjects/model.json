@@ -1,0 +1,54 @@
+{
+  "id": "github_projects",
+  "type": "SharedSlice",
+  "name": "GitHubProjects",
+  "description": "Projetos do GitHub renderizados com dados do servidor.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "heading": {
+          "type": "Text",
+          "config": {
+            "label": "Heading",
+            "placeholder": "Projetos em destaque"
+          }
+        },
+        "empty_text": {
+          "type": "Text",
+          "config": {
+            "label": "Empty text",
+            "placeholder": "Nenhum repositório disponível no momento."
+          }
+        },
+        "github_link_label": {
+          "type": "Text",
+          "config": {
+            "label": "GitHub link label",
+            "placeholder": "Visite meu GitHub"
+          }
+        },
+        "max_projects": {
+          "type": "Number",
+          "config": {
+            "label": "Max projects",
+            "placeholder": "6"
+          }
+        },
+        "layout": {
+          "type": "Select",
+          "config": {
+            "label": "Layout",
+            "options": ["grid", "list"],
+            "default_value": "grid"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

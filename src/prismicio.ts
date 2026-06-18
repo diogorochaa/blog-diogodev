@@ -3,11 +3,13 @@ import { setDefaultResultOrder } from 'node:dns'
 import * as prismic from '@prismicio/client'
 import { type CreateClientConfig, enableAutoPreviews } from '@prismicio/next'
 
+import sm from '../slicemachine.config.json'
+
 // Some environments expose an IPv6 DNS result that is unreachable.
 // Prioritizing IPv4 avoids transient connect timeouts to Prismic's CDN.
 setDefaultResultOrder('ipv4first')
 
-const repositoryName = process.env.PRISMIC_REPOSITORY_NAME || ''
+const repositoryName = process.env.PRISMIC_REPOSITORY_NAME || sm.repositoryName
 
 export const hasPrismicConfig = Boolean(repositoryName)
 
@@ -15,6 +17,10 @@ const routes: prismic.ClientConfig['routes'] = [
   {
     type: 'post',
     path: '/:uid',
+  },
+  {
+    type: 'page',
+    path: '/pages/:uid',
   },
 ]
 

@@ -17,7 +17,7 @@ export const Profile = ({ items }: ProfileProps) => {
 
       <div className="relative z-10 flex flex-col items-center gap-4 text-center">
         <span className="rounded-full border border-accent-cyan/40 bg-accent-cyan/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
-          Developer Blog
+          {items.heroBadge}
         </span>
 
         <h1 className="text-gradient-vivid max-w-3xl font-display text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">

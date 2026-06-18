@@ -1,0 +1,68 @@
+{
+  "id": "about_intro_stats",
+  "type": "SharedSlice",
+  "name": "AboutIntroStats",
+  "description": "Introdução da página sobre com estatísticas do GitHub.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Sobre mim"
+          }
+        },
+        "greeting": {
+          "type": "Text",
+          "config": {
+            "label": "Greeting",
+            "placeholder": "Olá, Dev!"
+          }
+        },
+        "intro": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Intro",
+            "placeholder": "Texto introdutório",
+            "multi": "paragraph,strong,em,hyperlink"
+          }
+        },
+        "avatar_alt": {
+          "type": "Text",
+          "config": {
+            "label": "Avatar alt",
+            "placeholder": "Foto de perfil"
+          }
+        },
+        "show_github_stats": {
+          "type": "Boolean",
+          "config": {
+            "label": "Show GitHub stats",
+            "default_value": true
+          }
+        },
+        "repos_label": {
+          "type": "Text",
+          "config": {
+            "label": "Repos label",
+            "placeholder": "Repositórios"
+          }
+        },
+        "followers_label": {
+          "type": "Text",
+          "config": {
+            "label": "Followers label",
+            "placeholder": "Seguidores"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

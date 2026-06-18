@@ -1,6 +1,6 @@
 import type { Route } from 'next'
 
-import type { BlogPost } from '@/models'
+import type { BlogPost, HomeContent } from '@/models'
 
 export type HomeWebsiteJsonLd = {
   '@context': 'https://schema.org'
@@ -29,6 +29,7 @@ export type HomeBlogJsonLd = {
 }
 
 export type HomePageContentProps = {
+  homeContent: HomeContent
   websiteJsonLd: HomeWebsiteJsonLd
   blogJsonLd: HomeBlogJsonLd
   posts: BlogPost[]

@@ -3,7 +3,6 @@ import { BackToTop } from '@/components/BackToTop'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Layout } from '@/components/Layout'
-import { mainNavConfig } from '@/config'
 
 import { prismicScriptSrc } from './layout.constants'
 import type { RootLayoutContentProps } from './layout.types'
@@ -27,7 +26,7 @@ export const RootLayoutContent = ({
 
         <BackToTop />
 
-        <Footer items={mainNavConfig.mainNav} />
+        <Footer />
       </body>
     </html>
   )

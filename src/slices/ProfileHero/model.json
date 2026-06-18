@@ -1,0 +1,56 @@
+{
+  "id": "profile_hero",
+  "type": "SharedSlice",
+  "name": "ProfileHero",
+  "description": "Hero editorial baseado no perfil principal.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "badge": {
+          "type": "Text",
+          "config": {
+            "label": "Badge",
+            "placeholder": "Developer Blog"
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Engenheiro de software e criador de conteúdo."
+          }
+        },
+        "subtitle": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Subtitle",
+            "placeholder": "Texto de apoio do hero",
+            "multi": "paragraph,hyperlink,strong,em"
+          }
+        },
+        "align": {
+          "type": "Select",
+          "config": {
+            "label": "Align",
+            "options": ["center", "left"],
+            "default_value": "center"
+          }
+        },
+        "surface": {
+          "type": "Select",
+          "config": {
+            "label": "Surface",
+            "options": ["panel", "plain", "gradient"],
+            "default_value": "panel"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

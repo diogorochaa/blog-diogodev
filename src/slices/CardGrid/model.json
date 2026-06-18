@@ -1,0 +1,97 @@
+{
+  "id": "card_grid",
+  "type": "SharedSlice",
+  "name": "CardGrid",
+  "description": "Grid de cards editáveis.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "eyebrow": {
+          "type": "Text",
+          "config": {
+            "label": "Eyebrow",
+            "placeholder": "Recursos"
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Cards"
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": "Descrição da seção"
+          }
+        },
+        "columns": {
+          "type": "Select",
+          "config": {
+            "label": "Columns",
+            "options": ["2", "3", "4"],
+            "default_value": "3"
+          }
+        }
+      },
+      "items": {
+        "icon_key": {
+          "type": "Select",
+          "config": {
+            "label": "Icon key",
+            "options": [
+              "javascript",
+              "typescript",
+              "css",
+              "html",
+              "react",
+              "nextjs",
+              "nodejs",
+              "docker",
+              "database",
+              "cloud",
+              "git",
+              "terminal",
+              "code"
+            ],
+            "default_value": "code"
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Card title"
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": "Card description"
+          }
+        },
+        "link": {
+          "type": "Link",
+          "config": {
+            "label": "Link"
+          }
+        },
+        "accent": {
+          "type": "Text",
+          "config": {
+            "label": "Accent",
+            "placeholder": "#22d3ee"
+          }
+        }
+      }
+    }
+  ]
+}

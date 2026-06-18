@@ -1,0 +1,40 @@
+{
+  "id": "post",
+  "label": "Post",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "title": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Title",
+          "placeholder": "Título do artigo",
+          "single": "heading1"
+        }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Description",
+          "placeholder": "Resumo curto do artigo",
+          "single": "paragraph"
+        }
+      },
+      "date": {
+        "type": "Date",
+        "config": {
+          "label": "Publication date"
+        }
+      },
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Content",
+          "placeholder": "Conteúdo do artigo",
+          "multi": "heading2,heading3,heading4,paragraph,preformatted,strong,em,hyperlink,image,embed,list-item,o-list-item"
+        }
+      }
+    }
+  }
+}

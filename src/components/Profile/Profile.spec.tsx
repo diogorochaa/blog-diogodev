@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
+import { fallbackHomeContent } from '@/config'
+
 import { Profile } from './Profile'
 
 describe('Profile', () => {
@@ -8,16 +10,10 @@ describe('Profile', () => {
     render(
       <Profile
         items={{
-          name: 'Blog | diogodev_',
-          description: 'desc',
+          ...fallbackHomeContent,
+          heroBadge: 'Developer Blog',
           title: 'Engenheiro de software',
           subtitle: 'Conteudo sobre tecnologia',
-          url: 'https://meusite.com.br',
-          links: {
-            instagram: 'https://instagram.com',
-            github: 'https://github.com',
-            linkedin: 'https://linkedin.com',
-          },
         }}
       />,
     )

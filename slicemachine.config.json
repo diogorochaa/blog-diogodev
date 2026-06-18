@@ -1,0 +1,14 @@
+{
+  "repositoryName": "blog-diodev",
+  "adapter": {
+    "resolve": "@slicemachine/adapter-next",
+    "options": {
+      "typescript": true,
+      "lazyLoadSlices": true,
+      "jsxExtension": false,
+      "generatedTypesFilePath": "prismicio-types.d.ts"
+    }
+  },
+  "libraries": ["./src/slices"],
+  "localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+}
