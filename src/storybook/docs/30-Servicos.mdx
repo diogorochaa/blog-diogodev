@@ -41,7 +41,7 @@ Metodos publicos:
 Responsabilidades:
 
 - Mapear custom types Prismic para modelos internos.
-- Manter fallbacks locais para `home` e `about`.
+- Ler `home` e `about` diretamente do Prismic, sem fallback local de conteudo.
 - Retornar paginas editoriais `page` para `/pages/[uid]`.
 - Filtrar paginas ativas no header/footer por `show_in_header` e `show_in_footer`.
 - Ordenar links dinamicos por `nav_order`/`footer_order` e depois por label em `pt-BR`.
@@ -53,7 +53,7 @@ Responsabilidades:
 - Em producao, falhas de rede com configuracao Prismic valida interrompem o carregamento (fail-fast)
 - Em desenvolvimento, fallback para lista vazia com warning unico no console
 - GithubService valida shape da resposta e usa fallback seguro
-- ContentService retorna fallback para `home`/`about` quando o documento nao existe
+- ContentService falha se `home`/`about` nao existirem, pois o Prismic e a fonte de verdade dessas paginas
 - Listas de paginas editoriais retornam vazio quando nao ha configuracao Prismic
 
 ## Transformacoes no PostService

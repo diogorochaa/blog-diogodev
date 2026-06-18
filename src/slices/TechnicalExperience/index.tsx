@@ -1,5 +1,5 @@
 import { AboutExperience } from '@/components/AboutExperience'
-import type { ExperienceCategory, ExperienceIconKey } from '@/models'
+import type { ExperienceCategory } from '@/models'
 
 import type { PrismicSlice } from '../slice.types'
 import {
@@ -14,34 +14,12 @@ type TechnicalExperienceProps = {
 }
 
 const validCategories = new Set<ExperienceCategory>(['frontend', 'backend'])
-const validIconKeys = new Set<ExperienceIconKey>([
-  'javascript',
-  'typescript',
-  'css',
-  'html',
-  'react',
-  'nextjs',
-  'nodejs',
-  'docker',
-  'database',
-  'cloud',
-  'git',
-  'terminal',
-  'code',
-])
 
 const getCategory = (value: unknown): ExperienceCategory => {
   return typeof value === 'string' &&
     validCategories.has(value as ExperienceCategory)
     ? (value as ExperienceCategory)
     : 'frontend'
-}
-
-const getIconKey = (value: unknown): ExperienceIconKey => {
-  return typeof value === 'string' &&
-    validIconKeys.has(value as ExperienceIconKey)
-    ? (value as ExperienceIconKey)
-    : 'code'
 }
 
 export const TechnicalExperience = ({ slice }: TechnicalExperienceProps) => {
@@ -54,7 +32,7 @@ export const TechnicalExperience = ({ slice }: TechnicalExperienceProps) => {
       name: getTextField(item, 'name'),
       startYear: getNumberField(item, 'start_year', new Date().getFullYear()),
       category: getCategory(item.category),
-      iconKey: getIconKey(item.icon_key),
+      iconKey: getTextField(item, 'icon_key', 'CodeIcon'),
       color: getTextField(item, 'color', '#22d3ee'),
     }))
     .filter((item) => item.name)

@@ -1,9 +1,21 @@
 import { expect, within } from 'storybook/test'
 
-import { fallbackHomeContent } from '@/config'
+import type { HomeContent } from '@/models'
 import { StorySurface, storySurfaceOptions } from '@/storybook/story-helpers'
 
 import { Profile } from './Profile'
+
+const mockHomeContent: HomeContent = {
+  heroBadge: 'Developer Blog',
+  title: 'Engenheiro de software e criador de conteúdo.',
+  subtitle:
+    'Bem vindo ao meu blog! Eu sou Diogo Rocha, apaixonado por tecnologia.',
+  description: 'Blog onde falo sobre código e livros',
+  featuredPostsLimit: 10,
+  slices: [],
+  ogTitle: 'Blog | diogodev_',
+  ogDescription: 'Blog onde falo sobre código e livros',
+}
 
 const meta = {
   title: 'Components/Profile',
@@ -33,7 +45,7 @@ const meta = {
     >
       <Profile
         items={{
-          ...fallbackHomeContent,
+          ...mockHomeContent,
           title,
           subtitle,
         }}
@@ -41,8 +53,8 @@ const meta = {
     </StorySurface>
   ),
   args: {
-    title: fallbackHomeContent.title,
-    subtitle: fallbackHomeContent.subtitle,
+    title: mockHomeContent.title,
+    subtitle: mockHomeContent.subtitle,
     surfaceTone: 'primary',
   },
 }

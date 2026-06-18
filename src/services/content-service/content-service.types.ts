@@ -1,6 +1,6 @@
 import type { RichTextField } from '@prismicio/client'
 
-import type { ExperienceCategory, ExperienceIconKey } from '@/models/experience'
+import type { ExperienceCategory } from '@/models/experience'
 import type { PrismicSlice } from '@/slices/slice.types'
 
 export type PrismicHomeData = {
@@ -30,7 +30,7 @@ export type PrismicAboutExperience = {
   name?: unknown
   start_year?: unknown
   category?: ExperienceCategory | string
-  icon_key?: ExperienceIconKey | string
+  icon_key?: unknown
   color?: unknown
 }
 

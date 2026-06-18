@@ -2,8 +2,6 @@ import { Pagination } from '@/components/Pagination'
 import { PostsList } from '@/components/PostsList'
 import { Profile } from '@/components/Profile'
 
-import { fallbackHomeContent } from '@/config'
-
 import type { PostsFeedProps } from './PostsFeed.types'
 
 export const PostsFeed = ({
@@ -14,7 +12,7 @@ export const PostsFeed = ({
   postsPerPage,
   prevPage,
   nextPage,
-  profileContent = fallbackHomeContent,
+  profileContent,
   showProfile = false,
   showMainPost = true,
 }: PostsFeedProps) => {
@@ -22,7 +20,7 @@ export const PostsFeed = ({
 
   return (
     <>
-      {showProfile ? (
+      {showProfile && profileContent ? (
         <div className="mb-10 sm:mb-12">
           <Profile items={profileContent} />
         </div>

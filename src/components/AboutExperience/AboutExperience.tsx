@@ -1,20 +1,13 @@
 'use client'
 
+import * as PhosphorIcons from '@phosphor-icons/react'
 import {
-  AtomIcon,
-  BracketsCurlyIcon,
-  CloudIcon,
-  CodeIcon,
-  CubeIcon,
-  DatabaseIcon,
-  FileCssIcon,
-  FileHtmlIcon,
-  FileJsIcon,
-  FileTsIcon,
-  GitBranchIcon,
-  TerminalWindowIcon,
-} from '@phosphor-icons/react'
-import { type ReactNode, useEffect, useMemo, useState } from 'react'
+  createElement,
+  type ElementType,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   Bar,
   BarChart,
@@ -25,7 +18,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import type { ExperienceIconKey } from '@/models'
 import { formatYears, getCurrentYear, getYearsSince } from '@/utils'
 
 import type {
@@ -48,39 +40,42 @@ const chartTooltipStyle = {
   itemStyle: { color: '#e2e8f0' },
 } as const
 
-const experienceIcons: Record<ExperienceIconKey, (color: string) => ReactNode> =
-  {
-    javascript: (color) => (
-      <FileJsIcon size={24} weight="duotone" color={color} />
-    ),
-    typescript: (color) => (
-      <FileTsIcon size={24} weight="duotone" color={color} />
-    ),
-    css: (color) => <FileCssIcon size={24} weight="duotone" color={color} />,
-    html: (color) => <FileHtmlIcon size={24} weight="duotone" color={color} />,
-    react: (color) => <AtomIcon size={24} weight="duotone" color={color} />,
-    nextjs: (color) => (
-      <BracketsCurlyIcon size={24} weight="duotone" color={color} />
-    ),
-    nodejs: (color) => (
-      <TerminalWindowIcon size={24} weight="duotone" color={color} />
-    ),
-    docker: (color) => <CubeIcon size={24} weight="duotone" color={color} />,
-    database: (color) => (
-      <DatabaseIcon size={24} weight="duotone" color={color} />
-    ),
-    cloud: (color) => <CloudIcon size={24} weight="duotone" color={color} />,
-    git: (color) => <GitBranchIcon size={24} weight="duotone" color={color} />,
-    terminal: (color) => (
-      <TerminalWindowIcon size={24} weight="duotone" color={color} />
-    ),
-    code: (color) => <CodeIcon size={24} weight="duotone" color={color} />,
-  }
+type PhosphorIconComponent = ElementType<{
+  size?: number
+  weight?: 'thin' | 'light' | 'regular' | 'bold' | 'fill' | 'duotone'
+  color?: string
+}>
 
-const getExperienceIcon = (iconKey: string, color: string) => {
-  return (
-    experienceIcons[iconKey as ExperienceIconKey] ?? experienceIcons.code
-  )(color)
+const phosphorIconRegistry = PhosphorIcons as unknown as Record<
+  string,
+  PhosphorIconComponent
+>
+
+const normalizeIconName = (iconName: string) => {
+  return iconName
+    .trim()
+    .replace(/[^a-zA-Z0-9]+(.)/g, (_, character: string) =>
+      character.toUpperCase(),
+    )
+}
+
+const getPhosphorIcon = (iconName: string) => {
+  const normalizedIconName = normalizeIconName(iconName)
+  const candidates = [
+    normalizedIconName,
+    `${normalizedIconName}Icon`,
+    'CodeIcon',
+  ]
+
+  return candidates
+    .map((candidate) => phosphorIconRegistry[candidate])
+    .find(Boolean) as PhosphorIconComponent
+}
+
+const getExperienceIcon = (iconName: string, color: string) => {
+  const Icon = getPhosphorIcon(iconName)
+
+  return createElement(Icon, { size: 24, weight: 'duotone', color })
 }
 
 export const AboutExperience = ({

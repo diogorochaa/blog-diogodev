@@ -1,5 +1,3 @@
-export * from './about-content'
-export * from './home-content'
 export * from './nav'
 export * from './site'
 export * from './socialLinks'

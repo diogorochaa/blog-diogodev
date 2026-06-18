@@ -1,12 +1,10 @@
 import * as prismic from '@prismicio/client'
 import { cache } from 'react'
 
-import { fallbackAboutContent, fallbackHomeContent } from '@/config'
 import type {
   AboutContent,
   ExperienceCategory,
   ExperienceContentEntry,
-  ExperienceIconKey,
   HomeContent,
   PageContent,
 } from '@/models'
@@ -20,22 +18,6 @@ import type {
 } from './content-service.types'
 
 const VALID_CATEGORIES = new Set<ExperienceCategory>(['frontend', 'backend'])
-const VALID_ICON_KEYS = new Set<ExperienceIconKey>([
-  'javascript',
-  'typescript',
-  'css',
-  'html',
-  'react',
-  'nextjs',
-  'nodejs',
-  'docker',
-  'database',
-  'cloud',
-  'git',
-  'terminal',
-  'code',
-])
-
 const HEX_COLOR_PATTERN = /^#(?:[0-9a-f]{3}){1,2}$/i
 
 const asString = (value: unknown, fallback: string) => {
@@ -46,6 +28,8 @@ const asString = (value: unknown, fallback: string) => {
   const text = value.trim()
   return text || fallback
 }
+
+const asOptionalString = (value: unknown) => asString(value, '')
 
 const asRichTextString = (
   value: prismic.RichTextField | string | undefined,
@@ -82,13 +66,6 @@ const asCategory = (value: unknown, fallback: ExperienceCategory) => {
     : fallback
 }
 
-const asIconKey = (value: unknown, fallback: ExperienceIconKey) => {
-  return typeof value === 'string' &&
-    VALID_ICON_KEYS.has(value as ExperienceIconKey)
-    ? (value as ExperienceIconKey)
-    : fallback
-}
-
 const asColor = (value: unknown, fallback: string) => {
   if (typeof value !== 'string') {
     return fallback
@@ -114,97 +91,51 @@ const asSlices = (value: unknown, fallback: HomeContent['slices']) => {
 
 const mapExperience = (
   item: PrismicAboutExperience,
-  fallback: ExperienceContentEntry,
 ): ExperienceContentEntry => ({
-  name: asString(item.name, fallback.name),
-  startYear: asPositiveInteger(item.start_year, fallback.startYear),
-  color: asColor(item.color, fallback.color),
-  category: asCategory(item.category, fallback.category),
-  iconKey: asIconKey(item.icon_key, fallback.iconKey),
+  name: asOptionalString(item.name),
+  startYear: asPositiveInteger(item.start_year, new Date().getFullYear()),
+  color: asColor(item.color, '#22d3ee'),
+  category: asCategory(item.category, 'frontend'),
+  iconKey: asString(item.icon_key, 'CodeIcon'),
 })
 
-export const mapHomeContent = (data?: PrismicHomeData): HomeContent => {
-  if (!data) {
-    return fallbackHomeContent
-  }
-
+export const mapHomeContent = (data: PrismicHomeData): HomeContent => {
   return {
-    heroBadge: asString(data.hero_badge, fallbackHomeContent.heroBadge),
-    title: asString(data.title, fallbackHomeContent.title),
-    subtitle: asRichTextString(data.subtitle, fallbackHomeContent.subtitle),
-    description: asString(data.description, fallbackHomeContent.description),
-    featuredPostsLimit: asPositiveInteger(
-      data.featured_posts_limit,
-      fallbackHomeContent.featuredPostsLimit,
-    ),
-    slices: asSlices(data.slices, fallbackHomeContent.slices),
-    ogTitle: asString(data.og_title, fallbackHomeContent.ogTitle),
-    ogDescription: asString(
-      data.og_description,
-      fallbackHomeContent.ogDescription,
-    ),
+    heroBadge: asOptionalString(data.hero_badge),
+    title: asOptionalString(data.title),
+    subtitle: asRichTextString(data.subtitle, ''),
+    description: asOptionalString(data.description),
+    featuredPostsLimit: asPositiveInteger(data.featured_posts_limit, 10),
+    slices: asSlices(data.slices, []),
+    ogTitle: asOptionalString(data.og_title),
+    ogDescription: asOptionalString(data.og_description),
   }
 }
 
-export const mapAboutContent = (data?: PrismicAboutData): AboutContent => {
-  if (!data) {
-    return fallbackAboutContent
-  }
-
+export const mapAboutContent = (data: PrismicAboutData): AboutContent => {
   const experiences =
     Array.isArray(data.experiences) && data.experiences.length > 0
-      ? data.experiences.map((item, index) =>
-          mapExperience(
-            item,
-            fallbackAboutContent.experiences[
-              index % fallbackAboutContent.experiences.length
-            ],
-          ),
-        )
-      : fallbackAboutContent.experiences
+      ? data.experiences.map(mapExperience).filter((item) => item.name)
+      : []
 
   return {
-    title: asString(data.title, fallbackAboutContent.title),
-    greeting: asString(data.greeting, fallbackAboutContent.greeting),
-    intro: asRichTextString(data.intro, fallbackAboutContent.intro),
-    avatarAlt: asString(data.avatar_alt, fallbackAboutContent.avatarAlt),
-    reposLabel: asString(data.repos_label, fallbackAboutContent.reposLabel),
-    followersLabel: asString(
-      data.followers_label,
-      fallbackAboutContent.followersLabel,
-    ),
-    experienceHeading: asString(
-      data.experience_heading,
-      fallbackAboutContent.experienceHeading,
-    ),
-    experienceDescription: asString(
-      data.experience_description,
-      fallbackAboutContent.experienceDescription,
-    ),
-    projectsHeading: asString(
-      data.projects_heading,
-      fallbackAboutContent.projectsHeading,
-    ),
-    emptyProjectsText: asString(
-      data.empty_projects_text,
-      fallbackAboutContent.emptyProjectsText,
-    ),
-    githubLinkLabel: asString(
-      data.github_link_label,
-      fallbackAboutContent.githubLinkLabel,
-    ),
-    seoTitle: asString(data.seo_title, fallbackAboutContent.seoTitle),
-    seoDescription: asString(
-      data.seo_description,
-      fallbackAboutContent.seoDescription,
-    ),
-    ogTitle: asString(data.og_title, fallbackAboutContent.ogTitle),
-    ogDescription: asString(
-      data.og_description,
-      fallbackAboutContent.ogDescription,
-    ),
+    title: asOptionalString(data.title),
+    greeting: asOptionalString(data.greeting),
+    intro: asRichTextString(data.intro, ''),
+    avatarAlt: asOptionalString(data.avatar_alt),
+    reposLabel: asOptionalString(data.repos_label),
+    followersLabel: asOptionalString(data.followers_label),
+    experienceHeading: asOptionalString(data.experience_heading),
+    experienceDescription: asOptionalString(data.experience_description),
+    projectsHeading: asOptionalString(data.projects_heading),
+    emptyProjectsText: asOptionalString(data.empty_projects_text),
+    githubLinkLabel: asOptionalString(data.github_link_label),
+    seoTitle: asOptionalString(data.seo_title),
+    seoDescription: asOptionalString(data.seo_description),
+    ogTitle: asOptionalString(data.og_title),
+    ogDescription: asOptionalString(data.og_description),
     experiences,
-    slices: asSlices(data.slices, fallbackAboutContent.slices),
+    slices: asSlices(data.slices, []),
   }
 }
 
@@ -253,17 +184,15 @@ export const selectNavigationPages = (
 }
 
 const getHomeDocument = cache(async () => {
-  if (!hasPrismicConfig) {
-    return fallbackHomeContent
-  }
-
   try {
     const client = createClient()
     const document = await client.getSingle('home')
     return mapHomeContent(document.data as PrismicHomeData)
   } catch (error) {
     if (error instanceof prismic.NotFoundError) {
-      return fallbackHomeContent
+      throw new Error(
+        'Required Prismic singleton "home" was not found. Publish the Home document before building.',
+      )
     }
 
     throw error
@@ -271,17 +200,15 @@ const getHomeDocument = cache(async () => {
 })
 
 const getAboutDocument = cache(async () => {
-  if (!hasPrismicConfig) {
-    return fallbackAboutContent
-  }
-
   try {
     const client = createClient()
     const document = await client.getSingle('about')
     return mapAboutContent(document.data as PrismicAboutData)
   } catch (error) {
     if (error instanceof prismic.NotFoundError) {
-      return fallbackAboutContent
+      throw new Error(
+        'Required Prismic singleton "about" was not found. Publish the About document before building.',
+      )
     }
 
     throw error

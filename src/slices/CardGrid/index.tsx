@@ -1,3 +1,5 @@
+'use client'
+
 import * as prismic from '@prismicio/client'
 
 import { Grid } from '@/components/Grid'

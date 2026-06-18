@@ -57,25 +57,10 @@
           }
         },
         "icon_key": {
-          "type": "Select",
+          "type": "Text",
           "config": {
-            "label": "Icon key",
-            "options": [
-              "javascript",
-              "typescript",
-              "css",
-              "html",
-              "react",
-              "nextjs",
-              "nodejs",
-              "docker",
-              "database",
-              "cloud",
-              "git",
-              "terminal",
-              "code"
-            ],
-            "default_value": "code"
+            "label": "Phosphor icon name",
+            "placeholder": "AtomIcon"
           }
         },
         "color": {

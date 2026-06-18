@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { fallbackAboutContent } from '@/config'
+import type { AboutContent } from '@/models'
 
 import AboutPage from './page'
 
@@ -20,6 +20,26 @@ vi.mock('@/services', () => ({
     getRepos: serviceMocks.getRepos,
   },
 }))
+
+const mockAboutContent: AboutContent = {
+  title: 'Sobre mim',
+  greeting: 'Olá, Dev!',
+  intro: 'Texto sobre o autor',
+  avatarAlt: 'Foto de perfil',
+  reposLabel: 'Repositórios',
+  followersLabel: 'Seguidores',
+  experienceHeading: 'Experiência Técnica',
+  experienceDescription: 'Experiências principais',
+  projectsHeading: 'Projetos em Destaque',
+  emptyProjectsText: 'Nenhum repositório disponível no momento.',
+  githubLinkLabel: 'Visite meu GitHub',
+  seoTitle: 'Sobre mim',
+  seoDescription: 'Conheça mais sobre o autor.',
+  ogTitle: 'Diogo Rocha',
+  ogDescription: 'Trajetória e projetos.',
+  experiences: [],
+  slices: [],
+}
 
 function getPersonJsonLdDescription() {
   const scripts = document.querySelectorAll(
@@ -40,7 +60,7 @@ function getPersonJsonLdDescription() {
 
 describe('/about page', () => {
   beforeEach(() => {
-    serviceMocks.getAboutContent.mockResolvedValue(fallbackAboutContent)
+    serviceMocks.getAboutContent.mockResolvedValue(mockAboutContent)
   })
 
   afterEach(() => {

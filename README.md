@@ -92,12 +92,17 @@ Adicione tambem um grupo repetivel `experiences` com os campos:
 - `name` (Key Text)
 - `start_year` (Number)
 - `category` (Select: `frontend`, `backend`)
-- `icon_key` (Select: `javascript`, `typescript`, `css`, `html`, `react`,
-  `nextjs`, `nodejs`, `docker`, `database`, `cloud`, `git`, `terminal`, `code`)
+- `icon_key` (Key Text com o nome do icone do Phosphor, exemplo `AtomIcon`)
 - `color` (Color ou Key Text com hexadecimal, exemplo `#22d3ee`)
 
-Se os documentos `home` ou `about` ainda nao existirem no Prismic, o app usa
-fallbacks locais para manter o site funcionando.
+Padrao para `icon_key`: use o nome do componente do
+[`@phosphor-icons/react`](https://phosphoricons.com/), como `AtomIcon`,
+`FileTsIcon`, `TerminalWindowIcon`, `DatabaseIcon`, `CloudIcon` ou
+`RocketLaunchIcon`. O sufixo `Icon` e opcional: `Atom` tambem funciona. Se o
+nome nao existir, o site renderiza `CodeIcon`.
+
+Os documentos `home` e `about` devem existir no Prismic. Em producao, eles sao
+a fonte de verdade do conteudo dessas paginas.
 
 ### Custom Type `page` (repeatable)
 
@@ -189,6 +194,7 @@ npm run test:run
 - `npm run typecheck` executa `next typegen` antes do TypeScript para manter os tipos do App Router atualizados no Next 16.
 - `npm run lint` e `npm run check` executam `biome check` (lint + formatacao).
 - `npm run lint:fix` aplica correcoes automaticas do Biome.
+- Em CI/Vercel, `npm run build` valida acesso ao Prismic e exige os documentos singleton `home` e `about` publicados.
 
 Para validar tudo de uma vez:
 

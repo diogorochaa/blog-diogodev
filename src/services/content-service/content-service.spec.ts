@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import { fallbackAboutContent, fallbackHomeContent } from '@/config'
-
 import {
   mapAboutContent,
   mapHomeContent,
@@ -33,14 +31,15 @@ describe('ContentService mappers', () => {
     })
   })
 
-  it('falls back home content when values are empty', () => {
-    expect(mapHomeContent()).toEqual(fallbackHomeContent)
-    expect(
-      mapHomeContent({
-        title: '',
-        featured_posts_limit: 0,
-      }).title,
-    ).toBe(fallbackHomeContent.title)
+  it('normalizes empty home content without local fallbacks', () => {
+    const content = mapHomeContent({
+      title: '',
+      featured_posts_limit: 0,
+    })
+
+    expect(content.title).toBe('')
+    expect(content.featuredPostsLimit).toBe(1)
+    expect(content.slices).toEqual([])
   })
 
   it('maps about singleton data and sanitizes invalid experience values', () => {
@@ -53,14 +52,14 @@ describe('ContentService mappers', () => {
           name: 'TypeScript',
           start_year: 2020,
           category: 'frontend',
-          icon_key: 'typescript',
+          icon_key: 'FileTsIcon',
           color: '#3178c6',
         },
         {
           name: 'Inválido',
           start_year: 'abc',
           category: 'mobile',
-          icon_key: 'unknown',
+          icon_key: 'RocketLaunchIcon',
           color: 'blue',
         },
       ],
@@ -74,12 +73,15 @@ describe('ContentService mappers', () => {
       name: 'TypeScript',
       startYear: 2020,
       category: 'frontend',
-      iconKey: 'typescript',
+      iconKey: 'FileTsIcon',
       color: '#3178c6',
     })
     expect(content.experiences[1]).toEqual({
-      ...fallbackAboutContent.experiences[1],
       name: 'Inválido',
+      startYear: new Date().getFullYear(),
+      category: 'frontend',
+      iconKey: 'RocketLaunchIcon',
+      color: '#22d3ee',
     })
   })
 
