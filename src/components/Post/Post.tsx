@@ -14,13 +14,13 @@ export const Post = ({ post, titleId, headingIdsInOrder }: PostProps) => {
   return (
     <article
       id="post-content"
-      className="flex flex-col items-center justify-center"
+      className="flex w-full min-w-0 flex-col items-center justify-center"
     >
       <div className="flex w-full justify-items-start pb-3 sm:pb-4">
         <BackButton />
       </div>
 
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-4xl min-w-0">
         <div className="relative h-14 w-full sm:h-16">
           <AnimatedCover
             className="h-full w-full rounded-lg"

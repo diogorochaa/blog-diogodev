@@ -131,6 +131,7 @@ Os slices ficam em [`src/slices`](src/slices), cada um com `model.json` e
 
 - `ProfileHero`: hero editorial com badge, titulo, subtitulo, alinhamento e superficie.
 - `RichTextSection`: bloco de texto rico sem sumario.
+- `TableSection`: tabela oficial do Prismic com titulo, descricao e largura configuravel.
 - `CardGrid`: grid de cards editaveis com icones controlados.
 - `AboutIntroStats`: intro do About com estatisticas do GitHub vindas do servidor.
 - `TechnicalExperience`: experiencia tecnica editavel com graficos opcionais.

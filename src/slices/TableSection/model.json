@@ -1,0 +1,53 @@
+{
+  "id": "table_section",
+  "type": "SharedSlice",
+  "name": "TableSection",
+  "description": "Seção editorial com tabela gerenciada pelo Prismic.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "primary": {
+        "eyebrow": {
+          "type": "Text",
+          "config": {
+            "label": "Eyebrow",
+            "placeholder": "Comparativo"
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Zustand x Context API"
+          }
+        },
+        "description": {
+          "type": "Text",
+          "config": {
+            "label": "Description",
+            "placeholder": "Resumo opcional exibido acima da tabela"
+          }
+        },
+        "table": {
+          "type": "Table",
+          "config": {
+            "label": "Table"
+          }
+        },
+        "width": {
+          "type": "Select",
+          "config": {
+            "label": "Width",
+            "options": ["narrow", "default", "wide"],
+            "default_value": "default"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

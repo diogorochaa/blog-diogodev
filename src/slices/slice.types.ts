@@ -1,4 +1,4 @@
-import type { RichTextField } from '@prismicio/client'
+import type { RichTextField, TableField } from '@prismicio/client'
 
 export type SliceItem = Record<string, unknown>
 
@@ -50,6 +50,15 @@ export const getRichTextField = (
   return Array.isArray(value) && value.length > 0
     ? (value as RichTextField)
     : undefined
+}
+
+export const getTableField = (
+  primary: Record<string, unknown> | undefined,
+  field: string,
+): TableField | undefined => {
+  const value = primary?.[field]
+
+  return value && typeof value === 'object' ? (value as TableField) : undefined
 }
 
 export const getItems = (slice: PrismicSlice) => {

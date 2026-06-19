@@ -81,6 +81,8 @@ export const SliceRenderer = async ({
             return <components.profile_hero key={key} slice={slice} />
           case 'rich_text_section':
             return <components.rich_text_section key={key} slice={slice} />
+          case 'table_section':
+            return <components.table_section key={key} slice={slice} />
           case 'card_grid':
             return <components.card_grid key={key} slice={slice} />
           case 'about_intro_stats':

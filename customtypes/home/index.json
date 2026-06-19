@@ -66,6 +66,9 @@
             "rich_text_section": {
               "type": "SharedSlice"
             },
+            "table_section": {
+              "type": "SharedSlice"
+            },
             "card_grid": {
               "type": "SharedSlice"
             },

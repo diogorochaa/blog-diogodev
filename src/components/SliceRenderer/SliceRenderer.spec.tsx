@@ -45,6 +45,7 @@ vi.mock('@/slices', () => ({
       </section>
     ),
     rich_text_section: () => <section>Rich text</section>,
+    table_section: () => <section>Table section</section>,
     technical_experience: () => <section>Technical experience</section>,
   },
 }))
@@ -71,11 +72,15 @@ describe('SliceRenderer', () => {
   })
 
   it('renders editorial slices without fetching dynamic services', async () => {
-    const slices: PrismicSlice[] = [{ slice_type: 'rich_text_section' }]
+    const slices: PrismicSlice[] = [
+      { slice_type: 'rich_text_section' },
+      { slice_type: 'table_section' },
+    ]
 
     render(await SliceRenderer({ slices }))
 
     expect(screen.getByText('Rich text')).toBeInTheDocument()
+    expect(screen.getByText('Table section')).toBeInTheDocument()
     expect(serviceMocks.getAll).not.toHaveBeenCalled()
     expect(serviceMocks.getProfile).not.toHaveBeenCalled()
     expect(serviceMocks.getRepos).not.toHaveBeenCalled()

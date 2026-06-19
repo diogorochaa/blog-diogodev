@@ -5,6 +5,7 @@ import { PostsFeed } from './PostsFeed'
 import { ProfileHero } from './ProfileHero'
 import { RecommendedPosts } from './RecommendedPosts'
 import { RichTextSection } from './RichTextSection'
+import { TableSection } from './TableSection'
 import { TechnicalExperience } from './TechnicalExperience'
 
 export const components = {
@@ -15,5 +16,6 @@ export const components = {
   profile_hero: ProfileHero,
   recommended_posts: RecommendedPosts,
   rich_text_section: RichTextSection,
+  table_section: TableSection,
   technical_experience: TechnicalExperience,
 }

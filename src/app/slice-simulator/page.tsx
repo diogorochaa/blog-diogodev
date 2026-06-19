@@ -1,11 +1,24 @@
-export default function SliceSimulatorPage() {
+import {
+  getSlices,
+  SliceSimulator,
+  type SliceSimulatorParams,
+} from '@slicemachine/adapter-next/simulator'
+
+import { SliceRenderer } from '@/components/SliceRenderer'
+import type { PrismicSlice } from '@/slices/slice.types'
+
+export default async function SliceSimulatorPage({
+  searchParams,
+}: SliceSimulatorParams) {
+  const { state } = await searchParams
+  const slices = getSlices(state) as PrismicSlice[]
+  const renderedSlices = await SliceRenderer({ slices })
+
   return (
-    <main className="mx-auto max-w-3xl rounded-2xl border border-accent-purple/30 bg-secondary/60 p-6 text-gray-100">
-      <h1 className="text-2xl font-bold text-white">Slice Simulator</h1>
-      <p className="mt-3 text-gray-300">
-        Este projeto usa Slice Machine para versionar Custom Types. Nenhum slice
-        reutilizável foi criado ainda.
-      </p>
-    </main>
+    <SliceSimulator background="#05050a">
+      <main className="mx-auto w-full max-w-5xl px-4 py-10 text-gray-100 sm:px-6">
+        {renderedSlices}
+      </main>
+    </SliceSimulator>
   )
 }

@@ -1,7 +1,17 @@
+.rich-text {
+  overflow-wrap: break-word;
+}
+
 .rich-text pre {
   overflow-x: auto;
 }
 
 .rich-text code {
   word-break: break-word;
+}
+
+.rich-text img,
+.rich-text iframe,
+.rich-text video {
+  max-width: 100%;
 }

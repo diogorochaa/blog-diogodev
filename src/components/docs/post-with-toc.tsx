@@ -14,12 +14,14 @@ export const PostWithToc = ({ items, children }: PostWithTocProps) => {
 
   if (!showToc) {
     return (
-      <div className="mx-auto w-full max-w-4xl lg:max-w-5xl">{children}</div>
+      <div className="mx-auto w-full max-w-4xl min-w-0 lg:max-w-5xl">
+        {children}
+      </div>
     )
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:items-start lg:gap-8 xl:grid-cols-[240px_minmax(0,1fr)] xl:gap-10">
         <TableOfContents items={items} />
         <div className="min-w-0">{children}</div>

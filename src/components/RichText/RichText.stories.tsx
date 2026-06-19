@@ -51,6 +51,63 @@ const createField = ({
   ] as unknown as prismic.RichTextField
 }
 
+const tableField = [
+  {
+    type: 'heading2',
+    text: 'Zustand x Context API',
+    spans: [],
+  },
+  {
+    type: 'table',
+    head: [
+      {
+        cells: [
+          {
+            type: 'header',
+            content: [{ type: 'paragraph', text: 'Context API', spans: [] }],
+          },
+          {
+            type: 'header',
+            content: [{ type: 'paragraph', text: 'Zustand', spans: [] }],
+          },
+        ],
+      },
+    ],
+    body: [
+      {
+        cells: [
+          {
+            type: 'data',
+            content: [
+              { type: 'paragraph', text: 'Necessita Provider', spans: [] },
+            ],
+          },
+          {
+            type: 'data',
+            content: [{ type: 'paragraph', text: 'Não', spans: [] }],
+          },
+        ],
+      },
+      {
+        cells: [
+          {
+            type: 'data',
+            content: [
+              { type: 'paragraph', text: 'Mais re-renderizações', spans: [] },
+            ],
+          },
+          {
+            type: 'data',
+            content: [
+              { type: 'paragraph', text: 'Mais performático', spans: [] },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+] as unknown as prismic.RichTextField
+
 const meta = {
   title: 'Components/RichText',
   component: RichText,
@@ -146,6 +203,22 @@ export const Default = {
 }
 
 export const MobilePreview = {
+  globals: {
+    viewport: {
+      value: 'iphone12',
+      isRotated: false,
+    },
+  },
+}
+
+export const WithTable = {
+  render: ({ surfaceTone }: { surfaceTone: StorySurfaceTone }) => (
+    <StorySurface surfaceTone={surfaceTone} className="p-4 sm:p-8">
+      <article className="mx-auto max-w-3xl">
+        <RichText field={tableField} />
+      </article>
+    </StorySurface>
+  ),
   globals: {
     viewport: {
       value: 'iphone12',
