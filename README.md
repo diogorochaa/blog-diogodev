@@ -1,6 +1,35 @@
-# Blog DiogoDev
+# Blog DiogoDev — Diogo FC: Career Mode
 
-Blog em Next.js com App Router e publicacao de conteudo via Prismic.
+Portfolio e blog de engenharia de software em Next.js com App Router e conteudo
+via Prismic. A interface usa uma linguagem visual inspirada em jogos de futebol
+8/16-bit (modo carreira, ficha do jogador, partidas, stages), com arte original
+e sem assets de jogos comerciais.
+
+## Rotas
+
+| Rota                  | Conteudo                                                        |
+| --------------------- | --------------------------------------------------------------- |
+| `/`                   | Home: hero, ficha do jogador, temporada atual, partidas, GitHub, tatica, carreira, trofeus, extra e ultimos artigos |
+| `/about`              | Player profile: ficha, bio, treino/objetivos, experiencia tecnica, repositorios e contato |
+| `/projects`           | Lista de projetos (`project`) e repositorios do GitHub          |
+| `/projects/<uid>`     | Match report do projeto (estudo de caso)                        |
+| `/career`             | Linha do tempo completa (`career`)                              |
+| `/blog`               | Arquivo de artigos com categorias, busca (Ctrl K) e paginacao   |
+| `/blog/page/<n>`      | Paginas seguintes do arquivo                                    |
+| `/blog/tag/<tag>`     | Artigos filtrados por tag                                       |
+| `/blog/<slug>`        | Artigo (stage), com indice e navegacao anterior/proximo         |
+| `/pages/<uid>`        | Paginas editoriais montadas com slices                          |
+
+### Migracao de URLs
+
+Os artigos sairam da raiz para `/blog`. As URLs antigas continuam funcionando
+com redirect permanente (308), preservando links externos e SEO:
+
+- `/<slug>` → `/blog/<slug>` (rota `src/app/[slug]/page.tsx`; so redireciona se
+  o post existir, caso contrario responde 404).
+- `/page/<n>` → `/blog/page/<n>` (regra `redirects()` em `next.config.mjs`).
+
+O numero do stage de cada artigo e cronologico: o post mais antigo e o Stage 01.
 
 ## Stack
 
@@ -31,12 +60,13 @@ Blog em Next.js com App Router e publicacao de conteudo via Prismic.
 4. Opcional: use as tags nativas do documento no Prismic para categorizar posts.
 
 O modelo local fica em [`customtypes/post/index.json`](customtypes/post/index.json).
-Ele deve continuar separado do modelo `page`: posts aparecem em `/<uid>` e paginas
-editoriais aparecem em `/pages/<uid>`.
+Ele deve continuar separado do modelo `page`: posts aparecem em `/blog/<uid>` e
+paginas editoriais aparecem em `/pages/<uid>`.
 
 ### Slice Machine
 
-Os Custom Types `home`, `about` e `page` sao versionados neste repositorio em
+Os Custom Types `home`, `about`, `page`, `post`, `profile`, `project`, `career`
+e `interest` sao versionados neste repositorio em
 [`customtypes`](customtypes). Para editar/testar esses modelos localmente, rode:
 
 ```bash
@@ -45,7 +75,7 @@ npm run slicemachine
 ```
 
 Abra a interface local do Slice Machine, faca login no Prismic quando solicitado
-e publique os modelos no repositorio `blog-diodev` quando estiverem validados.
+e publique os modelos no repositorio `zgi1adw1` quando estiverem validados.
 
 Para abrir a UI automaticamente:
 
@@ -94,6 +124,12 @@ Adicione tambem um grupo repetivel `experiences` com os campos:
 - `category` (Select: `frontend`, `backend`)
 - `icon_key` (Key Text com o nome do icone do Phosphor, exemplo `AtomIcon`)
 - `color` (Color ou Key Text com hexadecimal, exemplo `#22d3ee`)
+- `level` (Number, 0–100, opcional): nivel ilustrativo usado na barra da ficha
+  do jogador quando o `profile` nao define `player_stats`.
+- `active` (Boolean, opcional): marca tecnologias em uso na temporada atual.
+
+Essas experiencias tambem fazem o papel de "skills": nao foi criado um tipo
+`skill` separado para nao duplicar dados que ja existiam no `about`.
 
 Padrao para `icon_key`: use o nome do componente do
 [`@phosphor-icons/react`](https://phosphoricons.com/), como `AtomIcon`,
@@ -120,9 +156,76 @@ Modelo versionado em [`customtypes/page/index.json`](customtypes/page/index.json
 - `slices` (Slice Zone)
 
 As paginas editoriais usam a rota dedicada `src/app/pages/[uid]/page.tsx`,
-publicadas em `/pages/<uid>`. A rota de posts continua separada em
-`src/app/[slug]/page.tsx`, publicada em `/<slug>`, entao os posts existentes nao
-mudam de URL.
+publicadas em `/pages/<uid>`. Os posts ficam em `src/app/blog/[slug]/page.tsx`,
+publicados em `/blog/<slug>`; a rota `src/app/[slug]/page.tsx` apenas redireciona
+as URLs antigas.
+
+### Custom Type `profile` (single type, opcional)
+
+Modelo em [`customtypes/profile/index.json`](customtypes/profile/index.json).
+Centraliza a identidade do "jogador" e tudo o que antes seria hardcoded:
+
+- Identidade: `name`, `role`, `specialties` (separadas por virgula ou `·`),
+  `location`, `avatar`, `bio`, `goals`, `currently_studying` (grupo `topic`).
+- Formacao academica: `education` (grupo `level`, `course`, `institution`,
+  `location`, `start_year`, `end_year`). Sem `end_year` aparece como
+  "em andamento". Exibida no perfil e na secao "Temporada atual" da home.
+- Ficha: `shirt_number`, `position`, `play_style`, `formation`, `overall`
+  (0–100) e `player_stats` (grupo `label` + `value` 0–100). Os atributos sao
+  ilustrativos e o site deixa isso explicito na ficha.
+- Tatica: `tactics_title`, `tactics_description`, `tactics` (grupo `line`:
+  `ataque`/`meio-campo`/`defesa`/`goleiro`, `label`, `detail`) e
+  `tactics_principles` (grupo `name`).
+- Trofeus: `trophies` (grupo `title`, `description`, `year`).
+- Links: `github_username`, `linkedin_url`, `instagram_url`, `twitter_url`,
+  `email`.
+
+Sem o documento, o site usa os dados reais do GitHub (nome, avatar, bio,
+localizacao), mostra a ficha com os anos por tecnologia do `about` e oculta as
+secoes que dependem exclusivamente do `profile` (tatica, trofeus manuais).
+
+### Custom Type `project` (repeatable, opcional)
+
+Modelo em [`customtypes/project/index.json`](customtypes/project/index.json):
+
+- Aba Main: `uid`, `title`, `short_description`, `description`, `cover_image`,
+  `status` (`in_progress`/`completed`/`archived`), `featured`, `order`,
+  `category`, `technologies` (grupo `name`), `github_url`, `demo_url`.
+- Aba Case study: `problem`, `solution`, `architecture`,
+  `technical_decisions`, `technical_challenges`, `learnings` e `gallery`
+  (grupo `image` + `caption`).
+
+Projetos com `featured` aparecem na Home. Cada projeto vira `/projects/<uid>`.
+
+### Custom Type `career` (repeatable, opcional)
+
+Modelo em [`customtypes/career/index.json`](customtypes/career/index.json):
+`company`, `role`, `stage_label`, `start_date`, `end_date` (vazio = atual),
+`description`, `responsibilities`, `highlights` (grupo `text`), `technologies`
+(grupo `name`), `order` e `active`.
+
+### Custom Type `interest` (repeatable, opcional)
+
+Modelo em [`customtypes/interest/index.json`](customtypes/interest/index.json):
+`title`, `category` (`football`/`cooking`/`retro_games`/`technology`/
+`learning`/`side_projects`), `description`, `image`, `order` e `active`.
+Alimenta a secao "Fora de campo" da Home.
+
+### Documentos para criar no Prismic
+
+Depois de publicar os modelos pelo Slice Machine:
+
+1. Atualize o `about` existente preenchendo `level`/`active` nas experiencias
+   (opcional).
+2. Crie e publique o single `profile` com nome, cargo, especialidades, bio,
+   avatar, ficha (`player_stats`, `overall`, numero, posicao) e links.
+3. Crie um documento `project` por projeto (marque 1–3 como `featured`).
+4. Crie um documento `career` por empresa/fase, usando `order` para ordenar.
+5. Crie documentos `interest` para a secao "Fora de campo" (opcional).
+
+Todos os tipos novos sao opcionais: enquanto nao existirem, as secoes
+correspondentes mostram estado vazio ou sao omitidas, e o build nao falha.
+Apenas `home` e `about` continuam obrigatorios.
 
 ### Shared Slices
 
@@ -156,7 +259,7 @@ cp .env.example .env.local
 Variaveis em [`.env.example`](.env.example):
 
 ```bash
-PRISMIC_REPOSITORY_NAME=blog-diodev
+PRISMIC_REPOSITORY_NAME=zgi1adw1
 PRISMIC_ACCESS_TOKEN=
 PRISMIC_WEBHOOK_SECRET=
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -244,21 +347,65 @@ npm run test:all
 ## Arquitetura
 
 - Rotas em `src/app` com split `page.tsx` / `*.data.ts` / `*Content.tsx`
-- Servicos em `src/services` (`PostService`, `GithubService`, `ContentService`)
+- Servicos em `src/services` (`PostService`, `GithubService`, `ContentService`, `PortfolioService`)
 - `ContentService` centraliza `home`, `about`, `page`, links de header e links de footer vindos do Prismic
+- `PortfolioService` busca `profile`, `project`, `career` e `interest` (todos opcionais)
+- `GithubService` e a unica integracao com a API do GitHub; os componentes
+  retro (`GitHubStats`, `ScoreBoard`) recebem dados ja normalizados
+- `src/lib/player` combina `profile`, GitHub e `about` na identidade do jogador
+- `src/lib/blog` calcula tags do arquivo e numeracao de stages
 - Conteudo rich text do Prismic em `src/components/RichText`
 - Slice Zone renderizada por `src/components/SliceRenderer`
-- SEO compartilhado em `src/lib/seo/buildMetadata.ts`
-- Listagem de posts reutilizada em `src/components/PostsFeed`
+- SEO compartilhado em `src/lib/seo` (metadata, Open Graph retro, icones);
+  JSON-LD de Person, ProfilePage, CreativeWork, BlogPosting e BreadcrumbList
+
+## Design system retro
+
+- Referencia visual: jogos de futebol 16-bit do Super Nintendo (gramado
+  listrado, linhas brancas, HUD azul-marinho, placar e textos amarelos com
+  contorno escuro). Toda a arte e original, feita em CSS e sprites proprios.
+- Tokens em [`styles/tailwind-theme.css`](styles/tailwind-theme.css):
+  - HUD: `bg` `#0C1445`, `surface` `#16226A`, `surface-2` `#1F2E85`, `ink`
+    `#FFFFFF`, `muted` `#C3CDF5`, `line` `#3A4AA6`, `line-strong` `#E4E9FF`.
+  - Destaque/placar: `accent` e `score` `#FFD23F`; contorno `outline`
+    `#08102F`.
+  - Gramado: `pitch` `#2F7F27`, `pitch-dark` `#286F21`, linhas `pitch-line`
+    `#F4F8EE`; times `team-home` `#E5452F` e `team-away` `#3B6CF2`.
+  - Os tokens antigos viraram aliases da nova paleta.
+- O `body` e um gramado listrado. Texto direto sobre a grama usa `.on-pitch`
+  (contorno de 1px + sombra), `.on-pitch-soft` (descricoes) ou `.hud-title`
+  (titulos gigantes); conteudo de leitura fica em paineis `.pixel-frame` ou
+  `.hud-glass` (caixa translucida, como o radar do jogo).
+- Hero da home como tela de inicio de partida: placar com escudo, relogio,
+  placa de nome do jogador (`toPlateName`) e `PitchRadar`, que desenha a
+  formacao a partir do campo `formation` do Prismic (ex.: `4-3-3`).
+- Todos os textos fixos da interface estao em pt-BR.
+- Fontes: Manrope (texto), Sora (titulos) e Jersey 10 (`font-pixel`, apenas
+  labels, menus e placares). Press Start 2P e Pixelify Sans foram descartadas:
+  a primeira deforma maiusculas acentuadas (`Ç`, `Ã`) e a segunda desenha o `2`
+  como um `S` espelhado. Como a Jersey 10 tem altura de maiuscula pequena,
+  `.font-pixel` usa `font-size-adjust: cap-height 1`.
+- Componentes base: `PixelButton`, `RetroBadge`, `GameSection`, `PixelSprite`,
+  `RetroMenu`, `PlayerCard`, `PlayerStat`, `ScoreBoard`, `MatchCard`,
+  `CareerTimeline`, `TrophyCard`, `StageNav`, `Breadcrumbs`, `GameOver`,
+  `PitchRadar`.
+- Animacoes usam `steps()` e respeitam `prefers-reduced-motion`.
+
+### Estatisticas do GitHub
+
+A secao usa a API REST publica: repositorios, seguidores, estrelas, forks e
+linguagens mais usadas, com estados de carregamento, erro e fallback.
+Contribuicoes/commits nao sao exibidos porque exigem a API GraphQL com token.
 
 ## Publicando posts
 
 1. Crie um novo documento do tipo `post` no Prismic.
 2. Preencha titulo, descricao, data e conteudo.
-3. Defina o `UID` do documento (ele vira a URL do post).
+3. Defina o `UID` do documento (ele vira a URL do post: `/blog/<uid>`).
 4. Publique o documento.
 
-Os posts publicados passam a aparecer no blog automaticamente.
+Os posts publicados passam a aparecer no blog automaticamente. As tags nativas
+do Prismic viram as categorias de `/blog/tag/<tag>`.
 
 ## Publicando paginas editoriais
 
@@ -268,12 +415,12 @@ Os posts publicados passam a aparecer no blog automaticamente.
 4. Publique o documento.
 
 Essas paginas ficam em `/pages/<uid>`. Essa rota e independente dos posts, que
-continuam em `/<slug>`.
+ficam em `/blog/<slug>`.
 
 Para exibir uma pagina editorial no header, marque `show_in_header` como
 verdadeiro. Use `nav_label` para controlar o texto do link no menu e
-`nav_order` para ordenar os links dinamicos depois dos links fixos (`Home` e
-`Sobre mim`). Paginas sem `show_in_header` continuam publicadas, mas nao entram
+`nav_order` para ordenar os links dinamicos depois dos links fixos (`Início`,
+`Perfil`, `Projetos`, `Carreira` e `Blog`). Paginas sem `show_in_header` continuam publicadas, mas nao entram
 no menu principal. Quando duas paginas usam a mesma ordem, o desempate e feito
 pelo label em `pt-BR`.
 
@@ -319,16 +466,16 @@ VERCEL_DEPLOY_HOOK_URL=https://api.vercel.com/v1/integrations/deploy/...
 PRISMIC_ACCESS_TOKEN=seu-token-permanente
 ```
 
-**Variable** (opcional na CI; padrao `blog-diodev`):
+**Variable** (opcional na CI; padrao `zgi1adw1`):
 
 ```bash
-PRISMIC_REPOSITORY_NAME=blog-diodev
+PRISMIC_REPOSITORY_NAME=zgi1adw1
 ```
 
 Na Vercel (`Settings > Environment Variables`), configure pelo menos:
 
 ```bash
-PRISMIC_REPOSITORY_NAME=blog-diodev
+PRISMIC_REPOSITORY_NAME=zgi1adw1
 NEXT_PUBLIC_SITE_URL=https://seu-dominio.com
 PRISMIC_WEBHOOK_SECRET=seu-secret-de-webhook
 PRISMIC_ACCESS_TOKEN=seu-token-permanente

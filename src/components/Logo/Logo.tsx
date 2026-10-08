@@ -1,16 +1,19 @@
 import Link from 'next/link'
 
+import { PixelSprite } from '@/components/PixelSprite'
+
 export const Logo = () => {
   return (
-    <Link href="/" className="group inline-flex min-w-0 items-center gap-2">
-      <span
-        aria-hidden
-        className="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-accent-cyan/40 bg-linear-to-br from-accent-purple/30 via-accent-cyan/20 to-accent-pink/30 text-sm font-bold text-white shadow-glow-cyan transition-transform duration-300 group-hover:scale-105"
-      >
-        d
+    <Link
+      href="/"
+      aria-label="Diogo FC — página inicial"
+      className="group inline-flex min-h-11 min-w-0 items-center gap-3"
+    >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center border-2 border-line-strong bg-surface transition-transform duration-100 group-hover:-translate-y-0.5 motion-reduce:transition-none">
+        <PixelSprite name="crest" scale={3} />
       </span>
-      <span className="logo-shimmer truncate bg-linear-to-r from-accent-cyan via-accent-purple to-accent-pink bg-clip-text text-2xl font-bold text-transparent transition-transform duration-300 group-hover:scale-[1.02] md:text-3xl">
-        diogodev_
+      <span className="truncate font-pixel text-xs text-ink transition-colors group-hover:text-accent sm:text-sm">
+        Diogo <span className="text-accent">FC</span>
       </span>
     </Link>
   )

@@ -13,11 +13,11 @@ import { Note } from './components'
 import type { RichTextProps } from './RichText.types'
 
 const HEADING_CLASS_NAMES: Record<string, string> = {
-  h2: 'rich-text mb-5 mt-12 scroll-mt-24 pb-1 text-2xl font-bold sm:mb-6 sm:mt-14 sm:text-3xl',
-  h3: 'rich-text mb-4 mt-8 scroll-mt-24 text-xl font-bold sm:text-2xl',
-  h4: 'rich-text mb-4 mt-8 scroll-mt-24 text-xl font-bold',
-  h5: 'rich-text mb-4 mt-8 scroll-mt-24 text-lg font-bold',
-  h6: 'rich-text mb-4 mt-8 scroll-mt-24 text-base font-bold',
+  h2: 'rich-text mb-5 mt-14 scroll-mt-28 border-b-2 border-line pb-3 font-display text-2xl font-bold text-ink sm:mb-6 sm:mt-16 sm:text-3xl',
+  h3: 'rich-text mb-4 mt-10 scroll-mt-28 font-display text-xl font-bold text-ink sm:text-2xl',
+  h4: 'rich-text mb-4 mt-8 scroll-mt-28 font-display text-xl font-bold text-ink',
+  h5: 'rich-text mb-4 mt-8 scroll-mt-28 text-lg font-bold text-ink',
+  h6: 'rich-text mb-4 mt-8 scroll-mt-28 text-base font-bold text-ink',
 }
 
 type PrismicTableCell = {
@@ -55,7 +55,7 @@ const getRichTextLinkProps = (linkField: prismic.LinkField) => {
   }
 }
 
-export const createRichTextComponents = (
+const createRichTextComponents = (
   headingIdsInOrder: string[],
 ): JSXMapSerializer => {
   let headingIndex = 0
@@ -84,14 +84,12 @@ export const createRichTextComponents = (
     heading5: ({ children }) => renderHeading('heading5', children),
     heading6: ({ children }) => renderHeading('heading6', children),
     paragraph: ({ children }) => (
-      <p className="rich-text mb-4 text-base leading-7 text-slate-300 sm:text-lg md:text-xl">
+      <p className="rich-text mb-5 text-[1.0625rem] leading-8 text-ink/85 sm:text-lg sm:leading-8">
         {children}
       </p>
     ),
     strong: ({ children }) => (
-      <strong className="rich-text font-semibold text-slate-50">
-        {children}
-      </strong>
+      <strong className="rich-text font-semibold text-ink">{children}</strong>
     ),
     em: ({ children }) => <em className="rich-text italic">{children}</em>,
     hyperlink: ({ node, children }) => {
@@ -99,7 +97,7 @@ export const createRichTextComponents = (
 
       return (
         <a
-          className="rich-text font-medium text-link underline underline-offset-4"
+          className="rich-text font-medium text-accent-soft underline decoration-2 underline-offset-4 hover:text-accent"
           href={href}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
@@ -109,19 +107,19 @@ export const createRichTextComponents = (
       )
     },
     list: ({ children }) => (
-      <ul className="rich-text mb-4 ml-5 list-disc text-base leading-7 text-slate-300 sm:ml-8 sm:text-lg md:text-xl">
+      <ul className="rich-text mb-5 ml-5 list-[square] text-[1.0625rem] leading-8 text-ink/85 marker:text-accent sm:ml-8 sm:text-lg">
         {children}
       </ul>
     ),
     oList: ({ children }) => (
-      <ol className="rich-text mb-4 ml-5 list-decimal text-base leading-7 text-slate-300 sm:ml-8 sm:text-lg md:text-xl">
+      <ol className="rich-text mb-5 ml-5 list-decimal text-[1.0625rem] leading-8 text-ink/85 marker:font-semibold marker:text-accent sm:ml-8 sm:text-lg">
         {children}
       </ol>
     ),
     listItem: ({ children }) => <li className="rich-text mb-2">{children}</li>,
     oListItem: ({ children }) => <li className="rich-text mb-2">{children}</li>,
     preformatted: ({ children }) => (
-      <pre className="rich-text mb-4 mt-6 overflow-x-auto rounded-lg border border-slate-800 bg-slate-900 p-4 font-mono text-sm text-slate-200">
+      <pre className="rich-text mb-5 mt-6 overflow-x-auto border-2 border-line bg-surface p-4 font-mono text-sm leading-6 text-ink shadow-pixel">
         {children}
       </pre>
     ),
@@ -132,7 +130,7 @@ export const createRichTextComponents = (
 
       if (node.data.label === 'codespan') {
         return (
-          <code className="rich-text text-md relative rounded bg-gray-700 px-[0.4rem] py-[0.1rem] font-mono leading-tight text-gray-50">
+          <code className="rich-text relative border border-line-strong bg-surface-2 px-[0.4rem] py-[0.1rem] font-mono text-[0.9em] leading-tight text-score">
             {children}
           </code>
         )
@@ -145,10 +143,10 @@ export const createRichTextComponents = (
 
 const tableCellComponents: JSXMapSerializer = {
   paragraph: ({ children }) => (
-    <p className="text-sm leading-6 text-slate-200">{children}</p>
+    <p className="text-sm leading-6 text-ink/85">{children}</p>
   ),
   strong: ({ children }) => (
-    <strong className="font-semibold text-slate-50">{children}</strong>
+    <strong className="font-semibold text-ink">{children}</strong>
   ),
   em: ({ children }) => <em className="italic">{children}</em>,
   hyperlink: ({ node, children }) => {
@@ -156,7 +154,7 @@ const tableCellComponents: JSXMapSerializer = {
 
     return (
       <a
-        className="font-medium text-link underline underline-offset-4"
+        className="font-medium text-accent-soft underline decoration-2 underline-offset-4 hover:text-accent"
         href={href}
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
@@ -174,18 +172,18 @@ const prismicTableComponents = {
   thead: ({ children }: { children: ReactNode }) => <thead>{children}</thead>,
   tbody: ({ children }: { children: ReactNode }) => <tbody>{children}</tbody>,
   tr: ({ children }: { children: ReactNode }) => (
-    <tr className="border-b border-slate-700/70">{children}</tr>
+    <tr className="border-b-2 border-line">{children}</tr>
   ),
   th: ({ children }: { children: ReactNode }) => (
     <th
       scope="col"
-      className="min-w-40 bg-slate-800/80 px-4 py-3 text-left text-sm font-semibold text-slate-50 align-top"
+      className="min-w-40 bg-surface-2 px-4 py-3 text-left text-sm font-semibold text-ink align-top"
     >
       {children}
     </th>
   ),
   td: ({ children }: { children: ReactNode }) => (
-    <td className="min-w-40 px-4 py-3 text-left text-sm text-slate-200 align-top">
+    <td className="min-w-40 px-4 py-3 text-left text-sm text-ink/85 align-top">
       {children}
     </td>
   ),
@@ -298,7 +296,7 @@ const renderTable = (block: PrismicTableBlock) => {
 
   return (
     <section
-      className="rich-text my-6 w-full overflow-x-auto rounded-xl border border-slate-700/80 bg-slate-900/70"
+      className="rich-text my-6 w-full overflow-x-auto border-2 border-line bg-surface"
       key={getTableNodeKey('table', block)}
       aria-label="Tabela de conteúdo"
     >
@@ -316,18 +314,18 @@ const renderMarkdownTable = (block: PrismicTableBlock) => {
 
   return (
     <section
-      className="rich-text my-6 w-full overflow-x-auto rounded-xl border border-slate-700/80 bg-slate-900/70"
+      className="rich-text my-6 w-full overflow-x-auto border-2 border-line bg-surface"
       key={getTableNodeKey('markdown-table', block)}
       aria-label="Tabela de conteúdo"
     >
       <table className="min-w-full border-collapse text-sm">
         <thead>
-          <tr className="border-b border-slate-700/70">
+          <tr className="border-b-2 border-line">
             {headerRow.map((cell) => (
               <th
                 key={getTableNodeKey('markdown-header-cell', cell)}
                 scope="col"
-                className="min-w-40 bg-slate-800/80 px-4 py-3 text-left text-sm font-semibold text-slate-50 align-top"
+                className="min-w-40 bg-surface-2 px-4 py-3 text-left text-sm font-semibold text-ink align-top"
               >
                 {cell}
               </th>
@@ -338,12 +336,12 @@ const renderMarkdownTable = (block: PrismicTableBlock) => {
           {bodyRows.map((row) => (
             <tr
               key={getTableNodeKey('markdown-row', row)}
-              className="border-b border-slate-700/70"
+              className="border-b-2 border-line"
             >
               {row.map((cell) => (
                 <td
                   key={getTableNodeKey('markdown-cell', cell)}
-                  className="min-w-40 px-4 py-3 text-left text-sm text-slate-200 align-top"
+                  className="min-w-40 px-4 py-3 text-left text-sm text-ink/85 align-top"
                 >
                   {cell}
                 </td>

@@ -43,7 +43,7 @@
         "show_github_stats": {
           "type": "Boolean",
           "config": {
-            "label": "Show GitHub stats",
+            "label": "Mostrar estatísticas do GitHub",
             "default_value": true
           }
         },

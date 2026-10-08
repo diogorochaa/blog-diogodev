@@ -21,7 +21,7 @@ export const SearchSuggestions = ({
     return (
       <div
         id={id}
-        className={`card-vivid p-4 text-sm text-gray-400 ${className}`}
+        className={`border-2 border-line bg-surface p-4 text-sm text-muted shadow-pixel ${className}`}
       >
         Nenhum artigo encontrado.
       </div>
@@ -32,7 +32,7 @@ export const SearchSuggestions = ({
     <div
       id={id}
       role="listbox"
-      className={`card-vivid overflow-hidden p-2 ${className}`}
+      className={`overflow-hidden border-2 border-line bg-surface p-2 shadow-pixel ${className}`}
     >
       {items.map((item, index) => {
         const isActive = index === activeIndex
@@ -44,16 +44,16 @@ export const SearchSuggestions = ({
               id={`${id}-option-${index}`}
               role="option"
               aria-selected={isActive}
-              className={`block w-full rounded-lg px-3 py-2.5 text-left transition-colors ${
+              className={`block w-full border-l-2 px-3 py-2.5 text-left transition-colors ${
                 isActive
-                  ? 'bg-accent-cyan/10 text-accent-cyan'
-                  : 'text-gray-200 hover:bg-white/5 hover:text-white'
+                  ? 'border-accent bg-surface-2 text-accent'
+                  : 'border-transparent text-ink hover:bg-surface-2 hover:text-accent'
               }`}
               onMouseEnter={() => onHover(index)}
               onClick={() => onSelect(item.slug)}
             >
               <span className="block text-sm font-medium">{item.title}</span>
-              <span className="mt-0.5 block truncate text-xs text-gray-400">
+              <span className="mt-0.5 block truncate text-xs text-muted">
                 {item.description}
               </span>
             </button>

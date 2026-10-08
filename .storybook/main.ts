@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 import type { StorybookConfig } from '@storybook/nextjs-vite'
 
 const config: StorybookConfig = {
@@ -13,6 +15,15 @@ const config: StorybookConfig = {
   framework: '@storybook/nextjs-vite',
   docs: {
     autodocs: 'tag',
+  },
+  // Stories import server components that reach `src/prismicio.ts`.
+  viteFinal: (viteConfig) => {
+    viteConfig.resolve ??= {}
+    viteConfig.resolve.alias = {
+      ...viteConfig.resolve.alias,
+      'node:dns': fileURLToPath(new URL('./node-dns-stub.ts', import.meta.url)),
+    }
+    return viteConfig
   },
 }
 export default config

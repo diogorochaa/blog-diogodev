@@ -16,4 +16,5 @@ export type Repo = {
   language: string | null
   stargazers_count: number
   forks_count: number
+  fork?: boolean
 }

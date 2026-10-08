@@ -10,6 +10,15 @@ import type {
 } from '@/models'
 import { createClient, hasPrismicConfig } from '@/prismicio'
 
+import {
+  asBoolean,
+  asNumber,
+  asOptionalNumber,
+  asOptionalString,
+  asPositiveInteger,
+  asRichTextString,
+  asString,
+} from '../prismic-helpers'
 import type {
   PrismicAboutData,
   PrismicAboutExperience,
@@ -20,43 +29,9 @@ import type {
 const VALID_CATEGORIES = new Set<ExperienceCategory>(['frontend', 'backend'])
 const HEX_COLOR_PATTERN = /^#(?:[0-9a-f]{3}){1,2}$/i
 
-const asString = (value: unknown, fallback: string) => {
-  if (typeof value !== 'string') {
-    return fallback
-  }
-
-  const text = value.trim()
-  return text || fallback
-}
-
-const asOptionalString = (value: unknown) => asString(value, '')
-
-const asRichTextString = (
-  value: prismic.RichTextField | string | undefined,
-  fallback: string,
-) => {
-  if (typeof value === 'string') {
-    return asString(value, fallback)
-  }
-
-  if (!value?.length) {
-    return fallback
-  }
-
-  return prismic.asText(value).trim() || fallback
-}
-
-const asNumber = (value: unknown, fallback: number) => {
-  const numberValue = typeof value === 'number' ? value : Number(value)
-  return Number.isFinite(numberValue) ? numberValue : fallback
-}
-
-const asPositiveInteger = (value: unknown, fallback: number) => {
-  return Math.max(1, Math.trunc(asNumber(value, fallback)))
-}
-
-const asBoolean = (value: unknown, fallback = false) => {
-  return typeof value === 'boolean' ? value : fallback
+const asLevel = (value: unknown) => {
+  const level = asOptionalNumber(value)
+  return level === null ? undefined : Math.min(99, Math.max(0, level))
 }
 
 const asCategory = (value: unknown, fallback: ExperienceCategory) => {
@@ -97,6 +72,7 @@ const mapExperience = (
   color: asColor(item.color, '#22d3ee'),
   category: asCategory(item.category, 'frontend'),
   iconKey: asString(item.icon_key, 'CodeIcon'),
+  level: asLevel(item.level),
 })
 
 export const mapHomeContent = (data: PrismicHomeData): HomeContent => {
@@ -115,7 +91,10 @@ export const mapHomeContent = (data: PrismicHomeData): HomeContent => {
 export const mapAboutContent = (data: PrismicAboutData): AboutContent => {
   const experiences =
     Array.isArray(data.experiences) && data.experiences.length > 0
-      ? data.experiences.map(mapExperience).filter((item) => item.name)
+      ? data.experiences
+          .filter((item) => asBoolean(item.active, true))
+          .map(mapExperience)
+          .filter((item) => item.name)
       : []
 
   return {

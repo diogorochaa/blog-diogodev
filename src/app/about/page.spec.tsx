@@ -18,6 +18,10 @@ vi.mock('@/services', () => ({
   GithubService: {
     getProfile: serviceMocks.getProfile,
     getRepos: serviceMocks.getRepos,
+    getProfileUrl: () => 'https://github.com/diogorochaa',
+  },
+  PortfolioService: {
+    getProfile: vi.fn().mockResolvedValue(null),
   },
 }))
 
@@ -37,7 +41,15 @@ const mockAboutContent: AboutContent = {
   seoDescription: 'Conheça mais sobre o autor.',
   ogTitle: 'Diogo Rocha',
   ogDescription: 'Trajetória e projetos.',
-  experiences: [],
+  experiences: [
+    {
+      name: 'React',
+      startYear: 2020,
+      color: '#ff6a00',
+      category: 'frontend',
+      iconKey: 'AtomIcon',
+    },
+  ],
   slices: [],
 }
 
@@ -91,9 +103,13 @@ describe('/about page', () => {
 
     render(await AboutPage())
 
-    expect(screen.getByText('Sobre mim')).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Sobre mim' }),
+    ).toBeInTheDocument()
     expect(screen.getByText('Experiência Técnica')).toBeInTheDocument()
-    expect(screen.getByText('repo-teste')).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'repo-teste' }),
+    ).toBeInTheDocument()
     expect(getPersonJsonLdDescription()).toBe('Bio de teste')
   })
 

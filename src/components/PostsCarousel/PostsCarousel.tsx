@@ -40,7 +40,7 @@ export const PostsCarousel = ({ posts }: PostsCarouselProps) => {
         <button
           type="button"
           aria-label="Post anterior"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent-cyan/40 bg-surface-elevated/80 text-accent-cyan transition-colors hover:border-accent-cyan hover:bg-accent-cyan/10"
+          className="inline-flex h-11 w-11 items-center justify-center border-2 border-line-strong bg-surface text-ink transition-colors hover:border-accent hover:text-accent"
           onClick={() => scrollBySlide(-1)}
         >
           <ArrowLeftIcon className="text-lg" />
@@ -48,7 +48,7 @@ export const PostsCarousel = ({ posts }: PostsCarouselProps) => {
         <button
           type="button"
           aria-label="Próximo post"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-accent-purple/40 bg-surface-elevated/80 text-accent-purple transition-colors hover:border-accent-purple hover:bg-accent-purple/10"
+          className="inline-flex h-11 w-11 items-center justify-center border-2 border-line-strong bg-surface text-ink transition-colors hover:border-accent hover:text-accent"
           onClick={() => scrollBySlide(1)}
         >
           <ArrowRightIcon className="text-lg" />

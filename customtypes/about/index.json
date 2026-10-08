@@ -151,6 +151,24 @@
                 "label": "Color",
                 "placeholder": "#22d3ee"
               }
+            },
+            "level": {
+              "type": "Number",
+              "config": {
+                "label": "Level 0-99 (opcional, visual)",
+                "placeholder": "80",
+                "min": 0,
+                "max": 99
+              }
+            },
+            "active": {
+              "type": "Boolean",
+              "config": {
+                "label": "Active (exibir no site)",
+                "default_value": true,
+                "placeholder_true": "Sim",
+                "placeholder_false": "Não"
+              }
             }
           }
         }

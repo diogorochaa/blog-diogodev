@@ -1,6 +1,14 @@
-import type { Route } from 'next'
-
-import type { BlogPost, HomeContent } from '@/models'
+import type { PlayerCardStat } from '@/components/PlayerCard'
+import type {
+  BlogPost,
+  CareerEntry,
+  HomeContent,
+  Interest,
+  ProfileContent,
+  Project,
+  Repo,
+} from '@/models'
+import type { PlayerIdentity } from '@/utils/player-identity'
 
 export type HomeWebsiteJsonLd = {
   '@context': 'https://schema.org'
@@ -28,15 +36,36 @@ export type HomeBlogJsonLd = {
   }>
 }
 
-export type HomePageContentProps = {
+export type HomeTrophy = {
+  title: string
+  value?: number
+  description?: string
+  year?: string
+}
+
+export type HomePageData = {
   homeContent: HomeContent
+  identity: PlayerIdentity
+  profile: ProfileContent | null
+  githubUsername?: string
+  playerCard: {
+    title: string
+    stats: PlayerCardStat[]
+    overall: number | null
+    note: string
+  }
+  currentSeason: CareerEntry | null
+  featuredProjects: Project[]
+  friendlyRepos: Repo[]
+  career: CareerEntry[]
+  careerOffset: number
+  trophies: HomeTrophy[]
+  interests: Interest[]
+  latestPosts: BlogPost[]
+  totalPosts: number
+}
+
+export type HomePageContentProps = HomePageData & {
   websiteJsonLd: HomeWebsiteJsonLd
   blogJsonLd: HomeBlogJsonLd
-  posts: BlogPost[]
-  currentPage: number
-  numbPages: number
-  totalPosts: number
-  postsPerPage: number
-  prevPage: Route
-  nextPage: Route
 }

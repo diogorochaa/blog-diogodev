@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { GithubService } from './github-service'
+import { buildGithubStats, GithubService } from './github-service'
 import { profileFallback } from './github-service.constants'
 
 describe('GithubService', () => {
@@ -82,5 +82,80 @@ describe('GithubService', () => {
     const repos = await GithubService.getRepos()
 
     expect(repos).toEqual([])
+  })
+
+  it('aggregates stars, forks and languages ignoring forked repos', () => {
+    const stats = buildGithubStats(
+      {
+        avatar_url: '',
+        name: 'Diogo Rocha',
+        company: null,
+        location: null,
+        bio: null,
+        public_repos: 11,
+        followers: 14,
+      },
+      [
+        {
+          id: 1,
+          name: 'a',
+          description: null,
+          html_url: 'https://github.com/x/a',
+          language: 'TypeScript',
+          stargazers_count: 5,
+          forks_count: 1,
+        },
+        {
+          id: 2,
+          name: 'b',
+          description: null,
+          html_url: 'https://github.com/x/b',
+          language: 'TypeScript',
+          stargazers_count: 2,
+          forks_count: 0,
+        },
+        {
+          id: 3,
+          name: 'c',
+          description: null,
+          html_url: 'https://github.com/x/c',
+          language: 'Python',
+          stargazers_count: 1,
+          forks_count: 0,
+        },
+        {
+          id: 4,
+          name: 'fork',
+          description: null,
+          html_url: 'https://github.com/x/fork',
+          language: 'Go',
+          stargazers_count: 100,
+          forks_count: 100,
+          fork: true,
+        },
+      ],
+    )
+
+    expect(stats).toEqual({
+      isAvailable: true,
+      publicRepos: 11,
+      followers: 14,
+      totalStars: 8,
+      totalForks: 1,
+      topLanguages: [
+        { name: 'TypeScript', repos: 2 },
+        { name: 'Python', repos: 1 },
+      ],
+    })
+  })
+
+  it('flags stats as unavailable when the profile request fails', async () => {
+    fetchMock.mockRejectedValue(new Error('network error'))
+
+    const stats = await GithubService.getStats()
+
+    expect(stats.isAvailable).toBe(false)
+    expect(stats.publicRepos).toBe(0)
+    expect(stats.topLanguages).toEqual([])
   })
 })

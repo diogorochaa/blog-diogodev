@@ -16,7 +16,7 @@ export default async function SliceSimulatorPage({
 
   return (
     <SliceSimulator background="#05050a">
-      <main className="mx-auto w-full max-w-5xl px-4 py-10 text-gray-100 sm:px-6">
+      <main className="mx-auto w-full max-w-5xl px-4 py-10 text-ink sm:px-6">
         {renderedSlices}
       </main>
     </SliceSimulator>

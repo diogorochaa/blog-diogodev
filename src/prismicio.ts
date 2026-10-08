@@ -16,7 +16,11 @@ export const hasPrismicConfig = Boolean(repositoryName)
 const routes: prismic.ClientConfig['routes'] = [
   {
     type: 'post',
-    path: '/:uid',
+    path: '/blog/:uid',
+  },
+  {
+    type: 'project',
+    path: '/projects/:uid',
   },
   {
     type: 'page',

@@ -15,28 +15,33 @@ export default function Error({
   }, [error])
 
   return (
-    <main className="mx-auto flex max-w-2xl flex-col items-center px-4 py-16 text-center">
-      <h1 className="font-display text-4xl font-bold text-white">
-        Algo deu errado
-      </h1>
-      <p className="mt-4 text-lg text-gray-400">
-        Não foi possível carregar esta página. Tente novamente ou volte ao
-        início.
-      </p>
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <button
-          type="button"
-          onClick={reset}
-          className="rounded-lg border border-accent-cyan/40 bg-secondary/60 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-accent-cyan hover:text-accent-cyan"
-        >
-          Tentar novamente
-        </button>
-        <NextLink
-          href="/"
-          className="rounded-lg border border-accent-purple/40 bg-secondary/60 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-accent-purple hover:text-accent-cyan"
-        >
-          Voltar ao início
-        </NextLink>
+    <main className="flex flex-col items-center py-10 sm:py-16">
+      <div className="pixel-frame flex w-full max-w-2xl flex-col items-center gap-5 px-6 py-10 text-center">
+        <p aria-hidden className="font-pixel text-xl text-accent sm:text-3xl">
+          Falta!
+        </p>
+        <h1 className="font-display text-3xl font-bold text-ink">
+          Algo deu errado
+        </h1>
+        <p className="max-w-md text-base text-muted">
+          Não foi possível carregar esta página. Tente novamente ou volte ao
+          início.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={reset}
+            className="pixel-label inline-flex min-h-11 items-center border-2 border-accent bg-accent px-5 text-[10px] text-bg shadow-pixel transition-transform duration-150 ease-[steps(3)] hover:-translate-y-0.5"
+          >
+            Tentar novamente
+          </button>
+          <NextLink
+            href="/"
+            className="pixel-label inline-flex min-h-11 items-center border-2 border-line-strong bg-bg px-5 text-[10px] text-ink transition-colors hover:border-accent hover:text-accent"
+          >
+            Voltar ao início
+          </NextLink>
+        </div>
       </div>
     </main>
   )

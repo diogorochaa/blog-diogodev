@@ -1,0 +1,64 @@
+{
+  "id": "interest",
+  "label": "Interest",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": "Cozinha"
+        }
+      },
+      "category": {
+        "type": "Select",
+        "config": {
+          "label": "Category",
+          "options": [
+            "football",
+            "cooking",
+            "retro_games",
+            "technology",
+            "learning",
+            "side_projects"
+          ],
+          "default_value": "technology"
+        }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Description",
+          "placeholder": "Por que isso faz parte de quem você é",
+          "multi": "paragraph,strong,em,hyperlink"
+        }
+      },
+      "image": {
+        "type": "Image",
+        "config": {
+          "label": "Image (opcional)",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "order": {
+        "type": "Number",
+        "config": {
+          "label": "Order",
+          "placeholder": "1"
+        }
+      },
+      "active": {
+        "type": "Boolean",
+        "config": {
+          "label": "Active (exibir no site)",
+          "default_value": true,
+          "placeholder_true": "Sim",
+          "placeholder_false": "Não"
+        }
+      }
+    }
+  }
+}

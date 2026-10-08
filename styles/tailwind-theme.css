@@ -17,52 +17,63 @@
 @theme {
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui;
   --font-display: var(--font-sora), ui-sans-serif, system-ui;
-  --font-permanent: "Permanent Marker", cursive;
-  --font-foldit: "Foldit", cursive;
+  --font-pixel: var(--font-jersey), ui-monospace, monospace;
 
-  --color-primary: #05050a;
-  --color-secondary: #12121f;
-  --color-surface-elevated: #1a1a2e;
-  --color-surface-card: #16162a;
-  --color-accent-cyan: #22d3ee;
-  --color-accent-purple: #a855f7;
-  --color-accent-blue: #3b82f6;
-  --color-accent-pink: #f472b6;
-  --color-accent-orange: #fb923c;
-  --color-accent-lime: #a3e635;
-  --color-link: #22d3ee;
+  /*
+   * Design system — Diogo FC. Palette of 16-bit football broadcasts: striped
+   * grass with white lines, navy HUD panels and yellow scoreboard digits.
+   */
+  --color-bg: #0c1445;
+  --color-surface: #16226a;
+  --color-surface-2: #1f2e85;
+  --color-ink: #ffffff;
+  --color-muted: #c3cdf5;
+  --color-accent: #ffd23f;
+  --color-accent-soft: #ffe27a;
+  --color-line: #3a4aa6;
+  --color-line-strong: #e4e9ff;
+  --color-pitch: #2f7f27;
+  --color-pitch-dark: #286f21;
+  --color-pitch-line: #f4f8ee;
+  --color-score: #ffd23f;
+  --color-team-home: #e5452f;
+  --color-team-away: #3b6cf2;
+  --color-outline: #08102f;
+
+  /* Legacy aliases: older components and Prismic slices still use these names. */
+  --color-primary: var(--color-bg);
+  --color-secondary: var(--color-surface);
+  --color-surface-elevated: var(--color-surface-2);
+  --color-surface-card: var(--color-surface);
+  --color-accent-cyan: var(--color-accent);
+  --color-accent-purple: var(--color-line-strong);
+  --color-accent-pink: var(--color-accent-soft);
+  --color-link: var(--color-accent-soft);
 
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
   --background-image-gradient-primary: linear-gradient(
-    135deg,
-    #667eea 0%,
-    #764ba2 100%
+    var(--color-surface-2),
+    var(--color-surface-2)
   );
   --background-image-gradient-cyan: linear-gradient(
-    135deg,
-    #22d3ee 0%,
-    #3b82f6 100%
+    var(--color-accent),
+    var(--color-accent)
   );
   --background-image-gradient-vivid: linear-gradient(
-    135deg,
-    #22d3ee 0%,
-    #a855f7 45%,
-    #f472b6 100%
+    var(--color-accent),
+    var(--color-accent)
   );
   --background-image-gradient-card: linear-gradient(
-    135deg,
-    rgba(168, 85, 247, 0.14) 0%,
-    rgba(34, 211, 238, 0.12) 100%
+    var(--color-surface),
+    var(--color-surface)
   );
   --background-image-gradient-border: linear-gradient(
-    135deg,
-    rgba(34, 211, 238, 0.9),
-    rgba(168, 85, 247, 0.9),
-    rgba(244, 114, 182, 0.9)
+    var(--color-line),
+    var(--color-line)
   );
 
-  --shadow-glow: 0 0 24px rgba(168, 85, 247, 0.35);
-  --shadow-glow-cyan: 0 0 24px rgba(34, 211, 238, 0.4);
-  --shadow-glow-vivid:
-    0 0 28px rgba(34, 211, 238, 0.22), 0 0 40px rgba(168, 85, 247, 0.18);
+  --shadow-pixel: 4px 4px 0 0 var(--color-outline);
+  --shadow-pixel-accent: 4px 4px 0 0 var(--color-accent);
+
+  --animate-blink: blink 1.1s steps(1, end) infinite;
 }

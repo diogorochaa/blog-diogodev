@@ -12,8 +12,9 @@ describe('useBackToTop', () => {
     const addEventListenerSpy = vi.spyOn(window, 'addEventListener')
     const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener')
 
-    const { unmount } = renderHook(() => useBackToTop())
+    const { result, unmount } = renderHook(() => useBackToTop())
 
+    expect(result.current.show).toBe(false)
     expect(addEventListenerSpy).toHaveBeenCalledTimes(1)
 
     act(() => {
@@ -29,6 +30,7 @@ describe('useBackToTop', () => {
       window.dispatchEvent(new Event('scroll'))
     })
 
+    expect(result.current.show).toBe(true)
     expect(addEventListenerSpy).toHaveBeenCalledTimes(1)
 
     unmount()

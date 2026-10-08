@@ -44,11 +44,11 @@ export const GitHubProjects = ({ slice, repos }: GitHubProjectsProps) => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-400">
+        <p className="text-center text-muted">
           {emptyText}{' '}
           <NextLink
             href="https://github.com/diogorochaa"
-            className="text-accent-cyan hover:underline"
+            className="font-semibold text-accent-soft underline decoration-2 underline-offset-4 hover:text-accent"
             rel="noopener noreferrer"
             target="_blank"
           >

@@ -10,6 +10,8 @@ export const slugify = (text: string) => {
     .replace(/^-|-$/g, '')
 }
 
+export const toTagSlug = (tag: string) => slugify(tag) || 'tag'
+
 export const createUniqueSlug = (text: string, used: Map<string, number>) => {
   const base = slugify(text) || 'section'
   const count = used.get(base) ?? 0

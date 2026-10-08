@@ -62,7 +62,7 @@ export const TableOfContents = ({
 
   return (
     <>
-      <aside className="sticky top-20 z-20 hidden max-h-[calc(100vh-5rem)] w-full self-start overflow-y-auto overscroll-contain pr-2 sm:top-24 sm:max-h-[calc(100vh-6rem)] lg:block">
+      <aside className="sticky top-24 z-20 hidden max-h-[calc(100vh-7rem)] w-full self-start overflow-y-auto overscroll-contain border-2 border-line-strong bg-bg p-4 lg:block">
         <TocNav
           items={resolvedItems}
           activeId={activeId}
@@ -73,7 +73,7 @@ export const TableOfContents = ({
       <div className="lg:hidden">
         <button
           type="button"
-          className="fixed bottom-24 right-4 z-40 flex items-center gap-2 rounded-full border border-accent-purple/40 bg-secondary/95 px-4 py-2.5 text-sm font-medium text-white shadow-glow-vivid backdrop-blur-md"
+          className="pixel-label fixed right-4 bottom-24 z-40 flex min-h-11 items-center gap-2 border-2 border-line-strong bg-surface px-4 text-[10px] text-ink shadow-pixel"
           aria-expanded={isOpen}
           aria-controls={drawerId}
           onClick={() => setIsOpen((open) => !open)}
@@ -86,13 +86,13 @@ export const TableOfContents = ({
           <div className="fixed inset-0 z-50">
             <button
               type="button"
-              className="absolute inset-0 bg-primary/70 backdrop-blur-sm"
+              className="absolute inset-0 bg-bg/80"
               aria-label="Fechar índice"
               onClick={() => setIsOpen(false)}
             />
             <div
               id={drawerId}
-              className="absolute inset-x-0 bottom-0 max-h-[70vh] overflow-y-auto rounded-t-2xl border border-accent-purple/30 bg-secondary/95 p-6 backdrop-blur-lg"
+              className="absolute inset-x-0 bottom-0 max-h-[70vh] overflow-y-auto border-t-2 border-line-strong bg-surface p-6"
             >
               <TocNav
                 ref={drawerNavRef}

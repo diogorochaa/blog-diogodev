@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Manrope, Sora } from 'next/font/google'
+import { Jersey_10, Manrope, Sora } from 'next/font/google'
 
 import { siteConfig } from '@/config'
 import {
@@ -20,9 +20,16 @@ const sora = Sora({
   variable: '--font-sora',
 })
 
+const jersey = Jersey_10({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-jersey',
+  display: 'swap',
+})
+
 const OG_IMAGE = '/opengraph-image'
 
-export const rootHtmlClassName = `${manrope.variable} ${sora.variable} scroll-smooth`
+export const rootHtmlClassName = `${manrope.variable} ${sora.variable} ${jersey.variable} scroll-smooth`
 
 const prismicRepositoryName = process.env.PRISMIC_REPOSITORY_NAME ?? ''
 

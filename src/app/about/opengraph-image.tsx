@@ -8,7 +8,7 @@ import {
 
 import { getAboutContent } from './about.data'
 
-export const alt = 'Sobre mim | Blog diogodev_'
+export const alt = 'Perfil de Diogo Rocha'
 export const size = ogImageSize
 export const contentType = ogImageContentType
 
@@ -17,10 +17,9 @@ export default async function AboutOpenGraphImage() {
 
   return new ImageResponse(
     <BrandOgImage
-      badge={content.title}
+      badge="Ficha do jogador"
       title={content.ogTitle}
       description={content.ogDescription}
-      footer="blog.diogodev"
     />,
     {
       ...size,

@@ -18,20 +18,24 @@ const INDENT_BY_LEVEL: Record<number, string> = {
   4: 'pl-9',
 }
 
-export const TocItem = ({ item, isActive, onNavigate }: TocItemLinkProps) => {
+const TocItem = ({ item, isActive, onNavigate }: TocItemLinkProps) => {
   const indent = INDENT_BY_LEVEL[item.level] ?? 'pl-9'
 
   return (
     <li>
       <button
         type="button"
-        className={`block w-full rounded-md py-1.5 text-left text-sm leading-snug transition-colors ${indent} ${
+        aria-current={isActive ? 'location' : undefined}
+        className={`block w-full border-l-2 py-1.5 pr-2 text-left text-sm leading-snug transition-colors ${indent} ${
           isActive
-            ? 'font-semibold text-white'
-            : 'text-gray-400 hover:text-accent-cyan'
+            ? 'border-accent font-semibold text-ink'
+            : 'border-transparent text-muted hover:text-accent'
         }`}
         onClick={() => onNavigate(item.id)}
       >
+        <span aria-hidden className={isActive ? 'mr-1 text-accent' : 'hidden'}>
+          ▸
+        </span>
         {item.text}
       </button>
     </li>
@@ -52,12 +56,12 @@ export const TocNav = forwardRef<HTMLElement, TocNavProps>(function TocNav(
 ) {
   return (
     <nav ref={ref} aria-label="Nesta página" className={className} id={id}>
-      <div className="mb-4 flex items-center gap-2 text-sm font-medium text-gray-300">
-        <List size={18} aria-hidden />
+      <div className="pixel-label mb-4 flex items-center gap-2 text-[9px] text-ink">
+        <List size={16} aria-hidden className="text-accent" />
         <span>Nesta página</span>
       </div>
 
-      <ul className="space-y-1">
+      <ul className="space-y-0.5">
         {items.map((item) => (
           <TocItem
             key={item.id}

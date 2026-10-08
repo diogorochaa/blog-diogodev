@@ -57,19 +57,19 @@ export const CardGrid = ({ slice }: CardGridProps) => {
           const content = (
             <div
               key={cardKey}
-              className="card-vivid h-full p-5 transition-colors hover:border-accent-cyan/45"
+              className="card-vivid h-full p-5 transition-colors hover:border-accent"
             >
               <div className="mb-4 flex items-center gap-3">
                 {renderIcon(card.icon_key, accent)}
                 {cardTitle ? (
-                  <h3 className="text-lg font-semibold text-white">
+                  <h3 className="text-lg font-semibold text-ink">
                     {cardTitle}
                   </h3>
                 ) : null}
               </div>
 
               {cardDescription ? (
-                <p className="text-sm leading-relaxed text-gray-400">
+                <p className="text-sm leading-relaxed text-muted">
                   {cardDescription}
                 </p>
               ) : null}

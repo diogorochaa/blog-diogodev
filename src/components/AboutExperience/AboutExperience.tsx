@@ -27,17 +27,18 @@ import type {
 } from './AboutExperience.types'
 
 const CATEGORY_COLORS: Record<Category, string> = {
-  frontend: '#22d3ee',
-  backend: '#8b5cf6',
+  frontend: '#ffd23f',
+  backend: '#3b6cf2',
 }
 
 const chartTooltipStyle = {
   contentStyle: {
-    background: '#0f172a',
-    borderRadius: '12px',
+    background: '#16226a',
+    border: '2px solid #e4e9ff',
+    borderRadius: '0px',
   },
-  labelStyle: { color: '#f8fafc', fontWeight: 600 },
-  itemStyle: { color: '#e2e8f0' },
+  labelStyle: { color: '#ffffff', fontWeight: 600 },
+  itemStyle: { color: '#ffffff' },
 } as const
 
 type PhosphorIconComponent = ElementType<{
@@ -130,40 +131,37 @@ export const AboutExperience = ({
   }, [experience])
 
   return (
-    <section className="rounded-2xl border border-accent-purple/20 bg-linear-to-br from-secondary/50 to-secondary/30 p-5 backdrop-blur-sm sm:p-8">
+    <section className="pixel-frame p-5 sm:p-8">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+          <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
             {heading}
           </h2>
-          <p className="mt-2 max-w-2xl text-sm text-gray-300 sm:text-base">
+          <p className="mt-2 max-w-2xl text-sm text-muted sm:text-base">
             {description}
           </p>
         </div>
 
-        <div className="rounded-xl border border-accent-cyan/30 bg-accent-cyan/10 px-4 py-2 text-sm text-accent-cyan">
+        <div className="border-2 border-accent px-4 py-2 text-sm font-semibold text-accent">
           {formatYears(totalYears)} somados de experiência
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {experience.map((item) => (
-          <div
-            key={item.name}
-            className="rounded-xl border border-accent-purple/20 bg-primary/45 p-4"
-          >
+          <div key={item.name} className="border-2 border-line bg-bg p-4">
             <div className="flex items-center gap-3">
               {item.icon}
-              <p className="font-semibold text-white">{item.name}</p>
+              <p className="font-semibold text-ink">{item.name}</p>
             </div>
 
-            <p className="mt-3 text-2xl font-bold text-accent-cyan">
+            <p className="mt-3 font-pixel text-base text-score">
               {formatYears(item.years)}
             </p>
 
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-secondary">
+            <div className="mt-3 h-2 overflow-hidden bg-surface-2">
               <div
-                className="h-full rounded-full"
+                className="h-full"
                 style={{
                   backgroundColor: item.color,
                   width: `${Math.min((item.years / 15) * 100, 100)}%`,
@@ -176,8 +174,8 @@ export const AboutExperience = ({
 
       {showCharts ? (
         <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
-          <div className="rounded-xl border border-accent-purple/20 bg-primary/45 p-4">
-            <p className="mb-4 text-sm uppercase tracking-wide text-gray-400">
+          <div className="border-2 border-line bg-bg p-4">
+            <p className="pixel-label mb-4 text-[9px] text-muted">
               Panorama por anos
             </p>
 
@@ -190,22 +188,21 @@ export const AboutExperience = ({
                   >
                     <CartesianGrid
                       strokeDasharray="3 3"
-                      stroke="#334155"
+                      stroke="#3a4aa6"
                       opacity={0.3}
                     />
                     <XAxis
                       dataKey="name"
-                      tick={{ fill: '#cbd5e1', fontSize: 12 }}
+                      tick={{ fill: '#c3cdf5', fontSize: 12 }}
                     />
                     <YAxis
-                      tick={{ fill: '#cbd5e1', fontSize: 12 }}
+                      tick={{ fill: '#c3cdf5', fontSize: 12 }}
                       domain={[0, 15]}
                     />
                     <Tooltip
-                      cursor={{ fill: 'rgba(148, 163, 184, 0.12)' }}
+                      cursor={{ fill: 'rgba(255, 210, 63, 0.12)' }}
                       contentStyle={{
                         ...chartTooltipStyle.contentStyle,
-                        border: '1px solid rgba(34, 211, 238, 0.35)',
                       }}
                       labelStyle={chartTooltipStyle.labelStyle}
                       itemStyle={chartTooltipStyle.itemStyle}
@@ -216,8 +213,8 @@ export const AboutExperience = ({
                     />
                     <Bar
                       dataKey="years"
-                      radius={[8, 8, 0, 0]}
-                      fill="#22d3ee"
+                      radius={[0, 0, 0, 0]}
+                      fill="#ffd23f"
                       isAnimationActive={false}
                     />
                   </BarChart>
@@ -226,11 +223,11 @@ export const AboutExperience = ({
                 <div className="flex h-full flex-col justify-center gap-3">
                   {experience.map((item) => (
                     <div
-                      className="h-7 overflow-hidden rounded-full bg-secondary"
+                      className="h-7 overflow-hidden bg-surface-2"
                       key={item.name}
                     >
                       <div
-                        className="flex h-full items-center px-3 text-xs font-medium text-primary"
+                        className="flex h-full items-center px-3 text-xs font-medium text-bg"
                         style={{
                           width: `${Math.min((item.years / 15) * 100, 100)}%`,
                           backgroundColor: item.color,
@@ -245,18 +242,18 @@ export const AboutExperience = ({
             </div>
           </div>
 
-          <div className="rounded-xl border border-accent-purple/20 bg-primary/45 p-4">
-            <p className="mb-1 text-sm uppercase tracking-wide text-gray-400">
-              Frontend vs Backend
+          <div className="border-2 border-line bg-bg p-4">
+            <p className="pixel-label mb-1 text-[9px] text-muted">
+              Frontend x Backend
             </p>
 
             <div className="mb-4 flex gap-4 text-xs">
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent-cyan" />
+                <span className="inline-block h-2.5 w-2.5 bg-accent" />
                 Frontend
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-accent-purple" />
+                <span className="inline-block h-2.5 w-2.5 bg-team-away" />
                 Backend
               </span>
             </div>
@@ -270,22 +267,21 @@ export const AboutExperience = ({
                   >
                     <CartesianGrid
                       strokeDasharray="3 3"
-                      stroke="#334155"
+                      stroke="#3a4aa6"
                       opacity={0.25}
                     />
                     <XAxis
                       dataKey="name"
-                      tick={{ fill: '#cbd5e1', fontSize: 12 }}
+                      tick={{ fill: '#c3cdf5', fontSize: 12 }}
                     />
                     <YAxis
-                      tick={{ fill: '#cbd5e1', fontSize: 12 }}
+                      tick={{ fill: '#c3cdf5', fontSize: 12 }}
                       domain={[0, 15]}
                     />
                     <Tooltip
-                      cursor={{ fill: 'rgba(148, 163, 184, 0.12)' }}
+                      cursor={{ fill: 'rgba(255, 210, 63, 0.12)' }}
                       contentStyle={{
                         ...chartTooltipStyle.contentStyle,
-                        border: '1px solid rgba(139, 92, 246, 0.35)',
                       }}
                       labelStyle={chartTooltipStyle.labelStyle}
                       itemStyle={chartTooltipStyle.itemStyle}
@@ -298,7 +294,7 @@ export const AboutExperience = ({
                     />
                     <Bar
                       dataKey="years"
-                      radius={[8, 8, 0, 0]}
+                      radius={[0, 0, 0, 0]}
                       isAnimationActive={false}
                     >
                       {experience.map((entry) => (
@@ -315,22 +311,22 @@ export const AboutExperience = ({
                   {categoryData.map((cat) => (
                     <div
                       key={cat.name}
-                      className="flex items-center justify-between rounded-lg border border-accent-purple/25 bg-secondary/50 px-4 py-3"
+                      className="flex items-center justify-between border-2 border-line bg-surface px-4 py-3"
                     >
                       <div className="flex items-center gap-3">
                         <span
-                          className="inline-block h-3 w-3 rounded-full"
+                          className="inline-block h-3 w-3"
                           style={{ backgroundColor: cat.color }}
                         />
-                        <span className="font-semibold text-white">
+                        <span className="font-semibold text-ink">
                           {cat.name}
                         </span>
                       </div>
                       <div className="text-right text-sm">
-                        <p className="font-bold text-white">
+                        <p className="font-bold text-ink">
                           {formatYears(cat.total)} total
                         </p>
-                        <p className="text-gray-400">
+                        <p className="text-muted">
                           ~{formatYears(cat.media)} de média
                         </p>
                       </div>

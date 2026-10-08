@@ -35,9 +35,7 @@ export const RichTextSection = ({ slice }: RichTextSectionProps) => {
       {title ? (
         <SectionHeading eyebrow={eyebrow} title={title} />
       ) : eyebrow ? (
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
-          {eyebrow}
-        </p>
+        <p className="pixel-label mb-4 text-[9px] text-accent">{eyebrow}</p>
       ) : null}
 
       <RichText field={content} />

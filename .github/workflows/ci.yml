@@ -38,7 +38,7 @@ jobs:
       - name: Build project
         env:
           CI: true
-          PRISMIC_REPOSITORY_NAME: ${{ vars.PRISMIC_REPOSITORY_NAME || 'blog-diodev' }}
+          PRISMIC_REPOSITORY_NAME: ${{ vars.PRISMIC_REPOSITORY_NAME || 'zgi1adw1' }}
           PRISMIC_ACCESS_TOKEN: ${{ secrets.PRISMIC_ACCESS_TOKEN }}
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://example.com' }}
         run: |

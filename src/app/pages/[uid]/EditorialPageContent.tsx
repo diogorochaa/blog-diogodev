@@ -1,3 +1,4 @@
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 import { JsonLd } from '@/components/JsonLd'
 import { SliceRenderer } from '@/components/SliceRenderer'
 
@@ -8,18 +9,19 @@ export const EditorialPageContent = ({
   jsonLd,
 }: EditorialPageContentProps) => {
   return (
-    <main className="mx-auto flex max-w-7xl flex-col gap-10 sm:gap-12">
+    <main className="screen-enter flex flex-col gap-10 sm:gap-12">
       <JsonLd data={jsonLd} />
 
       <header className="flex max-w-3xl flex-col gap-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
-          Página
-        </p>
-        <h1 className="text-gradient-vivid font-display text-4xl font-bold leading-tight sm:text-5xl">
+        <Breadcrumbs
+          items={[{ label: 'Início', href: '/' }, { label: page.title }]}
+        />
+        <p className="pixel-label mt-3 text-[9px] text-accent">Página</p>
+        <h1 className="font-display text-4xl leading-tight font-extrabold text-ink sm:text-5xl">
           {page.title}
         </h1>
         {page.description ? (
-          <p className="text-base leading-relaxed text-gray-300 sm:text-lg">
+          <p className="text-base leading-relaxed text-muted sm:text-lg">
             {page.description}
           </p>
         ) : null}

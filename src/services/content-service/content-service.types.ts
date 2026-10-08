@@ -32,6 +32,8 @@ export type PrismicAboutExperience = {
   category?: ExperienceCategory | string
   icon_key?: unknown
   color?: unknown
+  level?: unknown
+  active?: unknown
 }
 
 export type PrismicAboutData = {

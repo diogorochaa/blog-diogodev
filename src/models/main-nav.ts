@@ -10,10 +10,6 @@ export type LocalNavItem = Omit<NavItem, 'href'> & {
   href: Route
 }
 
-export type MainNavType = {
-  mainNav: NavItem[]
-}
-
 export type LocalMainNavType = {
   mainNav: LocalNavItem[]
 }

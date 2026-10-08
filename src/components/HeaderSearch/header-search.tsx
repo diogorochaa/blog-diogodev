@@ -34,7 +34,7 @@ const SearchField = ({
     <div className={`relative ${className}`}>
       <MagnifyingGlass
         size={18}
-        className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-gray-500"
+        className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-muted"
         aria-hidden
       />
 
@@ -48,14 +48,15 @@ const SearchField = ({
         aria-activedescendant={activeDescendantId}
         placeholder="Procurar..."
         value={query}
-        className="w-full rounded-full border border-white/10 bg-secondary/70 py-2 pr-20 pl-10 text-sm text-gray-100 placeholder:text-gray-500 backdrop-blur-md transition-colors focus:border-accent-cyan/40 focus:outline-none focus:ring-1 focus:ring-accent-cyan/30"
+        aria-label="Procurar artigos"
+        className="min-h-11 w-full border-2 border-line bg-surface py-2 pr-20 pl-10 text-sm text-ink placeholder:text-muted transition-colors focus:border-accent focus:outline-none"
         onChange={(event) => onChange(event.target.value)}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
       />
 
       {showShortcut ? (
-        <kbd className="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 rounded-md border border-white/10 bg-primary/80 px-1.5 py-0.5 text-[10px] font-medium text-gray-400 sm:inline">
+        <kbd className="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 border-2 border-line bg-bg px-1.5 py-0.5 font-pixel text-[8px] text-muted sm:inline">
           Ctrl K
         </kbd>
       ) : null}
@@ -84,7 +85,7 @@ export const HeaderSearch = ({ items }: HeaderSearchProps) => {
     handleKeyDown,
   } = useHeaderSearch({
     items,
-    onNavigate: (slug) => router.push(`/${slug}`),
+    onNavigate: (slug) => router.push(`/blog/${slug}`),
   })
 
   const activeDescendantId =
@@ -164,7 +165,7 @@ export const HeaderSearch = ({ items }: HeaderSearchProps) => {
 
       <button
         type="button"
-        className="rounded-lg p-2 text-gray-300 transition-colors hover:bg-white/8 hover:text-accent-cyan lg:hidden"
+        className="flex h-11 w-11 items-center justify-center border-2 border-line text-ink transition-colors hover:border-accent hover:text-accent lg:hidden"
         aria-label="Abrir busca"
         onClick={() => {
           openMobileSearch()
@@ -180,11 +181,11 @@ export const HeaderSearch = ({ items }: HeaderSearchProps) => {
         <div className="fixed inset-0 z-50 lg:hidden">
           <button
             type="button"
-            className="absolute inset-0 bg-primary/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-bg/80"
             aria-label="Fechar busca"
             onClick={closeSearch}
           />
-          <div className="absolute inset-x-0 top-0 bg-secondary/95 px-4 pt-16 pb-4 backdrop-blur-lg sm:px-6 sm:pt-20">
+          <div className="absolute inset-x-0 top-0 border-b-2 border-line bg-surface px-4 pt-20 pb-4 sm:px-6 sm:pt-24">
             <div className="mx-auto flex max-w-lg items-center gap-2">
               <SearchField
                 inputRef={mobileInputRef}
@@ -204,7 +205,7 @@ export const HeaderSearch = ({ items }: HeaderSearchProps) => {
               />
               <button
                 type="button"
-                className="rounded-lg p-2 text-gray-300 transition-colors hover:bg-white/8 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center border-2 border-line text-ink transition-colors hover:border-accent hover:text-accent"
                 aria-label="Fechar busca"
                 onClick={closeSearch}
               >

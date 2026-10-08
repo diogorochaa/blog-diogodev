@@ -3,6 +3,15 @@ const nextConfig = {
   typedRoutes: true,
   reactStrictMode: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: '/page/:page(\\d+)',
+        destination: '/blog/page/:page',
+        permanent: true,
+      },
+    ]
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 7,

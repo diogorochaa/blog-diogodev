@@ -1,0 +1,331 @@
+{
+  "id": "profile",
+  "label": "Profile",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Name",
+          "placeholder": "Diogo Rocha"
+        }
+      },
+      "role": {
+        "type": "Text",
+        "config": {
+          "label": "Role",
+          "placeholder": "Software Engineer"
+        }
+      },
+      "specialties": {
+        "type": "Text",
+        "config": {
+          "label": "Specialties (separadas por ·)",
+          "placeholder": "Fullstack · Architecture · AI"
+        }
+      },
+      "location": {
+        "type": "Text",
+        "config": {
+          "label": "Location",
+          "placeholder": "Cidade, País"
+        }
+      },
+      "avatar": {
+        "type": "Image",
+        "config": {
+          "label": "Avatar (se vazio, usa o avatar do GitHub)",
+          "constraint": {
+            "width": 480,
+            "height": 480
+          },
+          "thumbnails": []
+        }
+      },
+      "bio": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Bio",
+          "placeholder": "Quem sou, em poucas frases",
+          "multi": "paragraph,strong,em,hyperlink"
+        }
+      },
+      "goals": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Goals",
+          "placeholder": "Objetivos atuais",
+          "multi": "paragraph,strong,em,hyperlink,list-item"
+        }
+      },
+      "currently_studying": {
+        "type": "Group",
+        "config": {
+          "label": "Currently studying",
+          "repeat": true,
+          "fields": {
+            "topic": {
+              "type": "Text",
+              "config": {
+                "label": "Topic",
+                "placeholder": "Distributed Systems"
+              }
+            }
+          }
+        }
+      },
+      "education": {
+        "type": "Group",
+        "config": {
+          "label": "Formação acadêmica (na ordem em que deve aparecer)",
+          "repeat": true,
+          "fields": {
+            "level": {
+              "type": "Select",
+              "config": {
+                "label": "Nível",
+                "options": [
+                  "Graduação",
+                  "Pós-graduação",
+                  "MBA",
+                  "Mestrado",
+                  "Doutorado",
+                  "Técnico",
+                  "Curso livre"
+                ],
+                "default_value": "Graduação"
+              }
+            },
+            "course": {
+              "type": "Text",
+              "config": {
+                "label": "Curso",
+                "placeholder": "Bacharel em Ciência da Computação"
+              }
+            },
+            "institution": {
+              "type": "Text",
+              "config": {
+                "label": "Instituição",
+                "placeholder": "Nome da instituição"
+              }
+            },
+            "location": {
+              "type": "Text",
+              "config": {
+                "label": "Cidade",
+                "placeholder": "Cidade, UF"
+              }
+            },
+            "start_year": {
+              "type": "Number",
+              "config": {
+                "label": "Ano de início",
+                "placeholder": "2018"
+              }
+            },
+            "end_year": {
+              "type": "Number",
+              "config": {
+                "label": "Ano de conclusão (vazio = em andamento)",
+                "placeholder": "2024"
+              }
+            }
+          }
+        }
+      },
+      "shirt_number": {
+        "type": "Number",
+        "config": {
+          "label": "Shirt number",
+          "placeholder": "10",
+          "min": 0,
+          "max": 99
+        }
+      },
+      "position": {
+        "type": "Text",
+        "config": {
+          "label": "Position",
+          "placeholder": "Software Engineer"
+        }
+      },
+      "play_style": {
+        "type": "Text",
+        "config": {
+          "label": "Play style",
+          "placeholder": "Problem Solver"
+        }
+      },
+      "formation": {
+        "type": "Text",
+        "config": {
+          "label": "Formation",
+          "placeholder": "Fullstack"
+        }
+      },
+      "overall": {
+        "type": "Number",
+        "config": {
+          "label": "Overall (OVR) — se vazio, usa a média dos atributos",
+          "placeholder": "90",
+          "min": 0,
+          "max": 99
+        }
+      },
+      "player_stats": {
+        "type": "Group",
+        "config": {
+          "label": "Player stats (representação visual, não métricas)",
+          "repeat": true,
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label",
+                "placeholder": "Architecture"
+              }
+            },
+            "value": {
+              "type": "Number",
+              "config": {
+                "label": "Value (0-99)",
+                "placeholder": "90",
+                "min": 0,
+                "max": 99
+              }
+            }
+          }
+        }
+      },
+      "tactics_title": {
+        "type": "Text",
+        "config": {
+          "label": "Tactics title",
+          "placeholder": "Como eu organizo um sistema"
+        }
+      },
+      "tactics_description": {
+        "type": "Text",
+        "config": {
+          "label": "Tactics description",
+          "placeholder": "Frase curta sobre sua abordagem de arquitetura"
+        }
+      },
+      "tactics": {
+        "type": "Group",
+        "config": {
+          "label": "Tactics board (camadas da arquitetura)",
+          "repeat": true,
+          "fields": {
+            "line": {
+              "type": "Select",
+              "config": {
+                "label": "Line (ataque = camada mais próxima do usuário)",
+                "options": ["ataque", "meio-campo", "defesa", "goleiro"],
+                "default_value": "meio-campo"
+              }
+            },
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label",
+                "placeholder": "Frontend"
+              }
+            },
+            "detail": {
+              "type": "Text",
+              "config": {
+                "label": "Detail",
+                "placeholder": "React · Next.js"
+              }
+            }
+          }
+        }
+      },
+      "tactics_principles": {
+        "type": "Group",
+        "config": {
+          "label": "Tactics principles",
+          "repeat": true,
+          "fields": {
+            "name": {
+              "type": "Text",
+              "config": {
+                "label": "Name",
+                "placeholder": "Clean Architecture"
+              }
+            }
+          }
+        }
+      },
+      "trophies": {
+        "type": "Group",
+        "config": {
+          "label": "Trophies (certificações, conquistas)",
+          "repeat": true,
+          "fields": {
+            "title": {
+              "type": "Text",
+              "config": {
+                "label": "Title",
+                "placeholder": "Certificação X"
+              }
+            },
+            "description": {
+              "type": "Text",
+              "config": {
+                "label": "Description",
+                "placeholder": "Contexto curto"
+              }
+            },
+            "year": {
+              "type": "Text",
+              "config": {
+                "label": "Year",
+                "placeholder": "2026"
+              }
+            }
+          }
+        }
+      },
+      "github_username": {
+        "type": "Text",
+        "config": {
+          "label": "GitHub username",
+          "placeholder": "diogorochaa"
+        }
+      },
+      "linkedin_url": {
+        "type": "Text",
+        "config": {
+          "label": "LinkedIn URL",
+          "placeholder": "https://www.linkedin.com/in/..."
+        }
+      },
+      "instagram_url": {
+        "type": "Text",
+        "config": {
+          "label": "Instagram URL",
+          "placeholder": "https://www.instagram.com/..."
+        }
+      },
+      "twitter_url": {
+        "type": "Text",
+        "config": {
+          "label": "Twitter/X URL",
+          "placeholder": "https://x.com/..."
+        }
+      },
+      "email": {
+        "type": "Text",
+        "config": {
+          "label": "Email",
+          "placeholder": "voce@exemplo.com"
+        }
+      }
+    }
+  }
+}

@@ -4,9 +4,7 @@ import { AboutPageContent } from './AboutPageContent'
 import {
   buildAboutMetadata,
   buildPersonJsonLd,
-  getAboutContent,
-  getGithubProfile,
-  getGithubRepos,
+  getAboutPageData,
 } from './about.data'
 
 export const revalidate = 60
@@ -16,22 +14,17 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 export default async function AboutPage() {
-  const [aboutContent, profile, repos] = await Promise.all([
-    getAboutContent(),
-    getGithubProfile(),
-    getGithubRepos(),
-  ])
-
-  const personJsonLd = buildPersonJsonLd(profile)
+  const { aboutContent, player, repos, githubUrl } = await getAboutPageData()
 
   return (
     <AboutPageContent
       aboutContent={aboutContent}
-      personJsonLd={personJsonLd}
-      avatarUrl={profile.avatar_url}
-      publicRepos={profile.public_repos}
-      followers={profile.followers}
+      personJsonLd={buildPersonJsonLd(player)}
+      profile={player.profile}
+      github={player.github}
+      identity={player.identity}
       repos={repos}
+      githubUrl={githubUrl}
     />
   )
 }

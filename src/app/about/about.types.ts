@@ -1,5 +1,6 @@
-import type { Repo } from '@/models'
+import type { GithubProfile, ProfileContent, Repo } from '@/models'
 import type { AboutContent } from '@/models/about-content'
+import type { PlayerIdentity } from '@/utils/player-identity'
 
 export type PersonJsonLd = {
   '@context': 'https://schema.org'
@@ -19,8 +20,9 @@ export type PersonJsonLd = {
 export type AboutPageContentProps = {
   aboutContent: AboutContent
   personJsonLd: PersonJsonLd
-  avatarUrl: string
-  publicRepos: number
-  followers: number
+  profile: ProfileContent | null
+  github: GithubProfile
+  identity: PlayerIdentity
   repos: Repo[]
+  githubUrl: string
 }

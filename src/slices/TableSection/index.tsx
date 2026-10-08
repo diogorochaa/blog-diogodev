@@ -24,26 +24,26 @@ const tableComponents = {
   thead: ({ children }: { children: ReactNode }) => <thead>{children}</thead>,
   tbody: ({ children }: { children: ReactNode }) => <tbody>{children}</tbody>,
   tr: ({ children }: { children: ReactNode }) => (
-    <tr className="border-b border-slate-700/70">{children}</tr>
+    <tr className="border-b-2 border-line">{children}</tr>
   ),
   th: ({ children }: { children: ReactNode }) => (
     <th
       scope="col"
-      className="min-w-40 bg-slate-800/80 px-4 py-3 text-left text-sm font-semibold text-slate-50 align-top"
+      className="min-w-40 bg-surface-2 px-4 py-3 text-left text-sm font-semibold text-ink align-top"
     >
       {children}
     </th>
   ),
   td: ({ children }: { children: ReactNode }) => (
-    <td className="min-w-40 px-4 py-3 text-left text-sm text-slate-200 align-top">
+    <td className="min-w-40 px-4 py-3 text-left text-sm text-ink/85 align-top">
       {children}
     </td>
   ),
   paragraph: ({ children }: { children: ReactNode }) => (
-    <p className="text-sm leading-6 text-slate-200">{children}</p>
+    <p className="text-sm leading-6 text-ink/85">{children}</p>
   ),
   strong: ({ children }: { children: ReactNode }) => (
-    <strong className="font-semibold text-slate-50">{children}</strong>
+    <strong className="font-semibold text-ink">{children}</strong>
   ),
   em: ({ children }: { children: ReactNode }) => <em>{children}</em>,
 }
@@ -72,14 +72,12 @@ export const TableSection = ({ slice }: TableSectionProps) => {
           description={description}
         />
       ) : eyebrow ? (
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
-          {eyebrow}
-        </p>
+        <p className="pixel-label mb-4 text-[9px] text-accent">{eyebrow}</p>
       ) : null}
 
       {prismic.isFilled.table(table) ? (
         <section
-          className="rich-text w-full overflow-x-auto rounded-xl border border-slate-700/80 bg-slate-900/70"
+          className="rich-text w-full overflow-x-auto border-2 border-line bg-surface"
           aria-label={title ? `Tabela: ${title}` : 'Tabela de conteúdo'}
         >
           <PrismicTable field={table} components={tableComponents} />

@@ -2,6 +2,8 @@ import type { GithubProfile } from '@/models'
 
 export const GITHUB_USER = 'diogorochaa'
 export const GITHUB_API_BASE_URL = 'https://api.github.com'
+export const GITHUB_RECENT_REPOS_LIMIT = 6
+export const GITHUB_TOP_LANGUAGES_LIMIT = 5
 
 export const githubFetchOptions = {
   next: { revalidate: 3600 },

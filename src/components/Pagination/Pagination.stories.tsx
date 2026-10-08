@@ -70,13 +70,13 @@ const meta = {
 
     const prevPage =
       safeCurrentPage <= 1
-        ? ('/' as Route)
-        : (`/page/${safeCurrentPage - 1}` as Route)
+        ? ('/blog' as Route)
+        : (`/blog/page/${safeCurrentPage - 1}` as Route)
 
     const nextPage =
       safeCurrentPage >= safeNumbPages
-        ? (`/page/${safeCurrentPage}` as Route)
-        : (`/page/${safeCurrentPage + 1}` as Route)
+        ? (`/blog/page/${safeCurrentPage}` as Route)
+        : (`/blog/page/${safeCurrentPage + 1}` as Route)
 
     return (
       <StorySurface
@@ -111,7 +111,7 @@ export const Middle = {
 
     await expect(canvas.getByText('2 de 5')).toBeInTheDocument()
     await expect(
-      canvas.getByText('Mostrando 11-20 de 48 posts'),
+      canvas.getByText('Mostrando 11-20 de 48 artigos'),
     ).toBeInTheDocument()
   },
 }

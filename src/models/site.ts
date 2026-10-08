@@ -8,5 +8,6 @@ export type SiteType = {
     instagram: string
     github: string
     linkedin: string
+    twitter: string
   }
 }

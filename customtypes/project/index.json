@@ -1,0 +1,187 @@
+{
+  "id": "project",
+  "label": "Project",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": "nome-do-projeto"
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Title",
+          "placeholder": "Nome do projeto"
+        }
+      },
+      "short_description": {
+        "type": "Text",
+        "config": {
+          "label": "Short description",
+          "placeholder": "Uma frase sobre o projeto"
+        }
+      },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Description",
+          "placeholder": "Visão geral do projeto",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+        }
+      },
+      "cover_image": {
+        "type": "Image",
+        "config": {
+          "label": "Cover image",
+          "constraint": {
+            "width": 1600,
+            "height": 900
+          },
+          "thumbnails": []
+        }
+      },
+      "status": {
+        "type": "Select",
+        "config": {
+          "label": "Status",
+          "options": ["in_progress", "completed", "archived"],
+          "default_value": "in_progress"
+        }
+      },
+      "featured": {
+        "type": "Boolean",
+        "config": {
+          "label": "Featured (aparece na home)",
+          "default_value": false,
+          "placeholder_true": "Sim",
+          "placeholder_false": "Não"
+        }
+      },
+      "order": {
+        "type": "Number",
+        "config": {
+          "label": "Order (menor aparece primeiro)",
+          "placeholder": "1"
+        }
+      },
+      "category": {
+        "type": "Text",
+        "config": {
+          "label": "Category",
+          "placeholder": "AI"
+        }
+      },
+      "technologies": {
+        "type": "Group",
+        "config": {
+          "label": "Technologies",
+          "repeat": true,
+          "fields": {
+            "name": {
+              "type": "Text",
+              "config": {
+                "label": "Name",
+                "placeholder": "Next.js"
+              }
+            }
+          }
+        }
+      },
+      "github_url": {
+        "type": "Link",
+        "config": {
+          "label": "GitHub URL",
+          "select": "web",
+          "allowTargetBlank": true
+        }
+      },
+      "demo_url": {
+        "type": "Link",
+        "config": {
+          "label": "Demo URL",
+          "select": "web",
+          "allowTargetBlank": true
+        }
+      }
+    },
+    "Case study": {
+      "problem": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Problem",
+          "placeholder": "Qual problema o projeto resolve",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+        }
+      },
+      "solution": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Solution",
+          "placeholder": "Como o problema foi resolvido",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+        }
+      },
+      "architecture": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Architecture",
+          "placeholder": "Visão da arquitetura",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item,preformatted,image"
+        }
+      },
+      "technical_decisions": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Technical decisions",
+          "placeholder": "Decisões e trade-offs",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+        }
+      },
+      "technical_challenges": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Technical challenges",
+          "placeholder": "Desafios técnicos",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+        }
+      },
+      "learnings": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Learnings",
+          "placeholder": "O que aprendi",
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+        }
+      },
+      "gallery": {
+        "type": "Group",
+        "config": {
+          "label": "Gallery",
+          "repeat": true,
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {},
+                "thumbnails": []
+              }
+            },
+            "caption": {
+              "type": "Text",
+              "config": {
+                "label": "Caption",
+                "placeholder": "Legenda"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -18,10 +18,9 @@ export default async function OpenGraphImage() {
 
   return new ImageResponse(
     <BrandOgImage
-      badge="Blog"
+      badge="Modo carreira"
       title={content.ogTitle || siteConfig.name}
       description={content.ogDescription || content.description}
-      footer="diogodev_"
     />,
     {
       ...size,

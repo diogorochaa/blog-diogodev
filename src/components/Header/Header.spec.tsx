@@ -53,13 +53,17 @@ describe('Header', () => {
 
     render(await Header())
 
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Início' })).toHaveAttribute(
       'href',
       '/',
     )
-    expect(screen.getByRole('link', { name: 'Sobre mim' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Perfil' })).toHaveAttribute(
       'href',
       '/about',
+    )
+    expect(screen.getByRole('link', { name: 'Blog' })).toHaveAttribute(
+      'href',
+      '/blog',
     )
     expect(screen.getByRole('link', { name: 'Labs' })).toHaveAttribute(
       'href',

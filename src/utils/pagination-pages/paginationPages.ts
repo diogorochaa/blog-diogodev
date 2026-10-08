@@ -1,13 +1,16 @@
 import type { Route } from 'next'
 
-export const paginationPages = (currentPage = 1, pageRoute = '/page') => {
+/**
+ * Page 1 lives at `basePath`; the following pages at `basePath/page/N`.
+ */
+export const paginationPages = (currentPage = 1, basePath = '/blog') => {
   const normalizedPage = Math.max(1, currentPage)
 
   const prevPage =
     normalizedPage <= 2
-      ? ('/' as Route)
-      : (`${pageRoute}/${normalizedPage - 1}` as Route)
-  const nextPage = `${pageRoute}/${normalizedPage + 1}` as Route
+      ? (basePath as Route)
+      : (`${basePath}/page/${normalizedPage - 1}` as Route)
+  const nextPage = `${basePath}/page/${normalizedPage + 1}` as Route
 
   return {
     prevPage,

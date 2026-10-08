@@ -1,8 +1,9 @@
 import NextLink from 'next/link'
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@/components/Icons'
-
 import type { PaginationProps } from './Pagination.types'
+
+const linkClassName =
+  'pixel-label inline-flex min-h-11 items-center gap-2 border-2 border-line-strong bg-bg px-4 text-[10px] text-ink transition-[transform,border-color,color] duration-150 ease-[steps(3)] hover:-translate-y-0.5 hover:border-accent hover:text-accent'
 
 export const Pagination = ({
   currentPage,
@@ -21,39 +22,36 @@ export const Pagination = ({
     : 0
 
   return (
-    <div className="panel-vivid mt-8 flex w-full flex-col items-start gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-5">
-      <div className="order-2 w-full sm:order-1 sm:w-auto sm:min-w-35">
+    <nav
+      aria-label="Paginação"
+      className="pixel-frame mt-8 flex w-full flex-col items-stretch gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5"
+    >
+      <div className="order-2 sm:order-1 sm:min-w-44">
         {!isFirst && (
-          <NextLink
-            className="group flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:text-accent-cyan"
-            href={prevPage}
-          >
-            <ArrowLeftIcon className="text-lg transition-transform duration-300 ease-in-out group-hover:-translate-x-1" />
+          <NextLink className={linkClassName} href={prevPage} rel="prev">
+            <span aria-hidden>◀</span>
             Página anterior
           </NextLink>
         )}
       </div>
 
-      <p className="order-1 w-full text-center sm:order-2 sm:w-auto">
-        <span className="block">
+      <p className="order-1 flex flex-col items-center gap-1 text-center sm:order-2">
+        <span className="font-pixel text-sm text-score">
           {currentPage} de {numbPages}
         </span>
-        <span className="text-sm text-gray-400">
-          Mostrando {startCard}-{endCard} de {totalPosts} posts
+        <span className="text-xs text-muted">
+          Mostrando {startCard}-{endCard} de {totalPosts} artigos
         </span>
       </p>
 
-      <div className="order-3 w-full sm:w-auto sm:min-w-35 sm:text-right">
+      <div className="order-3 sm:min-w-44 sm:text-right">
         {!isLast && (
-          <NextLink
-            className="group inline-flex items-center gap-2 transition-all duration-300 hover:scale-105 hover:text-accent-cyan"
-            href={nextPage}
-          >
+          <NextLink className={linkClassName} href={nextPage} rel="next">
             Próxima página
-            <ArrowRightIcon className="text-lg transition-transform duration-300 ease-in-out group-hover:translate-x-1" />
+            <span aria-hidden>▶</span>
           </NextLink>
         )}
       </div>
-    </div>
+    </nav>
   )
 }

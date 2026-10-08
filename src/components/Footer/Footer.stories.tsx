@@ -42,7 +42,16 @@ const meta = {
 
     return (
       <StorySurface surfaceTone={surfaceTone} className="min-h-screen">
-        <FooterShell items={items} />
+        <FooterShell
+          items={items}
+          socialLinks={[
+            {
+              kind: 'github',
+              label: 'GitHub',
+              href: 'https://github.com/exemplo',
+            },
+          ]}
+        />
       </StorySurface>
     )
   },

@@ -31,7 +31,7 @@ type CreateMockPostOverrides = {
   slug?: string
 }
 
-export const getStorySurfaceClassName = (
+const getStorySurfaceClassName = (
   surfaceTone: StorySurfaceTone = 'primary',
 ) => {
   return storySurfaceClassNames[surfaceTone]

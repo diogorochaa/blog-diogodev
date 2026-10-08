@@ -1,15 +1,15 @@
+import * as prismic from '@prismicio/client'
+
 import { siteConfig } from '@/config'
+import { getPlayerData } from '@/lib/player'
 import { buildPageMetadata } from '@/lib/seo/buildMetadata'
-import type { GithubProfile } from '@/models'
+import type { GithubProfile, ProfileContent } from '@/models'
 import { ContentService, GithubService } from '@/services'
+import type { PlayerIdentity } from '@/utils/player-identity'
 
 import type { PersonJsonLd } from './about.types'
 
 export const getAboutContent = () => ContentService.getAboutContent()
-
-export const getGithubProfile = () => GithubService.getProfile()
-
-export const getGithubRepos = () => GithubService.getRepos()
 
 export const buildAboutMetadata = async () => {
   const content = await getAboutContent()
@@ -23,23 +23,47 @@ export const buildAboutMetadata = async () => {
   })
 }
 
-export const buildPersonJsonLd = (profile: GithubProfile): PersonJsonLd => {
-  const displayLocation = profile.location || 'Brasil'
-  const displayName = profile.name || 'Diogo Rocha'
+export const getAboutPageData = async () => {
+  const [aboutContent, player] = await Promise.all([
+    getAboutContent(),
+    getPlayerData(),
+  ])
+  const repos = await GithubService.getRepos(player.githubUsername)
+
+  return {
+    aboutContent,
+    player,
+    repos,
+    githubUrl: GithubService.getProfileUrl(player.githubUsername),
+  }
+}
+
+type BuildPersonJsonLdParams = {
+  profile: ProfileContent | null
+  github: GithubProfile
+  identity: PlayerIdentity
+}
+
+export const buildPersonJsonLd = ({
+  profile,
+  github,
+  identity,
+}: BuildPersonJsonLdParams): PersonJsonLd => {
+  const displayLocation = identity.location || github.location || 'Brasil'
+  const profileBio = profile ? prismic.asText(profile.bio).trim() : ''
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: displayName,
+    name: identity.name || 'Diogo Rocha',
     url: `${siteConfig.url}/about`,
-    sameAs: [
-      siteConfig.links.github,
-      siteConfig.links.linkedin,
-      siteConfig.links.instagram,
-    ],
-    jobTitle: siteConfig.title,
+    sameAs: identity.links
+      .map((link) => link.href)
+      .filter((href) => href.startsWith('http')),
+    jobTitle: identity.role || siteConfig.title,
     description:
-      profile.bio ||
+      profileBio ||
+      github.bio ||
       `Engenheiro de software com foco em performance, acessibilidade e boas práticas de desenvolvimento. Atualmente trabalho como desenvolvedor e moro em ${displayLocation}.`,
     address: {
       '@type': 'PostalAddress',

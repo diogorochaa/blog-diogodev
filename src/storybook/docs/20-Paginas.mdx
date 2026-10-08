@@ -6,41 +6,54 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 ## Rotas principais
 
-| Rota           | Arquivo principal              | Responsabilidade                                                     |
-| -------------- | ------------------------------ | -------------------------------------------------------------------- |
-| `/`            | `src/app/page.tsx`             | Home com listagem inicial de posts, paginacao e JSON-LD de site/blog |
-| `/about`       | `src/app/about/page.tsx`       | Perfil do autor + repositorios GitHub + JSON-LD de pessoa            |
-| `/[slug]`      | `src/app/[slug]/page.tsx`      | Pagina de post individual, metadata dinamica e fallback `notFound()` |
-| `/page/[page]` | `src/app/page/[page]/page.tsx` | Paginacao de posts por numero de pagina                              |
-| `/pages/[uid]` | `src/app/pages/[uid]/page.tsx` | Paginas editoriais montadas com slices do Prismic                    |
+| Rota                   | Arquivo principal                        | Responsabilidade                                                       |
+| ---------------------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| `/`                    | `src/app/page.tsx`                       | Home "career mode": hero, ficha, temporada, partidas, GitHub, tatica, carreira, trofeus, extra e artigos |
+| `/about`               | `src/app/about/page.tsx`                 | Ficha do jogador + repositorios GitHub + JSON-LD de pessoa               |
+| `/projects`            | `src/app/projects/page.tsx`              | Lista de projetos do Prismic e repositorios do GitHub                  |
+| `/projects/[uid]`      | `src/app/projects/[uid]/page.tsx`        | Relatorio da partida (projeto), metadata dinamica e `notFound()`              |
+| `/career`              | `src/app/career/page.tsx`                | Linha do tempo completa e JSON-LD `ProfilePage`                        |
+| `/blog`                | `src/app/blog/page.tsx`                  | Arquivo de artigos (primeira pagina) com categorias                    |
+| `/blog/page/[page]`    | `src/app/blog/page/[page]/page.tsx`      | Paginacao do arquivo                                                   |
+| `/blog/tag/[tag]`      | `src/app/blog/tag/[tag]/page.tsx`        | Artigos filtrados por tag                                              |
+| `/blog/[slug]`         | `src/app/blog/[slug]/page.tsx`           | Artigo (stage), indice, navegacao entre stages e `notFound()`          |
+| `/[slug]`              | `src/app/[slug]/page.tsx`                | Redirect 308 das URLs antigas de posts para `/blog/[slug]`             |
+| `/pages/[uid]`         | `src/app/pages/[uid]/page.tsx`           | Paginas editoriais montadas com slices do Prismic                      |
+
+`/page/[n]` redireciona para `/blog/page/[n]` pela regra `redirects()` de
+`next.config.mjs`.
 
 ## Modulos por rota
 
 ### Home (`src/app`)
 
-- `home.constants.ts`: metadata da rota
-- `home.data.ts`: builders de JSON-LD
-- `HomePageContent.tsx`: camada de apresentacao da home
+- `home.data.ts`: agrega Prismic (`home`, `about`, `profile`, `project`, `career`, `interest`), GitHub e JSON-LD
+- `HomePageContent.tsx`: secoes da home e menu principal (somente secoes com dados)
 
 ### About (`src/app/about`)
 
-- `about.constants.ts`: metadata da rota
-- `about.data.ts`: integracao com API do GitHub e JSON-LD
+- `about.data.ts`: conteudo do `about`, identidade do jogador, repositorios e JSON-LD
 - `AboutPageContent.tsx`: apresentacao da pagina
 
-### Post por slug (`src/app/[slug]`)
+### Projetos (`src/app/projects`)
 
-- `post.constants.ts`: constantes e defaults da rota
-- `post.data.ts`: busca por slug, static params e metadata
-- `PostPageContent.tsx`: apresentacao de conteudo de post
-- `not-found.tsx`: estado de pagina nao encontrada
-- `SlugNotFoundContent.tsx`: apresentacao de not-found da rota
+- `projects.data.ts` / `ProjectsPageContent.tsx`: listagem
+- `[uid]/project.data.ts`: static params, busca por UID, metadata e JSON-LD `CreativeWork`
+- `[uid]/ProjectPageContent.tsx`: match report (pre-jogo, estrategia, esquema tatico, decisoes, lances dificeis, pos-jogo)
 
-### Paginacao (`src/app/page/[page]`)
+### Carreira (`src/app/career`)
 
-- `page.constants.ts`: constantes de paginacao
-- `page.data.ts`: parse de params, metadata e dados paginados
-- `PagedPostsContent.tsx`: apresentacao da listagem paginada
+- `career.data.ts`: metadata, dados e JSON-LD
+- `CareerPageContent.tsx`: `CareerTimeline` completa
+
+### Blog (`src/app/blog`)
+
+- `blog.constants.ts` / `blog.data.ts`: titulo, posts por pagina e montagem do `BlogArchive`
+- `page/[page]/page.data.ts`: parse de params, static params e metadata
+- `tag/[tag]/tag.data.ts`: static params, metadata e posts por tag
+- `[slug]/post.data.ts`: busca por slug, metadata, JSON-LD e stages vizinhos
+- `[slug]/PostPageContent.tsx`: artigo, indice e `StageNav`
+- `[slug]/SlugNotFoundContent.tsx`: `GameOver` com artigos recomendados
 
 ### Paginas editoriais (`src/app/pages/[uid]`)
 
@@ -49,14 +62,13 @@ import { Meta } from '@storybook/addon-docs/blocks'
 - `EditorialPageContent.tsx`: cabecalho editorial e `SliceRenderer`
 - `page.types.ts`: contratos locais da rota
 
-As paginas editoriais usam `/pages/<uid>` para nao concorrer com os posts em
-`/<slug>`.
-
 ## Arquivos estruturais de SEO e shell
 
-| Arquivo                         | Papel                              |
-| ------------------------------- | ---------------------------------- |
-| `src/app/layout.tsx`            | Root layout global                 |
-| `src/app/robots.ts`             | Politica de rastreamento para bots |
-| `src/app/sitemap.ts`            | Geracao de sitemap                 |
-| `src/app/RootLayoutContent.tsx` | Conteudo de apresentacao do layout |
+| Arquivo                         | Papel                                   |
+| ------------------------------- | --------------------------------------- |
+| `src/app/layout.tsx`            | Root layout global                      |
+| `src/app/robots.ts`             | Politica de rastreamento para bots      |
+| `src/app/sitemap.ts`            | Sitemap com rotas estaticas, posts, tags e projetos |
+| `src/app/not-found.tsx`         | 404 global (`GameOver`)                 |
+| `src/app/error.tsx`             | Erro global com retry                   |
+| `src/app/RootLayoutContent.tsx` | Conteudo de apresentacao do layout      |

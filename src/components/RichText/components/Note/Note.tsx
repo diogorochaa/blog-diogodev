@@ -16,16 +16,16 @@ const Title = {
 
 const ColorClasses = {
   note: {
-    container: 'bg-blue-400/30',
-    text: 'text-blue-400',
+    container: 'border-accent-soft',
+    text: 'text-accent-soft',
   },
   warning: {
-    container: 'bg-red-400/30',
-    text: 'text-red-400',
+    container: 'border-score',
+    text: 'text-score',
   },
   tip: {
-    container: 'bg-green-400/30',
-    text: 'text-green-400',
+    container: 'border-pitch-line',
+    text: 'text-ink',
   },
 }
 
@@ -35,7 +35,9 @@ export const Note = ({ children, type = 'note' }: NoteProps) => {
   const title = Title[type]
 
   return (
-    <div className={`mt-6 rounded-lg px-6 py-4 ${color.container}`}>
+    <div
+      className={`mt-6 border-2 border-l-8 bg-surface px-6 py-4 ${color.container}`}
+    >
       <div className={`mb-2 flex items-center gap-2 ${color.text}`}>
         {icon}
         <p className="text-xl font-semibold">{title}</p>

@@ -9,4 +9,5 @@ export type PrismicPostData = {
   content?: unknown
   date?: string | null
   tags?: unknown
+  legacy_id?: string | null
 }

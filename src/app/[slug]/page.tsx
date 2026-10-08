@@ -1,44 +1,23 @@
-import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import type { Route } from 'next'
+import { notFound, permanentRedirect } from 'next/navigation'
+
+import { PostService } from '@/services'
 
 export const revalidate = 60
 
-import { PostPageContent } from './PostPageContent'
-import {
-  buildPostJsonLd,
-  buildPostMetadata,
-  getPostBySlug,
-  getPostStaticParams,
-} from './post.data'
-
-export async function generateStaticParams() {
-  return await getPostStaticParams()
-}
-
-export async function generateMetadata({
+/**
+ * Posts used to live at `/<slug>`. Keeps old links and search results working
+ * by answering with a 308 to the new `/blog/<slug>` URL.
+ */
+export default async function LegacyPostRedirect({
   params,
-}: PageProps<'/[slug]'>): Promise<Metadata> {
+}: PageProps<'/[slug]'>) {
   const { slug } = await params
-  const post = await getPostBySlug(slug)
-
-  if (!post) {
-    return {
-      title: 'Post não encontrado',
-    }
-  }
-
-  return buildPostMetadata(post)
-}
-
-export default async function PostPage({ params }: PageProps<'/[slug]'>) {
-  const { slug } = await params
-  const post = await getPostBySlug(slug)
+  const post = await PostService.getBySlug(slug)
 
   if (!post) {
     notFound()
   }
 
-  const postJsonLd = buildPostJsonLd(post)
-
-  return <PostPageContent post={post} postJsonLd={postJsonLd} />
+  permanentRedirect(`/blog/${post.slug}` as Route)
 }

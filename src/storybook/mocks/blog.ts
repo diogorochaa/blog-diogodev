@@ -1,6 +1,6 @@
 import type * as prismic from '@prismicio/client'
 
-import type { BlogPost, LocalNavItem } from '@/models'
+import type { BlogPost } from '@/models'
 
 const emptyBody: prismic.RichTextField = []
 
@@ -76,16 +76,5 @@ export const mockPosts: BlogPost[] = [
       date: '2026-02-10T13:00:00.000Z',
       tags: ['typescript', 'nextjs'],
     },
-  },
-]
-
-export const mockFooterItems: LocalNavItem[] = [
-  {
-    title: 'Home',
-    href: '/',
-  },
-  {
-    title: 'Sobre mim',
-    href: '/about',
   },
 ]

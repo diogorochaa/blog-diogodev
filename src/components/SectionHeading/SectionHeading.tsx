@@ -6,17 +6,15 @@ export const SectionHeading = ({
   description,
 }: SectionHeadingProps) => {
   return (
-    <div className="mb-6 flex flex-col gap-2 sm:mb-8">
+    <div className="mb-6 flex flex-col gap-3 sm:mb-8">
       {eyebrow ? (
-        <span className="text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
-          {eyebrow}
-        </span>
+        <span className="pixel-label text-accent">{eyebrow}</span>
       ) : null}
-      <h2 className="text-gradient-vivid font-display text-2xl font-bold sm:text-3xl">
+      <h2 className="font-display text-2xl font-bold text-ink sm:text-3xl">
         {title}
       </h2>
       {description ? (
-        <p className="max-w-2xl text-sm text-gray-400 sm:text-base">
+        <p className="max-w-2xl text-sm text-muted sm:text-base">
           {description}
         </p>
       ) : null}

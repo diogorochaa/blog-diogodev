@@ -35,7 +35,7 @@ export const getHeadingHtmlTag = (prismicType: string) => {
   return PRISMIC_TO_HTML_TAG[prismicType] ?? 'h2'
 }
 
-export const getHeadingTocLevel = (prismicType: string) => {
+const getHeadingTocLevel = (prismicType: string) => {
   return PRISMIC_TO_TOC_LEVEL[prismicType] ?? 2
 }
 

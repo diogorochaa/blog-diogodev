@@ -156,6 +156,28 @@ describe('PostService', () => {
     expect(slugs).toEqual(['post-1', 'post-2'])
   })
 
+  it('finds a post by the legacy document ID from the old repository', async () => {
+    const doc = makePrismicDoc({
+      id: 'new-id',
+      uid: 'arquitetura-hexagonal',
+      date: '2024-01-01',
+      content: 'word '.repeat(20),
+    })
+    const docs = [
+      { ...doc, data: { ...doc.data, legacy_id: 'ajPrlxcAAC0ADt-4' } },
+    ]
+
+    const { PostService } = await loadPostService({
+      hasConfig: true,
+      documents: docs,
+    })
+
+    const post = await PostService.getBySlug('ajPrlxcAAC0ADt-4')
+
+    expect(post?.slug).toBe('arquitetura-hexagonal')
+    expect(post?.legacyId).toBe('ajPrlxcAAC0ADt-4')
+  })
+
   it('returns undefined when slug is not found', async () => {
     const docs = [
       makePrismicDoc({

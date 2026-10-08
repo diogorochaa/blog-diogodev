@@ -5,6 +5,13 @@
   "status": true,
   "json": {
     "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "UID",
+          "placeholder": "slug-do-artigo (vira /blog/slug-do-artigo)"
+        }
+      },
       "title": {
         "type": "StructuredText",
         "config": {
@@ -33,6 +40,13 @@
           "label": "Content",
           "placeholder": "Conteúdo do artigo",
           "multi": "heading2,heading3,heading4,paragraph,preformatted,strong,em,hyperlink,image,embed,list-item,o-list-item"
+        }
+      },
+      "legacy_id": {
+        "type": "Text",
+        "config": {
+          "label": "ID antigo (opcional, mantém links antigos funcionando)",
+          "placeholder": "ajPrlxcAAC0ADt-4"
         }
       }
     }

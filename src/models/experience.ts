@@ -8,4 +8,6 @@ export type ExperienceContentEntry = {
   color: string
   category: ExperienceCategory
   iconKey: ExperienceIconKey
+  /** Optional 0-99 visual level edited in Prismic; not an objective metric. */
+  level?: number
 }

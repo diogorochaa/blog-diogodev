@@ -13,7 +13,7 @@ export const RootLayoutContent = ({
 }: RootLayoutContentProps) => {
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" className={htmlClassName}>
-      <body className="bg-primary font-sans text-gray-100">
+      <body className="font-sans text-ink antialiased">
         {prismicScriptSrc ? (
           <Script async defer src={prismicScriptSrc} />
         ) : null}
@@ -21,7 +21,13 @@ export const RootLayoutContent = ({
         <Header />
 
         <Layout>
-          <div className="pt-24 pb-16 sm:pt-28 sm:pb-20">{children}</div>
+          <div
+            id="main-content"
+            tabIndex={-1}
+            className="pt-24 pb-16 focus:outline-none sm:pt-28 sm:pb-20"
+          >
+            {children}
+          </div>
         </Layout>
 
         <BackToTop />

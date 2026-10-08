@@ -94,8 +94,11 @@ const toBlogPost = (document: prismic.PrismicDocument): BlogPost => {
     'Sem descrição disponível.'
   const body = (data.content ?? []) as prismic.RichTextField
 
+  const legacyId = data.legacy_id?.trim()
+
   return {
     slug: document.uid || document.id,
+    ...(legacyId ? { legacyId } : {}),
     body,
     readingTime: getReadingTime(body),
     frontmatter: {
@@ -174,7 +177,9 @@ export const PostService = {
     }
 
     const posts = await getAllPosts()
-    const fromList = posts.find((post) => post.slug === slug)
+    const fromList =
+      posts.find((post) => post.slug === slug) ??
+      posts.find((post) => post.legacyId === slug)
 
     if (fromList) {
       return fromList
@@ -200,6 +205,56 @@ export const PostService = {
   getAllSlugs: async () => {
     const posts = await getAllPosts()
     return posts.map((post) => post.slug)
+  },
+  /**
+   * Stage is the chronological position (first article = 1). Posts are
+   * ordered newest first, so the previous stage is the next item in the list.
+   */
+  getNeighbors: async (slug: string) => {
+    const posts = await getAllPosts()
+    const index = posts.findIndex((post) => post.slug === slug)
+
+    if (index === -1) {
+      return { stage: 0, total: posts.length, previous: null, next: null }
+    }
+
+    return {
+      stage: posts.length - index,
+      total: posts.length,
+      previous: posts[index + 1] ?? null,
+      next: posts[index - 1] ?? null,
+    }
+  },
+  getByTag: async (tag: string) => {
+    const posts = await getAllPosts()
+    const normalizedTag = tag.toLowerCase()
+
+    return posts.filter((post) =>
+      post.frontmatter.tags.some(
+        (postTag) => postTag.toLowerCase() === normalizedTag,
+      ),
+    )
+  },
+  getAllTags: async () => {
+    const posts = await getAllPosts()
+    const counts = new Map<string, { name: string; count: number }>()
+
+    for (const post of posts) {
+      for (const tag of post.frontmatter.tags) {
+        const key = tag.toLowerCase()
+        const current = counts.get(key)
+        counts.set(key, {
+          name: current?.name ?? tag,
+          count: (current?.count ?? 0) + 1,
+        })
+      }
+    }
+
+    return Array.from(counts.values()).sort(
+      (first, second) =>
+        second.count - first.count ||
+        first.name.localeCompare(second.name, 'pt-BR'),
+    )
   },
   getSearchIndex: async () => {
     const posts = await getAllPosts()

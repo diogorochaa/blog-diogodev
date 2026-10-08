@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import { siteConfig } from '@/config'
 import type { PageContent } from '@/models'
 
 import {
@@ -52,10 +53,10 @@ describe('editorial page data', () => {
 
     expect(metadata.title).toBe('Labs')
     expect(metadata.alternates?.canonical).toBe('/pages/labs')
-    expect(metadata.description).toBe('Blog onde falo sobre código e livros')
+    expect(metadata.description).toBe(siteConfig.description)
     expect(metadata.openGraph?.images).toEqual([
       expect.objectContaining({
-        alt: 'Labs | Blog | diogodev_',
+        alt: `Labs | ${siteConfig.name}`,
       }),
     ])
   })

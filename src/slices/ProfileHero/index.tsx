@@ -11,8 +11,7 @@ type ProfileHeroProps = {
 const surfaceClassNames = {
   panel: 'panel-vivid px-6 py-8 sm:px-8 sm:py-10',
   plain: 'px-2 py-4',
-  gradient:
-    'rounded-2xl border border-accent-purple/30 bg-linear-to-br from-secondary via-secondary/80 to-primary px-6 py-8 sm:px-8 sm:py-10',
+  gradient: 'pixel-frame px-6 py-8 sm:px-8 sm:py-10',
 } as const
 
 export const ProfileHero = ({ slice }: ProfileHeroProps) => {
@@ -39,12 +38,10 @@ export const ProfileHero = ({ slice }: ProfileHeroProps) => {
           backgroundSize: '28px 28px',
         }}
       />
-      <div className="pointer-events-none absolute -right-10 top-0 h-40 w-40 rounded-full bg-accent-purple/20 blur-3xl" />
-      <div className="pointer-events-none absolute -left-8 bottom-0 h-36 w-36 rounded-full bg-accent-cyan/15 blur-3xl" />
 
       <div className={`relative z-10 flex flex-col gap-4 ${contentAlign}`}>
         {badge ? (
-          <span className="rounded-full border border-accent-cyan/40 bg-accent-cyan/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-accent-cyan">
+          <span className="pixel-label border-2 border-accent px-3 py-1 text-[9px] text-accent">
             {badge}
           </span>
         ) : null}
@@ -56,7 +53,7 @@ export const ProfileHero = ({ slice }: ProfileHeroProps) => {
         ) : null}
 
         {prismic.asText(subtitle) ? (
-          <div className="max-w-2xl text-base leading-relaxed text-gray-300 md:text-lg">
+          <div className="max-w-2xl text-base leading-relaxed text-ink/85 md:text-lg">
             <PrismicRichText field={subtitle} />
           </div>
         ) : null}

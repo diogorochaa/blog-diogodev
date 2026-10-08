@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 export const useBackToTop = () => {
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   const lastScrollVerticalRef = useRef(0)
 
   useEffect(() => {
